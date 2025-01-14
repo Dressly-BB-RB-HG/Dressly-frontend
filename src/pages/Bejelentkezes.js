@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-
-// import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 function Bejelentkezes() {
 
@@ -41,6 +40,10 @@ function Bejelentkezes() {
             </label>
             <input
               type="password"
+              value={password}
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
               className="form-control"
               id="pwd"
               placeholder="Ide írja a felhasználóhoz tartozó jelszavát!"
@@ -57,7 +60,8 @@ function Bejelentkezes() {
             </button>
             <br />
             <p>
-              Még nincs felhasználói fiókja? <span className="text-primary">Regisztráció</span>
+              Még nincs felhasználói fiókja?
+              <Link className="nav-link text-info" to="/regisztracio">Regisztráció</Link>
             </p>
           </div>
         </form>
