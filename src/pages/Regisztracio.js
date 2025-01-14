@@ -1,13 +1,46 @@
 import React from 'react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { myAxios } from '../contexts/MyAxios';
+import { useNavigate } from 'react-router-dom';
 
 function Regisztracio() {
   
-  const [name, setName] = useState("");
+  const csrf = () => myAxios.get("/sanctum/csrf-cookie");
+  const navigate = useNavigate();
+  const [veznev, setVeznev] = useState("")
+  const [kernev, setKernev] = useState("")
+  const [szuletesiido, setSzuletesiido] = useState("")
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [password_confirmation, setPasswordConfirmation] = useState("");
+  const [pwd, setPwd] = useState("");
+  const [pwdconfirm, setPwdconfirm] = useState("");
+  const [errors, setErrors] = useState({
+    veznev: "",
+    kernev: "",
+    szuletesiido: "",
+    email: "",
+    pwd: "",
+    pwdconfirm: "",
+});
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();       
+    const adat = {
+        veznev: veznev,
+        kernev: kernev,
+        szuletesiido: szuletesiido,
+        email: email,
+        password: pwd,
+        pwdconfirm: pwdconfirm
+    };       
+    try {
+        await csrf();
+        await myAxios.post("/register", adat );
+        navigate("/");
+    } catch (error) {
+        console.log(error);
+    }
+};
  
   return (
     <div 
@@ -16,7 +49,7 @@ function Regisztracio() {
     >
       <div>
         <h1 className="text-center">Regisztráció</h1>
-        <form>
+        <form onSubmit={handleSubmit}>
 
         <div className="mb-3">
             <label htmlFor="name" className="form-label">
@@ -25,6 +58,10 @@ function Regisztracio() {
             <input
               type="text"
               className="form-control"
+              value={veznev}
+              onChange={(e) => {
+                setVeznev(e.target.value);
+              }}
               id="veznev"
               placeholder="Ide írja a vezetéknevét!"
               name="veznev"
@@ -42,6 +79,10 @@ function Regisztracio() {
             <input
               type="text"
               className="form-control"
+              value={kernev}
+              onChange={(e) => {
+                setKernev(e.target.value);
+              }}
               id="kernev"
               placeholder="Ide írja a keresztnevét!"
               name="kernev"
@@ -59,6 +100,10 @@ function Regisztracio() {
             <input
               type="date"
               className="form-control"
+              value={szuletesiido}
+              onChange={(e) => {
+                setSzuletesiido(e.target.value);
+              }}
               id="szuletesiido"
               placeholder="Adja meg a születési évét!"
               name="szuletesiido"
@@ -76,6 +121,10 @@ function Regisztracio() {
             <input
               type="email"
               className="form-control"
+              value={email}
+              onChange={(e) => {
+                setEmail(e.target.value);
+              }}
               id="email"
               placeholder="Ide írja az email címét!"
               name="email"
@@ -93,6 +142,10 @@ function Regisztracio() {
             <input
               type="password"
               className="form-control"
+              value={pwd}
+              onChange={(e) => {
+                setPwd(e.target.value);
+              }}
               id="pwd"
               placeholder="Ide írja a felhasználóhoz tartozó jelszavát!"
               name="pwd"
@@ -110,9 +163,13 @@ function Regisztracio() {
             <input
               type="password"
               className="form-control"
-              id="pwd-confirm"
+              value={pwdconfirm}
+              onChange={(e) => {
+                setPwdconfirm(e.target.value);
+              }}
+              id="pwdconfirm"
               placeholder="Írja be újra a jelszavát!"
-              name="pwd-confirm"
+              name="pwdconfirm"
             />
           </div>
 

@@ -1,15 +1,36 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { myAxios } from '../contexts/MyAxios';
+import { useNavigate } from 'react-router-dom';
 
 function Bejelentkezes() {
 
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState({
+    email: "",
+    password: "",
+});
+  const csrf = () => myAxios.get("/sanctum/csrf-cookie");
 
-  function handleSubmit(e){
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    //bejelentkezés kezelése
-}
+    await csrf();       
+    const adat = {
+        email: email,
+        password: password,
+    };       
+    try {
+        await myAxios.post("/login", adat );
+        console.log("siker")
+        navigate("/");
+    } catch (error) {
+      if (error.response.status === 422) {
+          setErrors(error.response.data.errors);
+      }
+  }
+};
 
   return (
 
@@ -19,7 +40,7 @@ function Bejelentkezes() {
     >
       <div>
         <h1 className="text-center">Bejelentkezés</h1>
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className="mb-3 mt-3">
             <label htmlFor="email" className="form-label">
               Email címe:
@@ -37,7 +58,9 @@ function Bejelentkezes() {
             />
           </div>
           <div>
-            <span className="text-danger">hiba</span>
+          {errors.email && (
+              <span className="text-danger">{errors.email[0]}</span>
+            )}
           </div>
           <div className="mb-3">
             <label htmlFor="pwd" className="form-label">
@@ -50,13 +73,13 @@ function Bejelentkezes() {
                 setPassword(e.target.value);
               }}
               className="form-control"
-              id="pwd"
+              id="password"
               placeholder="Ide írja a felhasználóhoz tartozó jelszavát!"
-              name="pwd"
+              name="password"
             />
-            <div>
-              <span className="text-danger">hiba</span>
-            </div>
+           {errors.password && (
+              <span className="text-danger">{errors.password[0]}</span>
+            )}
           </div>
               
           <div className="text-center">
