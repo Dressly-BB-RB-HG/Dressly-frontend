@@ -1,5 +1,7 @@
 import './App.css';
-import Kezdolap from './pages/Kezdolap';
+import Bejelentkezes from './pages/Bejelentkezes';
+import Regisztracio from './pages/Regisztracio';
+// import Kezdolap from './pages/Kezdolap';
 
 function App() {
   return (
