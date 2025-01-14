@@ -1,16 +1,19 @@
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
+import Bejelentkezes from './pages/Bejelentkezes';
 import Kezdolap from './pages/Kezdolap';
+import Layout from './pages/Layout';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1>Dressly</h1>
-          
-      </header>
-      <nav></nav>
-      <article><Kezdolap /></article>
-    </div>
+    <BrowserRouter>
+    <Routes>
+            <Route path="/" element={<Layout />}>
+                <Route index element={<Kezdolap />} />
+                <Route path="Bejelentkezes" element={<Bejelentkezes />} />
+            </Route>
+        </Routes>    
+    </BrowserRouter>
   );
 }
 
