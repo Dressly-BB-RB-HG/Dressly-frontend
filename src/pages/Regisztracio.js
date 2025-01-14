@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 function Regisztracio() {
   
@@ -126,7 +127,7 @@ function Regisztracio() {
             </button>
             <br />
             <p>
-              Már van felhasználói fiókja? <span className="text-primary">Bejelentkezés</span>
+            <Link className="nav-link text-info" to="/Bejelentkezes">Bejelentkezés</Link>
             </p>
           </div>
         </form>
