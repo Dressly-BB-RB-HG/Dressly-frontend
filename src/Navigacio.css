@@ -1,0 +1,33 @@
+.navbar {
+    background-color: burlywood !important; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+    font-weight: bold;
+    font-size: 35px;
+}
+
+.navbar-balra{
+    display: flex;
+    justify-content: left;
+}
+
+.navbar-jobbra {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.navbar-nav .nav-item {
+    margin-left: 15px;
+}
+
+.navbar-nav .nav-link {
+    font-size: 20px; 
+}
+
+.navbar-nav .nav-link:hover {
+    color: #007bff; 
+}
+
+
