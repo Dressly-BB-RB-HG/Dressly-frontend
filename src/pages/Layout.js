@@ -1,15 +1,15 @@
 import React from 'react'
-import Kezdolap from './Kezdolap'
 import { Outlet } from 'react-router-dom'
+import Navigacio from '../components/Navigacio'
 
 function Layout() {
     return (
             < >
-                
+                <Navigacio />
                 <Outlet />
             </>
     )
 }
-// <Navigacio />
+
 
 export default Layout
