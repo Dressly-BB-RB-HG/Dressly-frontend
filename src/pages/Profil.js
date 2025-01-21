@@ -12,6 +12,17 @@ function Profil() {
   const [newPassword, setNewPassword] = useState('');
   const [newPasswordConfirmation, setNewPasswordConfirmation] = useState('');
 
+  useEffect(() => {
+    // Ha nincs bejelentkezve, irányítsd a felhasználót a bejelentkezési oldalra
+    if (!user) {
+      navigate('/bejelentkezes');
+    } else {
+      // Állítsd be az aktuális felhasználói adatokat
+      setName(user.name);
+      setEmail(user.email);
+    }
+  }, [user, navigate]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = {
@@ -32,6 +43,8 @@ function Profil() {
   };
 
   return (
+
+    
     <form onSubmit={handleSubmit}>
       <div className="mb-3">
         <label htmlFor="name">Felhasználónév:</label>
