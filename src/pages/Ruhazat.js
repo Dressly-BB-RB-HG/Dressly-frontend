@@ -7,14 +7,14 @@ function Ruhazat() {
     return (
         <div className="container-fluid">
             <div className="row">
-                <aside className="szuro col-lg-3 col-md-4 col-12 bg-light ">
+                <aside className="szuro col-lg-3 col-md-4 col-12">
                     <div className="szuroFeltetelek">
                         <h1 className="text-center mb-4">Szűrők</h1>
                         <div className="szuroReszp">
                             <DropdownButton
                                 id="dropdown-basic-button"
                                 title="Speciális"
-                                className="mb-3"
+                                className="mb-3 custom-dropdown"
                                 size="sm">
                                 <Dropdown.Item href="#/action-1">Legnépszerűbb</Dropdown.Item>
                                 <Dropdown.Item href="#/action-2">Legújabb</Dropdown.Item>
@@ -22,7 +22,7 @@ function Ruhazat() {
                             <DropdownButton
                                 id="dropdown-basic-button"
                                 title="Nem"
-                                className="mb-3"
+                                className="mb-3 custom-dropdown"
                                 size="sm">
                                 <Dropdown.Item href="#/action-1">Női</Dropdown.Item>
                                 <Dropdown.Item href="#/action-2">Férfi</Dropdown.Item>
@@ -31,7 +31,7 @@ function Ruhazat() {
                             <DropdownButton
                                 id="dropdown-basic-button"
                                 title="Méret"
-                                className="mb-3"
+                                className="mb-3 custom-dropdown"
                                 size="sm">
                                 <Dropdown.Item href="#/action-1">Minden méret</Dropdown.Item>
                                 <Dropdown.Item href="#/action-2">S</Dropdown.Item>

@@ -1,6 +1,6 @@
 .szuro {
     padding: 20px;
-    background-color: white !important;
+    background-color: #B0A990; 
     border-right: 1px solid #ddd;
     height: 100vh;
     top: 0;
@@ -12,12 +12,14 @@
     display: grid;
     grid-template-columns: 1fr;
     gap: 15px;
+    padding: 5px;
 }
 
 .szuroFeltetelek h1 {
     font-size: 1.4rem;
     margin-bottom: 20px;
     font-weight: 600;
+    color: black;
 }
 
 .szuroReszp {
@@ -58,4 +60,22 @@
     .termekek {
         margin-left: 0;
     }
+}
+
+
+.custom-dropdown .dropdown-toggle {
+    background-color: #635C51; 
+    color: white; 
+    border: none; 
+}
+
+
+.custom-dropdown .dropdown-toggle:hover    {
+    background-color: #635C51; 
+    color: white;
+    
+}
+
+#dropdown-basic-button{
+    background-color: #635C51;
 }
