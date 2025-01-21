@@ -26,7 +26,7 @@ function Navigacio() {
                         <Nav.Link as={Link} to="/kosar"> 🛒 </Nav.Link>
                         <Nav.Link as={Link} to="/kivansaglista"> ❤️ </Nav.Link>
                         {user ? (
-                            <Nav.Link onClick={() => { logout() }}>🚷</Nav.Link>
+                            <><Nav.Link as={Link} to="/profil">👤</Nav.Link><Nav.Link onClick={() => logout()}>🚷</Nav.Link></>
                         ) : (
                             <Nav.Link as={Link} to="/bejelentkezes">👤</Nav.Link>
                         )}
