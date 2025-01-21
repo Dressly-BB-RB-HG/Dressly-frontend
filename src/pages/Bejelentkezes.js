@@ -18,6 +18,7 @@ export default function Bejelentkezes() {
         email: email,
         password: password,
     };       
+    
     loginReg(adat, "/login");
 };
 
