@@ -20,15 +20,15 @@ function Navigacio() {
                     <Nav className="mx-auto">
                         <Nav.Link as={Link} to="/">Kezdőlap</Nav.Link>
                         <Nav.Link as={Link} to="/ruhazat">Termékek</Nav.Link>
-                    </Nav>
 
+                    </Nav>
                     <Nav>
-                        <Nav.Link as={Link} to="/kosar"> 🛒 </Nav.Link>
-                        <Nav.Link as={Link} to="/kivansaglista"> ❤️ </Nav.Link>
+                        <Nav.Link as={Link} to="/kosar"> <img className="ikon" src="/kosar.png" alt="kosar" /> </Nav.Link>
+                        <Nav.Link as={Link} to="/kivansaglista"> <img className="ikon" src="/sziv.png" alt="kedvencek" /> </Nav.Link>
                         {user ? (
-                            <Nav.Link onClick={() => { logout() }}>🚷</Nav.Link>
+                            <Nav.Link onClick={() => { logout() }}><img className="ikon" src="/kijelentkezes.png" alt="kijelentkezes" /></Nav.Link>
                         ) : (
-                            <Nav.Link as={Link} to="/bejelentkezes">👤</Nav.Link>
+                            <Nav.Link as={Link} to="/bejelentkezes"><img className="ikon" src="/profil.png" alt="profil" /></Nav.Link>
                         )}
                     </Nav>
                 </Navbar.Collapse>
