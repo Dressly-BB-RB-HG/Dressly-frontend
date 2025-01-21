@@ -21,7 +21,7 @@ myAxios.interceptors.request.use(
       return config;
     },
     (error) => {
-      // Hiba esetén írjuk ki a hibát, vagy végezzünk hibakezelést
+      
       console.error("Request interceptor error:", error);
       return Promise.reject(error);
     }
