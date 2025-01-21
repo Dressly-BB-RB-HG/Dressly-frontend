@@ -1,52 +1,36 @@
 import React from 'react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { myAxios } from '../contexts/MyAxios';
 import { useNavigate } from 'react-router-dom';
-import { AuthContext } from "../contexts/AuthContext";
+import useAuthContext, { AuthContext } from "../contexts/AuthContext";
 
 function Regisztracio() {
   
-  const csrf = () => myAxios.get("/sanctum/csrf-cookie");
-  const navigate = useNavigate();
-  const [felhasznaloNev, setfelhasznaloNev] = useState("")
-  const [veznev, setVeznev] = useState("")
-  const [kernev, setKernev] = useState("")
-  const [szuletesiido, setSzuletesiido] = useState("")
+  const [name, setname] = useState("")
+  const [v_nev, setv_nev] = useState("")
+  const [k_nev, setk_nev] = useState("")
   const [email, setEmail] = useState("");
-  const [jelszo, setJelszo] = useState("");
-  const [jelszoMegerosit, setJelszoMegerosit] = useState("");
-  const [errors, setErrors] = useState({
-    felhasznaloNev: "",
-    veznev: "",
-    kernev: "",
-    szuletesiido: "",
-    email: "",
-    jelszo: "",
-    jelszoMegerosit: "",
-});
+  const [password, setpassword] = useState("");
+  const [password_confirmation, setpassword_confirmation] = useState("");
+
+  const navigate = useNavigate();
+  const { loginReg, errors } = useAuthContext();
 
   const handleSubmit = async (e) => {
-    e.preventDefault();       
-    const adat = {
-        veznev: veznev,
-        kernev: kernev,
-        szuletesiido: szuletesiido,
-        email: email,
-        jelszo: jelszo,
-        jelszoMegerosit: jelszoMegerosit
-    };       
-    try {
-        await csrf();
-        await myAxios.post("/register", adat );
-        navigate("/");
-    } catch (error) {
-      if (error.response.status === 422) {
-          setErrors(error.response.data.errors);
-      }
-  }
-};
+  e.preventDefault();
+  const adat = {
+    name: name,
+    k_nev: k_nev,
+    v_nev: v_nev,
+    email: email,
+    password: password,
+    password_confirmation: password_confirmation
+  };       
+  
+  loginReg(adat, "/register");
  
+};
+
   return (
     <div 
       className="d-flex justify-content-center align-items-center vh-100" 
@@ -63,13 +47,13 @@ function Regisztracio() {
             <input
               type="text"
               className="form-control"
-              value={felhasznaloNev}
+              value={name}
               onChange={(e) => {
-                setfelhasznaloNev(e.target.value);
+                setname(e.target.value);
               }}
-              id="felhasznaloNev"
+              id="name"
               placeholder="Ide írja a felhasználónevét!"
-              name="felhasznaloNev"
+              name="name"
             />
           </div>
 
@@ -80,18 +64,14 @@ function Regisztracio() {
             <input
               type="text"
               className="form-control"
-              value={veznev}
+              value={v_nev}
               onChange={(e) => {
-                setVeznev(e.target.value);
+                setv_nev(e.target.value);
               }}
-              id="veznev"
+              id="v_nev"
               placeholder="Ide írja a vezetéknevét!"
-              name="veznev"
+              name="v_nev"
             />
-          </div>
-
-          <div>
-            <span className="text-danger">hiba</span>
           </div>
 
           <div className="mb-3">
@@ -101,39 +81,14 @@ function Regisztracio() {
             <input
               type="text"
               className="form-control"
-              value={kernev}
+              value={k_nev}
               onChange={(e) => {
-                setKernev(e.target.value);
+                setk_nev(e.target.value);
               }}
-              id="kernev"
+              id="k_nev"
               placeholder="Ide írja a keresztnevét!"
-              name="kernev"
+              name="k_nev"
             />
-          </div>
-
-          <div>
-            <span className="text-danger">hiba</span>
-          </div>
-
-          <div className="mb-3">
-            <label htmlFor="date" className="form-label">
-              Születési idő:
-            </label>
-            <input
-              type="date"
-              className="form-control"
-              value={szuletesiido}
-              onChange={(e) => {
-                setSzuletesiido(e.target.value);
-              }}
-              id="szuletesiido"
-              placeholder="Adja meg a születési évét!"
-              name="szuletesiido"
-            />
-          </div>
-
-          <div>
-            <span className="text-danger">hiba</span>
           </div>
 
           <div className="mb-3 mt-3">
@@ -153,52 +108,42 @@ function Regisztracio() {
             />
           </div>
 
-          <div>
-            <span className="text-danger">hiba</span>
-          </div>
-
           <div className="mb-3">
             <label htmlFor="pwd" className="form-label">
-              Jelszó:
+              Jelszó (min 8 karakter):
             </label>
             <input
               type="password"
               className="form-control"
-              value={jelszo}
+              value={password}
               onChange={(e) => {
-                setJelszo(e.target.value);
+                setpassword(e.target.value);
               }}
-              id="jelszo"
-              placeholder="Ide írja a felhasználóhoz tartozó jelszavát!"
-              name="jelszo"
+              id="password"
+              placeholder="Ide írja a kívánt jelszavat"
+              name="password"
             />
+            {errors.password && (
+              <span className="text-danger">{errors.password[0]}</span>
+            )}
           </div>
 
-          <div>
-            <span className="text-danger">hiba</span>
-          </div>
-
-          <div className="mb-3">
+          { <div className="mb-3">
             <label htmlFor="pwd-confirm" className="form-label">
               Jelszó megerősítése:
             </label>
             <input
               type="password"
               className="form-control"
-              value={jelszoMegerosit}
+              value={password_confirmation}
               onChange={(e) => {
-                setJelszoMegerosit(e.target.value);
+                setpassword_confirmation(e.target.value);
               }}
-              id="jelszoMegerosit"
+              id="password_confirmation"
               placeholder="Írja be újra a jelszavát!"
-              name="jelszoMegerosit"
+              name="password_confirmation"
             />
-          </div>
-
-
-          <div>
-            <span className="text-danger">hiba</span>
-          </div>
+          </div> }
 
           <div className="text-center">
             <button type="submit" className="btn btn-success w-100">

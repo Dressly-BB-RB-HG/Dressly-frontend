@@ -3,29 +3,16 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.navbar-brand {
-    font-weight: bold;
-    font-size: 35px;
-}
-
-.logo{
-    max-width: 75px;  /* Állítsd be kisebb szélességre */
-    max-height: 75px; /* Állítsd be kisebb magasságra */
-    margin: 0;
-    padding: 0;
-}
-
-.navbar-nav .nav-item {
-    margin-left: 20px;
+.logo {
+    max-width: 90px;
+    max-height: 90px; 
 }
 
 .navbar-nav .nav-link {
-    font-size: 20px; 
-    padding: 0;
+    font-size: 25px; 
+    margin: 5px;
 }
 
 .navbar-nav .nav-link:hover {
-    color: #007bff; 
+    color: rgb(104, 107, 107);
 }
-
-
