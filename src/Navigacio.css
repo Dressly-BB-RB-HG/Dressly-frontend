@@ -3,20 +3,9 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.navbar-brand {
-    font-weight: bold;
-    font-size: 35px;
-}
-
-.logo{
-    max-width: 75px;
-    max-height: 75px; 
-    margin: 0;
-    padding: 0;
-}
-
-.navbar-nav .nav-item {
-    margin-left: 20px;
+.logo {
+    max-width: 90px;
+    max-height: 90px; 
 }
 
 .navbar-nav .nav-link {
@@ -28,4 +17,9 @@
     color: #007bff; 
 }
 
+@media (max-width: 991px) {
+    .navbar-nav.mx-auto {
+        justify-content: center !important;
+    }
+}
 

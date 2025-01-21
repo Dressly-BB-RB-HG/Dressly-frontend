@@ -1,64 +1,39 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import useAuthContext from "../contexts/AuthContext"
+import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
+import useAuthContext from "../contexts/AuthContext";
 import '../Navigacio.css';
 
 function Navigacio() {
-
-    const { user, logout } = useAuthContext(); 
+    const { user, logout } = useAuthContext();
 
     return (
-        <nav className="navbar navbar-expand-lg">
-            <div className="container-fluid">
-                <div className='row'>
-                    <div className='navbar-nav col-lg-2'>
-                        <img className="nav-link logo" src="/fekete_hatternelkul.png" alt='dressly_logo'></img>
-                    </div>
-                    <ul className="navbar-nav col-lg-4">
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/">
-                                Kezdőlap
-                            </Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/ruhazat">
-                                Ruházat
-                            </Link>
-                        </li>
-                    </ul>
-                </div>
-                <div>
-                    <ul className="navbar-nav">
-                        <li className='nav-item'>
-                            <Link className="nav-link" to="/kosar"> 🛒 </Link>
-                        </li>
-                        <li className='nav-item'>
-                            <Link className="nav-link" to="/kivansaglista"> ❤️ </Link>
-                        </li>
+        <Navbar expand="lg">
+            <Container>
+                <Navbar.Brand href="#">
+                    <img className="logo" src="/fekete_hatternelkul.png" alt="dressly_logo" />
+                </Navbar.Brand>
+
+                <Navbar.Toggle aria-controls="navbarNav" />
+
+                <Navbar.Collapse id="navbarNav">
+                    <Nav className="mx-auto">
+                        <Nav.Link as={Link} to="/">Kezdőlap</Nav.Link>
+                        <Nav.Link as={Link} to="/ruhazat">Termékek</Nav.Link>
+                    </Nav>
+
+                    <Nav>
+                        <Nav.Link as={Link} to="/kosar"> 🛒 </Nav.Link>
+                        <Nav.Link as={Link} to="/kivansaglista"> ❤️ </Nav.Link>
                         {user ? (
-                        <>
-                            <li className="navbar-item">
-                                <button className="nav-link" onClick={()=>{logout()}}>
-                                🚷
-                                </button>
-                            </li>
-                        </>
-                    ) : (
-                        <>
-                            <li className="navbar-item">
-                                <Link className="nav-link" to="/bejelentkezes">
-                                    👤
-                                </Link>
-                            </li>
-                        </>
-                    )}
-                    </ul>
-                </div>
-            </div>
-        </nav>
-
-
-    
+                            <Nav.Link onClick={() => { logout() }}>🚷</Nav.Link>
+                        ) : (
+                            <Nav.Link as={Link} to="/bejelentkezes">👤</Nav.Link>
+                        )}
+                    </Nav>
+                </Navbar.Collapse>
+            </Container>
+        </Navbar>
     );
 }
 
