@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
+import { Navbar, Nav, Container} from 'react-bootstrap';
 import useAuthContext from "../contexts/AuthContext";
-import '../Navigacio.css';
+import './Navigacio.css';
 
 function Navigacio() {
     const { user, logout } = useAuthContext();
