@@ -10,7 +10,7 @@ function Navigacio() {
     return (
         <Navbar expand="lg">
             <Container>
-                <Navbar.Brand href="#">
+                <Navbar.Brand>
                     <img className="logo" src="/fekete_hatternelkul.png" alt="dressly_logo" />
                 </Navbar.Brand>
 
