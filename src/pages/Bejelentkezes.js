@@ -1,35 +1,24 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { myAxios } from '../contexts/MyAxios';
 import { useNavigate } from 'react-router-dom';
+import useAuthContext from "../contexts/AuthContext";
 
-function Bejelentkezes() {
+export default function Bejelentkezes() {
+
+  const [felhasznaloNev, setfelhasznalonev] = useState("");
+  const [jelszo, setJelszo] = useState("");
 
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState({
-    email: "",
-    password: "",
-});
-  const csrf = () => myAxios.get("/sanctum/csrf-cookie");
+  const { loginReg, errors } = useAuthContext();
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await csrf();       
     const adat = {
-        email: email,
-        password: password,
+        felhasznaloNev: felhasznaloNev,
+        jelszo: jelszo,
     };       
-    try {
-        await myAxios.post("/login", adat );
-        console.log("siker")
-        navigate("/");
-    } catch (error) {
-      if (error.response.status === 422) {
-          setErrors(error.response.data.errors);
-      }
-  }
+    loginReg(adat, "/login");
 };
 
   return (
@@ -42,24 +31,24 @@ function Bejelentkezes() {
         <h1 className="text-center">Bejelentkezés</h1>
         <form onSubmit={handleSubmit}>
           <div className="mb-3 mt-3">
-            <label htmlFor="email" className="form-label">
-              Email címe:
+            <label htmlFor="name" className="form-label">
+              Felhasználónév:
             </label>
             <input
-              type="email"
+              type="text"
               className="form-control"
-              value={email}
+              value={felhasznaloNev}
               onChange={(e) => {
-                setEmail(e.target.value);
+                setfelhasznalonev(e.target.value);
               }}
-              id="email"
-              placeholder="Ide írja az email címét!"
-              name="email"
+              id="felhasznaloNev"
+              placeholder="Ide írja a felhasználónevét!"
+              name="felhasznaloNev"
             />
           </div>
           <div>
-          {errors.email && (
-              <span className="text-danger">{errors.email[0]}</span>
+          {errors.felhasznaloNev && (
+              <span className="text-danger">{errors.felhasznaloNev[0]}</span>
             )}
           </div>
           <div className="mb-3">
@@ -68,17 +57,17 @@ function Bejelentkezes() {
             </label>
             <input
               type="password"
-              value={password}
+              value={jelszo}
               onChange={(e) => {
-                setPassword(e.target.value);
+                setJelszo(e.target.value);
               }}
               className="form-control"
-              id="password"
+              id="jelszo"
               placeholder="Ide írja a felhasználóhoz tartozó jelszavát!"
-              name="password"
+              name="jelszo"
             />
            {errors.password && (
-              <span className="text-danger">{errors.password[0]}</span>
+              <span className="text-danger">{errors.jelszo[0]}</span>
             )}
           </div>
               
@@ -97,5 +86,3 @@ function Bejelentkezes() {
     </div>
   );
 }
-
-export default Bejelentkezes;

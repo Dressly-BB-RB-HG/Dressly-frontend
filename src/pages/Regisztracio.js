@@ -3,24 +3,27 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { myAxios } from '../contexts/MyAxios';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from "../contexts/AuthContext";
 
 function Regisztracio() {
   
   const csrf = () => myAxios.get("/sanctum/csrf-cookie");
   const navigate = useNavigate();
+  const [felhasznaloNev, setfelhasznaloNev] = useState("")
   const [veznev, setVeznev] = useState("")
   const [kernev, setKernev] = useState("")
   const [szuletesiido, setSzuletesiido] = useState("")
   const [email, setEmail] = useState("");
-  const [pwd, setPwd] = useState("");
-  const [pwdconfirm, setPwdconfirm] = useState("");
+  const [jelszo, setJelszo] = useState("");
+  const [jelszoMegerosit, setJelszoMegerosit] = useState("");
   const [errors, setErrors] = useState({
+    felhasznaloNev: "",
     veznev: "",
     kernev: "",
     szuletesiido: "",
     email: "",
-    pwd: "",
-    pwdconfirm: "",
+    jelszo: "",
+    jelszoMegerosit: "",
 });
 
   const handleSubmit = async (e) => {
@@ -30,16 +33,18 @@ function Regisztracio() {
         kernev: kernev,
         szuletesiido: szuletesiido,
         email: email,
-        password: pwd,
-        pwdconfirm: pwdconfirm
+        jelszo: jelszo,
+        jelszoMegerosit: jelszoMegerosit
     };       
     try {
         await csrf();
         await myAxios.post("/register", adat );
         navigate("/");
     } catch (error) {
-        console.log(error);
-    }
+      if (error.response.status === 422) {
+          setErrors(error.response.data.errors);
+      }
+  }
 };
  
   return (
@@ -50,6 +55,23 @@ function Regisztracio() {
       <div>
         <h1 className="text-center">Regisztráció</h1>
         <form onSubmit={handleSubmit}>
+
+        <div className="mb-3">
+            <label htmlFor="name" className="form-label">
+              Felhasználónév:
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              value={felhasznaloNev}
+              onChange={(e) => {
+                setfelhasznaloNev(e.target.value);
+              }}
+              id="felhasznaloNev"
+              placeholder="Ide írja a felhasználónevét!"
+              name="felhasznaloNev"
+            />
+          </div>
 
         <div className="mb-3">
             <label htmlFor="name" className="form-label">
@@ -142,13 +164,13 @@ function Regisztracio() {
             <input
               type="password"
               className="form-control"
-              value={pwd}
+              value={jelszo}
               onChange={(e) => {
-                setPwd(e.target.value);
+                setJelszo(e.target.value);
               }}
-              id="pwd"
+              id="jelszo"
               placeholder="Ide írja a felhasználóhoz tartozó jelszavát!"
-              name="pwd"
+              name="jelszo"
             />
           </div>
 
@@ -163,13 +185,13 @@ function Regisztracio() {
             <input
               type="password"
               className="form-control"
-              value={pwdconfirm}
+              value={jelszoMegerosit}
               onChange={(e) => {
-                setPwdconfirm(e.target.value);
+                setJelszoMegerosit(e.target.value);
               }}
-              id="pwdconfirm"
+              id="jelszoMegerosit"
               placeholder="Írja be újra a jelszavát!"
-              name="pwdconfirm"
+              name="jelszoMegerosit"
             />
           </div>
 
@@ -184,7 +206,7 @@ function Regisztracio() {
             </button>
             <br />
             <p>
-            <Link className="nav-link text-info" to="/Bejelentkezes">Bejelentkezés</Link>
+            <Link className="nav-link text-info" to="/Bejelentkezes">Rendelkezem már felhasználói fiókkal</Link>
             </p>
           </div>
         </form>

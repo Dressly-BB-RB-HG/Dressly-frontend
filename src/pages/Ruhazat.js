@@ -1,6 +1,6 @@
 import React from 'react'
 import { Dropdown, DropdownButton, Form } from 'react-bootstrap'
-import RangeSlider from 'react-bootstrap-range-slider';
+//import RangeSlider from 'react-bootstrap-range-slider';
 
 
 function Ruhazat() {
