@@ -8,10 +8,10 @@ function Navigacio() {
             <div className="container-fluid">
                 <div className='row'>
                     <div className='navbar-nav col-lg-2'>
-                        <a className="nav-link logo" href="#">Dressly</a>
+                        <img className="nav-link logo" src="/fekete_hatternelkul.png" alt='dressly_logo'></img>
                     </div>
                     <ul className="navbar-nav col-lg-4">
-                        <li className="nav-item active">
+                        <li className="nav-item">
                             <Link className="nav-link" to="/">
                                 Kezdőlap
                             </Link>
