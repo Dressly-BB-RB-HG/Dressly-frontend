@@ -1,0 +1,28 @@
+aside {
+    width: 20%;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-right: 1px solid #ddd;
+    height: 100vh;
+
+    top: 0;
+    left: 0;
+    overflow-y: auto;
+}
+
+.szuroFeltetelek {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.szuroFeltetelek h1 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+article {
+    margin-left: 21%;
+    padding: 20px;
+}

@@ -1,2 +1,11 @@
-import axios from "../MyAxios";
-import { createContext, useContext, useEffect, useState } from "react";
+import React from 'react'
+
+function FileContext() {
+  return (
+    <div>
+      
+    </div>
+  )
+}
+
+export default FileContext

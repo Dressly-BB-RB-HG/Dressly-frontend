@@ -1,5 +1,7 @@
 import React from 'react'
 import { Dropdown, DropdownButton } from 'react-bootstrap'
+import Termekek from '../components/Termekek'
+import './pages-css/Ruhazat.css';
 
 function Ruhazat() {
 
@@ -30,7 +32,7 @@ function Ruhazat() {
             </aside>
 
             <article>
-
+            <Termekek />
             </article>
         </div>
     )
