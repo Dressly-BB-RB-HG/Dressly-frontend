@@ -26,7 +26,10 @@ function Navigacio() {
                         <Nav.Link as={Link} to="/kosar"> <img className="ikon" src="/kosar.png" alt="kosar" /> </Nav.Link>
                         <Nav.Link as={Link} to="/kivansaglista"> <img className="ikon" src="/sziv.png" alt="kedvencek" /> </Nav.Link>
                         {user ? (
+                            <>
+                            <Nav.Link as={Link} to="/profil"><img className="ikon" src="/profil.png" alt="profil" /></Nav.Link>
                             <Nav.Link onClick={() => { logout() }}><img className="ikon" src="/kijelentkezes.png" alt="kijelentkezes" /></Nav.Link>
+                            </>
                         ) : (
                             <Nav.Link as={Link} to="/bejelentkezes"><img className="ikon" src="/profil.png" alt="profil" /></Nav.Link>
                         )}
