@@ -55,32 +55,17 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const update = async ({ ...adat }, vegpont) => {
-    //lekérjük a csrf tokent
-    await csrf();
-    console.log(adat,vegpont);
-
+  const updateProfile = async (data) => {
     try {
-      await myAxios.post(vegpont, adat);
-      console.log("siker");
-      //sikeres bejelentkezés/regisztráció esetén
-      //Lekérdezzük a usert
-      //await getUser();
-      //elmegyünk  a kezdőlapra
-      getUser()
-      navigate("/");
-      
+      const response = await myAxios.put('/update-profile', data);
+      setUser(response.data.user); // Frissíti a felhasználói adatokat
     } catch (error) {
-      console.log(error);
-      if (error.response.status === 422) {
-        setErrors(error.response.data.errors);
-      }
+      setErrors(error.response.data.errors);
     }
   };
 
-
   return (
-    <AuthContext.Provider value={{ logout, loginReg, update, errors, getUser, user }}>
+    <AuthContext.Provider value={{ logout, loginReg, updateProfile, errors, getUser, user }}>
       {children}
     </AuthContext.Provider>
   );
