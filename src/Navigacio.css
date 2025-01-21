@@ -9,8 +9,8 @@
 }
 
 .logo{
-    max-width: 75px;  /* Állítsd be kisebb szélességre */
-    max-height: 75px; /* Állítsd be kisebb magasságra */
+    max-width: 75px;
+    max-height: 75px; 
     margin: 0;
     padding: 0;
 }

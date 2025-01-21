@@ -5,8 +5,8 @@ import useAuthContext from "../contexts/AuthContext";
 
 export default function Bejelentkezes() {
 
-  const [felhasznaloNev, setfelhasznalonev] = useState("");
-  const [jelszo, setJelszo] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
   const { loginReg, errors } = useAuthContext();
@@ -15,8 +15,8 @@ export default function Bejelentkezes() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const adat = {
-        felhasznaloNev: felhasznaloNev,
-        jelszo: jelszo,
+        email: email,
+        password: password,
     };       
     loginReg(adat, "/login");
 };
@@ -32,23 +32,23 @@ export default function Bejelentkezes() {
         <form onSubmit={handleSubmit}>
           <div className="mb-3 mt-3">
             <label htmlFor="name" className="form-label">
-              Felhasználónév:
+              E-mail:
             </label>
             <input
-              type="text"
+              type="email"
               className="form-control"
-              value={felhasznaloNev}
+              value={email}
               onChange={(e) => {
-                setfelhasznalonev(e.target.value);
+                setEmail(e.target.value);
               }}
-              id="felhasznaloNev"
-              placeholder="Ide írja a felhasználónevét!"
-              name="felhasznaloNev"
+              id="email"
+              placeholder="Ide írja az email címét!"
+              name="email"
             />
           </div>
           <div>
-          {errors.felhasznaloNev && (
-              <span className="text-danger">{errors.felhasznaloNev[0]}</span>
+          {errors.email && (
+              <span className="text-danger">{errors.email[0]}</span>
             )}
           </div>
           <div className="mb-3">
@@ -57,17 +57,17 @@ export default function Bejelentkezes() {
             </label>
             <input
               type="password"
-              value={jelszo}
+              value={password}
               onChange={(e) => {
-                setJelszo(e.target.value);
+                setPassword(e.target.value);
               }}
               className="form-control"
-              id="jelszo"
+              id="password"
               placeholder="Ide írja a felhasználóhoz tartozó jelszavát!"
-              name="jelszo"
+              name="password"
             />
            {errors.password && (
-              <span className="text-danger">{errors.jelszo[0]}</span>
+              <span className="text-danger">{errors.password[0]}</span>
             )}
           </div>
               

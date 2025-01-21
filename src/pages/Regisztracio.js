@@ -12,7 +12,6 @@ function Regisztracio() {
   const [felhasznaloNev, setfelhasznaloNev] = useState("")
   const [veznev, setVeznev] = useState("")
   const [kernev, setKernev] = useState("")
-  const [szuletesiido, setSzuletesiido] = useState("")
   const [email, setEmail] = useState("");
   const [jelszo, setJelszo] = useState("");
   const [jelszoMegerosit, setJelszoMegerosit] = useState("");
@@ -20,7 +19,6 @@ function Regisztracio() {
     felhasznaloNev: "",
     veznev: "",
     kernev: "",
-    szuletesiido: "",
     email: "",
     jelszo: "",
     jelszoMegerosit: "",
@@ -31,7 +29,6 @@ function Regisztracio() {
     const adat = {
         veznev: veznev,
         kernev: kernev,
-        szuletesiido: szuletesiido,
         email: email,
         jelszo: jelszo,
         jelszoMegerosit: jelszoMegerosit
@@ -113,23 +110,6 @@ function Regisztracio() {
 
           <div>
             <span className="text-danger">hiba</span>
-          </div>
-
-          <div className="mb-3">
-            <label htmlFor="date" className="form-label">
-              Születési idő:
-            </label>
-            <input
-              type="date"
-              className="form-control"
-              value={szuletesiido}
-              onChange={(e) => {
-                setSzuletesiido(e.target.value);
-              }}
-              id="szuletesiido"
-              placeholder="Adja meg a születési évét!"
-              name="szuletesiido"
-            />
           </div>
 
           <div>

@@ -39,7 +39,7 @@ function Navigacio() {
                         <>
                             <li className="navbar-item">
                                 <button className="nav-link" onClick={()=>{logout()}}>
-                                    Kijelentkezés
+                                🚷
                                 </button>
                             </li>
                         </>
