@@ -6,13 +6,20 @@
 .logo {
     max-width: 90px;
     max-height: 90px; 
+    
 }
 
 .navbar-nav .nav-link {
     font-size: 25px; 
     margin: 5px;
+    font-weight: bold;
 }
 
 .navbar-nav .nav-link:hover {
     color: rgb(104, 107, 107);
+}
+
+.ikon{
+    max-width: 25px;
+    max-height: 25px;
 }

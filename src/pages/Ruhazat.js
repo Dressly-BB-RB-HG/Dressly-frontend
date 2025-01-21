@@ -8,7 +8,7 @@ function Ruhazat() {
 
     return (
         <div>
-            <aside>
+            <aside className='szuro'>
                 <div className='szuroFeltetelek'>
                     <h1>Szűrő feltételek</h1>
                     <DropdownButton id="dropdown-basic-button" title="Speciális">
@@ -31,7 +31,7 @@ function Ruhazat() {
                 </div>
             </aside>
 
-            <article>
+            <article className='termekek'>
             <Termekek />
             </article>
         </div>
