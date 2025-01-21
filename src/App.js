@@ -7,7 +7,9 @@ import Layout from './pages/Layout';
 import Ruhazat from './pages/Ruhazat';
 import { AuthProvider } from "./contexts/AuthContext";
 
+
 function App() {
+  
   return (
     <BrowserRouter>
     <AuthProvider>

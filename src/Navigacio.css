@@ -9,6 +9,11 @@
     
 }
 
+nav{
+    position: fixed;
+    top: 0;
+}
+
 .navbar-nav .nav-link {
     font-size: 25px; 
     margin: 5px;
