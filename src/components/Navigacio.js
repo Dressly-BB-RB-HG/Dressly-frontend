@@ -1,8 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import useAuthContext from "../contexts/AuthContext"
 import '../Navigacio.css';
 
 function Navigacio() {
+
+    const { user, logout } = useAuthContext(); 
+
     return (
         <nav className="navbar navbar-expand-lg">
             <div className="container-fluid">
@@ -31,9 +35,23 @@ function Navigacio() {
                         <li className='nav-item'>
                             <Link className="nav-link" to="/kivansaglista"> ❤️ </Link>
                         </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/bejelentkezes"> 👤 </Link>
-                        </li>
+                        {user ? (
+                        <>
+                            <li className="navbar-item">
+                                <button className="nav-link" onClick={()=>{logout()}}>
+                                    Kijelentkezés
+                                </button>
+                            </li>
+                        </>
+                    ) : (
+                        <>
+                            <li className="navbar-item">
+                                <Link className="nav-link" to="/bejelentkezes">
+                                    👤
+                                </Link>
+                            </li>
+                        </>
+                    )}
                     </ul>
                 </div>
             </div>
