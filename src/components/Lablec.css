@@ -1,0 +1,42 @@
+footer {
+    background-color: #EFD9CE;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    color: rgb(104, 107, 107);
+    text-align: center;
+    padding: 20px;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+  }
+  
+  .footer .footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-weight: bold;
+  }
+
+  footer a {
+    color: rgb(104, 107, 107);
+    text-decoration: none;
+    margin: 0 10px;
+  }
+  
+  .footer .footer-links a:hover {
+    text-decoration: underline;
+  }
+  
+  .fa-facebook:hover{
+    color: #3B5998;
+    transition: 0.7s;
+}
+
+.fa-instagram:hover{
+    color: #c23484;
+    transition: 0.7s;
+}
+
+.fa-youtube:hover{
+    color:  #bb0000;
+    transition: 0.7s;
+}
