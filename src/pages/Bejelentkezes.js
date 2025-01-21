@@ -23,7 +23,7 @@ export default function Bejelentkezes() {
 };
 
   return (
-
+    
     <div 
       className="d-flex justify-content-center align-items-center vh-100" 
       style={{ maxWidth: "400px", margin: "0 auto" }}
