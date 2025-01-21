@@ -6,7 +6,7 @@ function Kezdolap() {
 
     return (
         <main className="row">
-          
+         
           <aside className="col-lg-3">
             
           </aside>

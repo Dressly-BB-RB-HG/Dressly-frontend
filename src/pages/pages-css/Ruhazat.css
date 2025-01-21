@@ -1,4 +1,4 @@
-aside {
+ .szuro {
     width: 20%;
     padding: 15px;
     background-color: #f8f9fa;
@@ -22,7 +22,7 @@ aside {
     margin-bottom: 10px;
 }
 
-article {
+.termekek {
     margin-left: 21%;
     padding: 20px;
 }
