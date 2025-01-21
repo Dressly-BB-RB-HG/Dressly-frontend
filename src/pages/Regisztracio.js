@@ -16,7 +16,7 @@ function Regisztracio() {
   const navigate = useNavigate();
   const { loginReg, errors } = useAuthContext();
 
-const handleSubmit = async (e) => {
+  const handleSubmit = async (e) => {
   e.preventDefault();
   const adat = {
     name: name,
@@ -26,9 +26,11 @@ const handleSubmit = async (e) => {
     password: password,
     password_confirmation: password_confirmation
   };       
+  
   loginReg(adat, "/register");
-};
  
+};
+
   return (
     <div 
       className="d-flex justify-content-center align-items-center vh-100" 
@@ -108,7 +110,7 @@ const handleSubmit = async (e) => {
 
           <div className="mb-3">
             <label htmlFor="pwd" className="form-label">
-              Jelszó:
+              Jelszó (min 8 karakter):
             </label>
             <input
               type="password"
@@ -121,6 +123,9 @@ const handleSubmit = async (e) => {
               placeholder="Ide írja a kívánt jelszavat"
               name="password"
             />
+            {errors.password && (
+              <span className="text-danger">{errors.password[0]}</span>
+            )}
           </div>
 
           { <div className="mb-3">
