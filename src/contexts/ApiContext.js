@@ -6,8 +6,6 @@ export const ApiContext = createContext("")
 export const ApiProvider = ({children})=> {
     const [termekLista, setTermekLista] = useState([])
 
-    
-    
     const getAdat = async (vegpont, callbackFv ) => {
         try {
             const response = await myAxios.get(vegpont, callbackFv);
@@ -18,17 +16,14 @@ export const ApiProvider = ({children})=> {
     }
     }
 
-
-
-
     useEffect(()=>{
-        getAdat("/admin/modellek", setTermekLista)
+        getAdat("/api/admin/modellek", setTermekLista)
     },
     [])
 
     return (
-        <ApiContext.Provider value = {{termekLista, setTermekLista}}>{children}
-
+        <ApiContext.Provider value = {{termekLista}}>
+        {children}
         </ApiContext.Provider>
     );
     
