@@ -15,7 +15,7 @@ function App() {
             <Route path="/" element={<Layout />}>
                 <Route index element={<Kezdolap />} />
                 <Route path="Bejelentkezes" element={<Bejelentkezes />} />
-                <Route path="regisztracio" element={<Regisztracio />} />
+                <Route path="regisztracio" element={<Regisztracio />} /> 
                 <Route path="ruhazat" element={<Ruhazat/>}/>
             </Route>
         </Routes>  
