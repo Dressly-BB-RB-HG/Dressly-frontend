@@ -16,13 +16,24 @@ export const ApiProvider = ({children})=> {
     }
     }
 
+
+    const profilFrissit = async (vegpont, callbackFv) => {
+        try {
+          const response = await myAxios.patch(vegpont, callbackFv);
+          console.log("Profil frissítve:", response.data);
+          return response.data;
+        } catch (err) {
+          console.error("Hiba történt a profil frissítésekor.", err);
+        }
+      };
+
     useEffect(()=>{
         getAdat("/api/admin/modellek", setTermekLista)
     },
     [])
 
     return (
-        <ApiContext.Provider value = {{termekLista}}>
+        <ApiContext.Provider value = {{termekLista, profilFrissit}}>
         {children}
         </ApiContext.Provider>
     );

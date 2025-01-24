@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useAuthContext from '../contexts/AuthContext';
+import { ApiContext } from '../contexts/ApiContext';
 
 function Profil() {
+  const { profilFrissit } = useContext(ApiContext);
   const { user, updateProfile, errors } = useAuthContext();
   const navigate = useNavigate();
 
@@ -13,11 +15,9 @@ function Profil() {
   const [newPasswordConfirmation, setNewPasswordConfirmation] = useState('');
 
   useEffect(() => {
-    // Ha nincs bejelentkezve, irányítsd a felhasználót a bejelentkezési oldalra
     if (!user) {
       navigate('/bejelentkezes');
     } else {
-      // Állítsd be az aktuális felhasználói adatokat
       setName(user.name);
       setEmail(user.email);
     }
@@ -34,17 +34,16 @@ function Profil() {
     };
 
     try {
-      await updateProfile(data);
+      await profilFrissit('/api/update-profile', data);
       alert('Profil sikeresen frissítve!');
       navigate('/profil');
     } catch (err) {
+      alert('A profil adatainak frissítése sikertelen volt.')
       console.error('Hiba történt:', err);
     }
   };
 
   return (
-
-    
     <form onSubmit={handleSubmit}>
       <div className="mb-3">
         <label htmlFor="name">Felhasználónév:</label>
@@ -102,5 +101,4 @@ function Profil() {
     </form>
   );
 }
-
 export default Profil;
