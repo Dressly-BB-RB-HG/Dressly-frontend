@@ -36,7 +36,7 @@ function Profil() {
     try {
       await profilFrissit('/api/update-profile', data);
       alert('Profil sikeresen frissítve!');
-      navigate('/profil');
+      navigate('/');
     } catch (err) {
       alert('A profil adatainak frissítése sikertelen volt.');
       console.error('Hiba történt:', err);
