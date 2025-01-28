@@ -11,7 +11,7 @@ function Termek(props) {
   };
 
   return (
-    <div className="card col-md-4 mb-4">
+    <div className="card">
       <div className="card-body">
         <img className="kep card-img-top" alt={props.adat.tipus + props.adat.kategoria} src={props.adat.kep} />
         <h4 className="gyarto card-text">{props.adat.gyarto}</h4>
