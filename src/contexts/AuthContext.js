@@ -57,7 +57,7 @@ export const AuthProvider = ({ children }) => {
 
   const updateProfile = async (data) => {
     try {
-      const response = await myAxios.put('/update-profile', data);
+      const response = await myAxios.put('/api/update-profile', data);
       setUser(response.data.user); // Frissíti a felhasználói adatokat
     } catch (error) {
       setErrors(error.response.data.errors);

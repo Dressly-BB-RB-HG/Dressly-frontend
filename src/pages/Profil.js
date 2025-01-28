@@ -25,7 +25,7 @@ function Profil() {
     try {
       await updateProfile(data);
       alert('Profil sikeresen frissítve!');
-      navigate('/profil');
+      navigate('/');
     } catch (err) {
       console.error('Hiba történt:', err);
     }
