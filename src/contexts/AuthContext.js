@@ -1,55 +1,72 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 import { myAxios } from "../contexts/MyAxios";
 import { useNavigate } from "react-router-dom";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-    
   const navigate = useNavigate();
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(() => {
+    const savedUser = localStorage.getItem("user");
+    return savedUser ? JSON.parse(savedUser) : null;
+  });
   const [errors, setErrors] = useState({
     felhasznaloNev: "",
     jelszo: "",
     jelszoMegerosit: "",
     email: "",
   });
+
   const csrf = () => myAxios.get("/sanctum/csrf-cookie");
 
-  //bejelentkezett felhasználó adatainak lekérdezése
   const getUser = async () => {
-    const { data } = await myAxios.get("/api/user");
-    console.log(data)
-    setUser(data);
+    try {
+      const { data } = await myAxios.get("/api/user");
+      setUser(data);
+      localStorage.setItem("user", JSON.stringify(data));
+    } catch (error) {
+      if (error.response?.status === 401) {
+        console.warn("Nem hitelesített felhasználó.");
+      } else {
+        console.error("Felhasználó lekérdezése sikertelen:", error);
+      }
+      setUser(null);
+      localStorage.removeItem("user");
+    }
+  };
+
+  const checkAuth = async () => {
+    try {
+      await csrf();
+      await getUser();
+    } catch (error) {
+      console.error("Autentikáció ellenőrzése sikertelen:", error);
+      setUser(null);
+      localStorage.removeItem("user");
+    }
   };
 
   const logout = async () => {
-    await csrf();
-
-    myAxios.post("/logout").then((resp) => {
+    try {
+      await csrf();
+      await myAxios.post("/logout");
       setUser(null);
-      console.log(resp);
-    });
+      localStorage.removeItem("user");
+      navigate("/");
+    } catch (error) {
+      console.error("Hiba történt a kijelentkezés során:", error);
+    }
   };
 
   const loginReg = async ({ ...adat }, vegpont) => {
-    //lekérjük a csrf tokent
-    await csrf();
-    console.log(adat,vegpont);
-
     try {
+      await csrf();
       await myAxios.post(vegpont, adat);
-      console.log("siker");
-      //sikeres bejelentkezés/regisztráció esetén
-      //Lekérdezzük a usert
-      //await getUser();
-      //elmegyünk  a kezdőlapra
-      getUser()
+      await getUser();
       navigate("/");
-      
     } catch (error) {
-      console.log(error);
-      if (error.response.status === 422) {
+      console.error("Hiba történt a bejelentkezés/regisztráció során:", error);
+      if (error.response?.status === 422) {
         setErrors(error.response.data.errors);
       }
     }
@@ -57,20 +74,28 @@ export const AuthProvider = ({ children }) => {
 
   const updateProfile = async (data) => {
     try {
-      const response = await myAxios.put('/update-profile', data);
-      setUser(response.data.user); // Frissíti a felhasználói adatokat
+      const response = await myAxios.put("/api/update-profile", data);
+      setUser(response.data.user);
+      localStorage.setItem("user", JSON.stringify(response.data.user));
     } catch (error) {
+      console.error("Profil frissítése sikertelen:", error);
       setErrors(error.response.data.errors);
     }
   };
 
+  useEffect(() => {
+    checkAuth();
+  }, []);
+
   return (
-    <AuthContext.Provider value={{ logout, loginReg, updateProfile, errors, getUser, user }}>
+    <AuthContext.Provider
+      value={{ logout, loginReg, updateProfile, errors, getUser, user, checkAuth }}
+    >
       {children}
     </AuthContext.Provider>
   );
 };
 
 export default function useAuthContext() {
-    return useContext(AuthContext);
-  }
+  return useContext(AuthContext);
+}
