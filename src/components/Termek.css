@@ -1,0 +1,114 @@
+
+.card {
+    display: grid;
+    grid-template-rows: auto auto auto 1fr;
+    gap: 16px;
+    padding: 16px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  }
+  
+
+  .kep {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+  }
+  
+
+  .gyarto {
+    font-size: 1.25rem;
+    font-weight: bold;
+    text-align: center;
+  }
+  
+  .ar {
+    font-size: 1.1rem;
+    color: #555;
+    text-align: center;
+  }
+  
+
+  .gombok {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 8px;
+    justify-content: space-between;
+  }
+  
+
+  .kosarbagomb {
+    padding: 8px 16px;
+    font-size: 1rem;
+    border-radius: 8px;
+    background-color: #ff9900 !important;
+    color: white;
+    border: none;
+    border-color: none !important;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+
+  .btn-primary {
+    --bs-btn-border-color: none !important;
+  }
+  
+  .kosarbagomb:hover {
+    background-color: #0056b3;
+  }
+
+  .kedvenc-gomb {
+    font-size: 45px;
+    padding-top: 20px;
+    color: #0e0000;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: color 0.2s ease;
+  }
+  
+  .kedvenc-gomb.kedvenc-aktiv {
+    color: #e63946;
+  }
+  
+  .kedvenc-gomb:hover {
+    color: #e63946;
+  }
+  
+
+  @media (max-width: 768px) {
+    .card {
+      padding: 12px;
+      gap: 12px;
+    }
+  
+    .gyarto {
+      font-size: 1.1rem;
+    }
+  
+    .ar {
+      font-size: 1rem;
+    }
+  
+    .kosarbagomb {
+      font-size: 0.9rem;
+      padding: 6px 12px;
+    }
+  
+    .kedvenc-gomb {
+      font-size: 1.2rem;
+    }
+  }
+  
+
+  

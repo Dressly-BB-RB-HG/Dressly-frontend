@@ -1,6 +1,6 @@
 .szuro {
     padding: 20px;
-    background-color: #B0A990; 
+    background-color: #CDC5B4; 
     border-right: 1px solid #ddd;
     height: 100vh;
     top: 0;
@@ -29,21 +29,6 @@
     gap: 15px;
 }
 
-@media (min-width: 500px) {
-    .szuroReszp {
-        grid-template-columns: 1fr 1fr 1fr;
-    }
-}
-
-
-@media (min-width: 970px){
-    .szuroReszp {
-        grid-template-columns: 1fr;
-    }
-    .szuroFeltetelek{
-        gap: 10px;
-    }
-}
 
 @media (min-width: 1200px) {
     .szuroReszp {
@@ -52,13 +37,29 @@
     }
 }
 
-.termekek {
+.termekek-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 16px;
     padding: 20px;
 }
 
+@media (max-width: 1200px) {
+    .termekek-container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
 @media (max-width: 768px) {
-    .termekek {
-        margin-left: 0;
+    .termekek-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+
+@media (max-width: 480px) {
+    .termekek-container {
+        grid-template-columns: 1fr;
     }
 }
 
