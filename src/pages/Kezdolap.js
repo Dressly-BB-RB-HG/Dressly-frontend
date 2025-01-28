@@ -31,8 +31,6 @@ Duis dignissim mauris at tristique maximus. Vestibulum ipsum quam, consectetur n
       
         </article>
         </main>
-      <footer style={{ marginTop: "auto", textAlign: "center" }}>
-      </footer>
     
     </div>
     
