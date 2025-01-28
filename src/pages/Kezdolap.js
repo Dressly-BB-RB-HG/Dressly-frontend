@@ -9,18 +9,7 @@ function Kezdolap() {
       <main className="row" style={{ flex: 1 }}>
         <aside className="col-lg-3"></aside>
         <article className="row col-lg-7">
-          <div>
-            {user === null ? (
-              <p>Nincs bejelentkezett felhasználó!</p>
-            ) : (
-              <>
-                <p>Bejelentkezett felhasználó: {user.name}</p>
-                <p>Felhasználói szerep: {user.role === 1 ? "Admin" : user.role === 2 ? "Raktáros" : "Felhasználó"}</p>
-              </>
-            )}
-          </div>
-        </article>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris commodo ullamcorper lobortis. Proin faucibus sagittis nunc auctor molestie. Curabitur vitae iaculis justo. Mauris eget posuere libero, non congue urna. Nulla gravida eget elit sit amet interdum. Aliquam a consequat purus, ac tristique mauris. Nullam non elementum nibh, non tincidunt nibh. Aliquam posuere pretium lobortis. Aliquam at ligula eget elit consequat sodales eu vel augue. Nulla vestibulum enim ac eros porta vestibulum. Mauris sollicitudin mi eu magna placerat, eget ultricies tortor viverra. Pellentesque ullamcorper erat id nisi vulputate tincidunt. Fusce a ante malesuada, dignissim tortor vitae, vehicula justo. Donec lobortis mollis cursus. Aliquam consectetur malesuada ipsum, eu vehicula lectus pretium ut.
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris commodo ullamcorper lobortis. Proin faucibus sagittis nunc auctor molestie. Curabitur vitae iaculis justo. Mauris eget posuere libero, non congue urna. Nulla gravida eget elit sit amet interdum. Aliquam a consequat purus, ac tristique mauris. Nullam non elementum nibh, non tincidunt nibh. Aliquam posuere pretium lobortis. Aliquam at ligula eget elit consequat sodales eu vel augue. Nulla vestibulum enim ac eros porta vestibulum. Mauris sollicitudin mi eu magna placerat, eget ultricies tortor viverra. Pellentesque ullamcorper erat id nisi vulputate tincidunt. Fusce a ante malesuada, dignissim tortor vitae, vehicula justo. Donec lobortis mollis cursus. Aliquam consectetur malesuada ipsum, eu vehicula lectus pretium ut.
 
 Quisque sagittis risus augue, ut cursus dui blandit eget. Curabitur condimentum malesuada sapien, eget scelerisque diam dignissim eget. Nulla aliquam a eros consectetur ornare. Sed aliquam orci ut nulla tristique lobortis. Sed porttitor tempus dolor, a aliquet diam tempus ut. Ut commodo in ex at maximus. Aliquam mollis ante id ligula aliquet, a molestie felis maximus. Sed dignissim odio at faucibus imperdiet. Praesent cursus arcu eget odio suscipit convallis. Nulla tempor suscipit leo, eu suscipit nibh pulvinar et. In pellentesque eros ut neque molestie, quis finibus nisl ullamcorper. Praesent nec dapibus justo. Donec dictum nibh et purus viverra, eu dapibus erat venenatis. Pellentesque sit amet lectus lobortis, hendrerit nisl sed, volutpat justo. Cras quis felis auctor ex accumsan sollicitudin quis in sem.
 
@@ -39,7 +28,9 @@ Proin augue lorem, tempor placerat ex et, facilisis venenatis augue. Proin finib
 Nullam porttitor a justo nec pretium. Aliquam erat volutpat. Suspendisse potenti. Sed id tempus arcu. Cras nec feugiat nulla. Sed blandit, metus in ullamcorper convallis, eros odio congue dui, ut pretium felis felis ac massa. Cras elit erat, pretium et vestibulum sit amet, hendrerit at sem. Aliquam mauris ex, hendrerit a sodales nec, pulvinar ut nisi. Vestibulum sit amet risus quis mauris venenatis sagittis non nec enim. In vestibulum hendrerit dapibus.
 
 Duis dignissim mauris at tristique maximus. Vestibulum ipsum quam, consectetur nec malesuada ut, dignissim in orci. Suspendisse at lectus eros. Sed mauris neque, placerat ac sem id, rutrum sollicitudin lectus. Integer purus metus, interdum nec enim ac, malesuada porttitor ligula. Donec ultricies turpis nec dolor pretium, ut luctus magna scelerisque. Duis laoreet ultricies quam, et rhoncus neque tincidunt quis. Proin tincidunt libero ut quam malesuada tincidunt. Nunc porta elit non urna tempus, et ultricies odio aliquam. Donec eu augue at velit auctor pellentesque ac id diam. Ut tincidunt nisi non maximus fermentum. Fusce dui turpis, hendrerit dapibus feugiat non, sollicitudin ultrices velit.</p>
-      </main>
+      
+        </article>
+        </main>
       <footer style={{ marginTop: "auto", textAlign: "center" }}>
       </footer>
     

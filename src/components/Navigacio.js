@@ -21,25 +21,27 @@ function Navigacio() {
     return (
         <Navbar expand="lg" className={isScrolled ? "navbar navbar-scrolled" : "navbar"}>
             <Container>
-                <div className="d-flex justify-content-between w-100">
-                    {/* Bal oldal: Logó és navigációs linkek */}
-                    <div className="d-flex align-items-center">
-                        <Navbar.Brand>
-                            <img
-                                className={isScrolled ? "logo logo-small" : "logo"}
-                                src="/fekete_hatternelkul.png"
-                                alt="dressly_logo"
-                            />
-                        </Navbar.Brand>
-                        <Nav className="ml-3">
+                {/* Logo és bal oldali menüpontok */}
+                <Navbar.Brand>
+                    <img
+                        className={isScrolled ? "logo logo-small" : "logo"}
+                        src="/fekete_hatternelkul.png"
+                        alt="dressly_logo"
+                    />
+                </Navbar.Brand>
+
+                <Navbar.Toggle aria-controls="navbarNav" />
+
+                <Navbar.Collapse id="navbarNav">
+                    <div className="d-flex w-100 justify-content-between">
+                        {/* Bal oldali menüpontok */}
+                        <Nav className="d-flex">
                             <Nav.Link as={Link} to="/">Kezdőlap</Nav.Link>
                             <Nav.Link as={Link} to="/ruhazat">Termékek</Nav.Link>
                         </Nav>
-                    </div>
-                    
-                    {/* Jobb oldal: Kosár, Kedvencek, Profil */}
-                    <div className="d-flex align-items-center">
-                        <Nav>
+
+                        {/* Jobb oldali menüpontok */}
+                        <Nav className="d-flex">
                             <Nav.Link as={Link} to="/kosar">
                                 <img className="ikon" src="/kosar.png" alt="kosar" />
                             </Nav.Link>
@@ -65,7 +67,7 @@ function Navigacio() {
                             )}
                         </Nav>
                     </div>
-                </div>
+                </Navbar.Collapse>
             </Container>
         </Navbar>
     );
