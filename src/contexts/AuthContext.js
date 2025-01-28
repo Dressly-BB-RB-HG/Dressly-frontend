@@ -6,7 +6,10 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(() => {
+    const savedUser = localStorage.getItem("user");
+    return savedUser ? JSON.parse(savedUser) : null;
+  });
   const [errors, setErrors] = useState({
     felhasznaloNev: "",
     jelszo: "",
@@ -20,43 +23,47 @@ export const AuthProvider = ({ children }) => {
     try {
       const { data } = await myAxios.get("/api/user");
       setUser(data);
+      localStorage.setItem("user", JSON.stringify(data));
     } catch (error) {
-      console.error("Felhasználó lekérdezése sikertelen:", error);
+      if (error.response?.status === 401) {
+        console.warn("Nem hitelesített felhasználó.");
+      } else {
+        console.error("Felhasználó lekérdezése sikertelen:", error);
+      }
       setUser(null);
+      localStorage.removeItem("user");
     }
   };
 
- 
   const checkAuth = async () => {
     try {
       await csrf();
       await getUser();
-      return true; 
-    } catch {
-      return false;
+    } catch (error) {
+      console.error("Autentikáció ellenőrzése sikertelen:", error);
+      setUser(null);
+      localStorage.removeItem("user");
     }
   };
 
   const logout = async () => {
-    await csrf();
-
     try {
+      await csrf();
       await myAxios.post("/logout");
       setUser(null);
-      navigate("/bejelentkezes");
+      localStorage.removeItem("user");
+      navigate("/");
     } catch (error) {
       console.error("Hiba történt a kijelentkezés során:", error);
     }
   };
 
   const loginReg = async ({ ...adat }, vegpont) => {
-    await csrf();
-    console.log(adat, vegpont);
-
     try {
+      await csrf();
       await myAxios.post(vegpont, adat);
-      await getUser(); 
-      navigate("/"); 
+      await getUser();
+      navigate("/");
     } catch (error) {
       console.error("Hiba történt a bejelentkezés/regisztráció során:", error);
       if (error.response?.status === 422) {
@@ -68,16 +75,17 @@ export const AuthProvider = ({ children }) => {
   const updateProfile = async (data) => {
     try {
       const response = await myAxios.put("/api/update-profile", data);
-      setUser(response.data.user); 
+      setUser(response.data.user);
+      localStorage.setItem("user", JSON.stringify(response.data.user));
     } catch (error) {
+      console.error("Profil frissítése sikertelen:", error);
       setErrors(error.response.data.errors);
     }
   };
 
-
   useEffect(() => {
     checkAuth();
-  }, []); 
+  }, []);
 
   return (
     <AuthContext.Provider

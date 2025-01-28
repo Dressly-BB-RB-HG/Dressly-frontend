@@ -6,6 +6,7 @@ import Kezdolap from './pages/Kezdolap';
 import Layout from './pages/Layout';
 import Ruhazat from './pages/Ruhazat';
 import Profil from './pages/Profil';
+import Admin from './pages/Admin';
 import { AuthProvider } from "./contexts/AuthContext";
 
 
@@ -22,6 +23,7 @@ function App() {
 
                 <Route path="ruhazat" element={<Ruhazat/>}/>
                 <Route path="profil" element={<Profil/>}/>
+                <Route path="admin" element={<Admin/>}/>
             </Route>
         </Routes>  
     </AuthProvider>  
