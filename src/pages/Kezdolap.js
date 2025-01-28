@@ -21,8 +21,6 @@ function Kezdolap() {
           </div>
         </article>
       </main>
-      <footer style={{ marginTop: "auto", textAlign: "center" }}>
-      </footer>
     </div>
   );
 }

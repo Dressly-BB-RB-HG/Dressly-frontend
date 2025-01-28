@@ -8,6 +8,8 @@ import Ruhazat from './pages/Ruhazat';
 import Profil from './pages/Profil';
 import Admin from './pages/Admin';
 import { AuthProvider } from "./contexts/AuthContext";
+import Felhasznalok from './pages/AdminOldalak/Felhasznalok';
+import Modell from './pages/AdminOldalak/Modell';
 
 
 function App() {
@@ -23,6 +25,8 @@ function App() {
                 <Route path="ruhazat" element={<Ruhazat/>}/>
                 <Route path="profil" element={<Profil/>}/>
                 <Route path="admin" element={<Admin/>}/>
+                <Route path="felhasznalok" element={<Felhasznalok/>}/>
+                <Route path="modell" element={<Modell/>}/>
             </Route>
         </Routes>  
     </AuthProvider>  
