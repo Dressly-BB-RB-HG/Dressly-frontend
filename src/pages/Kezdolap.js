@@ -1,23 +1,7 @@
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import useAuthContext from "../contexts/AuthContext";
 
 function Kezdolap() {
-  const { user, checkAuth } = useAuthContext();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const verifyUser = async () => {
-      if (!user) {
-        const isAuthenticated = await checkAuth();
-        if (!isAuthenticated) {
-          navigate("/bejelentkezes"); 
-        }
-      }
-    };
-
-    verifyUser();
-  }, [user, navigate, checkAuth]);
+  const { user } = useAuthContext();
 
   return (
     <main className="row">
