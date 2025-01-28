@@ -11,8 +11,16 @@ function kosarbaTesz(adat){
     setKosarLista([...segedLista])
 }
 
+const kosarbolTorol = (id) => {
+    setKosar((prevKosar) => {
+      const updatedKosar = prevKosar.filter((termek) => termek.id !== id);
+      console.log("Frissített kosár a törlés után:", updatedKosar);
+      return updatedKosar;
+    });
+  };
+
 return (
-    <KosarContext.Provider value = {{kosarLISTA, kosarbaTesz}}>
+    <KosarContext.Provider value = {{kosarLISTA, kosarbaTesz, kosarbolTorol}}>
         {children}
     </KosarContext.Provider>
 );
