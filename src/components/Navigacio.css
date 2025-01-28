@@ -1,17 +1,14 @@
 .navbar {
+    position: sticky !important;
+    top: 0;
+    overflow: hidden;
     background-color: #EFD9CE; 
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .logo {
     max-width: 90px;
-    max-height: 90px; 
-    
-}
-
-nav{
-    position: fixed;
-    top: 0;
+    max-height: 90px;
 }
 
 .navbar-nav .nav-link {

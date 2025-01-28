@@ -19,6 +19,7 @@ function App() {
                 <Route index element={<Kezdolap />} />
                 <Route path="Bejelentkezes" element={<Bejelentkezes />} />
                 <Route path="regisztracio" element={<Regisztracio />} /> 
+
                 <Route path="ruhazat" element={<Ruhazat/>}/>
                 <Route path="profil" element={<Profil/>}/>
             </Route>

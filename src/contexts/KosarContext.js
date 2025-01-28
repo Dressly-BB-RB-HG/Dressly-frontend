@@ -12,7 +12,7 @@ function kosarbaTesz(adat){
 }
 
 const kosarbolTorol = (id) => {
-    setKosar((prevKosar) => {
+    setKosarLista((prevKosar) => {
       const updatedKosar = prevKosar.filter((termek) => termek.id !== id);
       console.log("Frissített kosár a törlés után:", updatedKosar);
       return updatedKosar;
