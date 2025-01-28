@@ -9,16 +9,16 @@ function Kezdolap() {
       <main className="row" style={{ flex: 1 }}>
         <aside className="col-lg-3"></aside>
         <article className="row col-lg-7">
-          <p>
+          <div>
             {user === null ? (
-              "Nincs bejelentkezett felhasználó!"
+              <p>Nincs bejelentkezett felhasználó!</p>
             ) : (
               <>
                 <p>Bejelentkezett felhasználó: {user.name}</p>
                 <p>Felhasználói szerep: {user.role === 1 ? "Admin" : user.role === 2 ? "Raktáros" : "Felhasználó"}</p>
               </>
             )}
-          </p>
+          </div>
         </article>
       </main>
       <footer style={{ marginTop: "auto", textAlign: "center" }}>

@@ -7,7 +7,6 @@ const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
   const [user, setUser] = useState(() => {
-
     const savedUser = localStorage.getItem("user");
     return savedUser ? JSON.parse(savedUser) : null;
   });
@@ -24,9 +23,13 @@ export const AuthProvider = ({ children }) => {
     try {
       const { data } = await myAxios.get("/api/user");
       setUser(data);
-      localStorage.setItem("user", JSON.stringify(data)); 
+      localStorage.setItem("user", JSON.stringify(data));
     } catch (error) {
-      console.error("Felhasználó lekérdezése sikertelen:", error);
+      if (error.response?.status === 401) {
+        console.warn("Nem hitelesített felhasználó.");
+      } else {
+        console.error("Felhasználó lekérdezése sikertelen:", error);
+      }
       setUser(null);
       localStorage.removeItem("user");
     }
@@ -44,8 +47,8 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = async () => {
-    await csrf();
     try {
+      await csrf();
       await myAxios.post("/logout");
       setUser(null);
       localStorage.removeItem("user");
@@ -56,11 +59,11 @@ export const AuthProvider = ({ children }) => {
   };
 
   const loginReg = async ({ ...adat }, vegpont) => {
-    await csrf();
     try {
+      await csrf();
       await myAxios.post(vegpont, adat);
-      await getUser(); 
-      navigate("/"); 
+      await getUser();
+      navigate("/");
     } catch (error) {
       console.error("Hiba történt a bejelentkezés/regisztráció során:", error);
       if (error.response?.status === 422) {
@@ -72,9 +75,10 @@ export const AuthProvider = ({ children }) => {
   const updateProfile = async (data) => {
     try {
       const response = await myAxios.put("/api/update-profile", data);
-      setUser(response.data.user); 
+      setUser(response.data.user);
       localStorage.setItem("user", JSON.stringify(response.data.user));
     } catch (error) {
+      console.error("Profil frissítése sikertelen:", error);
       setErrors(error.response.data.errors);
     }
   };
