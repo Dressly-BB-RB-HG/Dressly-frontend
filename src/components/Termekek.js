@@ -8,7 +8,7 @@ function Termekek() {
 
 
   return (
-    <div className="termekek row">
+    <div className="termekek-container">
         {termekLista.map((adat, index) => (
                 <Termek adat={adat} key={index} />
             ))}

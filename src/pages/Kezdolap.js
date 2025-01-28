@@ -9,19 +9,33 @@ function Kezdolap() {
       <main className="row" style={{ flex: 1 }}>
         <aside className="col-lg-3"></aside>
         <article className="row col-lg-7">
-          <div>
-            {user === null ? (
-              <p>Nincs bejelentkezett felhasználó!</p>
-            ) : (
-              <>
-                <p>Bejelentkezett felhasználó: {user.name}</p>
-                <p>Felhasználói szerep: {user.role === 1 ? "Admin" : user.role === 2 ? "Raktáros" : "Felhasználó"}</p>
-              </>
-            )}
-          </div>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris commodo ullamcorper lobortis. Proin faucibus sagittis nunc auctor molestie. Curabitur vitae iaculis justo. Mauris eget posuere libero, non congue urna. Nulla gravida eget elit sit amet interdum. Aliquam a consequat purus, ac tristique mauris. Nullam non elementum nibh, non tincidunt nibh. Aliquam posuere pretium lobortis. Aliquam at ligula eget elit consequat sodales eu vel augue. Nulla vestibulum enim ac eros porta vestibulum. Mauris sollicitudin mi eu magna placerat, eget ultricies tortor viverra. Pellentesque ullamcorper erat id nisi vulputate tincidunt. Fusce a ante malesuada, dignissim tortor vitae, vehicula justo. Donec lobortis mollis cursus. Aliquam consectetur malesuada ipsum, eu vehicula lectus pretium ut.
+
+Quisque sagittis risus augue, ut cursus dui blandit eget. Curabitur condimentum malesuada sapien, eget scelerisque diam dignissim eget. Nulla aliquam a eros consectetur ornare. Sed aliquam orci ut nulla tristique lobortis. Sed porttitor tempus dolor, a aliquet diam tempus ut. Ut commodo in ex at maximus. Aliquam mollis ante id ligula aliquet, a molestie felis maximus. Sed dignissim odio at faucibus imperdiet. Praesent cursus arcu eget odio suscipit convallis. Nulla tempor suscipit leo, eu suscipit nibh pulvinar et. In pellentesque eros ut neque molestie, quis finibus nisl ullamcorper. Praesent nec dapibus justo. Donec dictum nibh et purus viverra, eu dapibus erat venenatis. Pellentesque sit amet lectus lobortis, hendrerit nisl sed, volutpat justo. Cras quis felis auctor ex accumsan sollicitudin quis in sem.
+
+Vestibulum finibus ullamcorper metus, interdum viverra odio viverra ut. Maecenas aliquam mollis condimentum. Nulla rutrum velit pretium, tempus massa a, interdum ante. Duis in bibendum erat. Donec tempor ex sed malesuada sagittis. Aenean ultrices scelerisque ipsum id egestas. Aliquam lacus justo, volutpat eu rhoncus sit amet, laoreet id odio. Ut vestibulum nulla nisl. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In non mauris nisl. Aliquam eget aliquet lacus, in euismod quam.
+
+Quisque auctor odio at eros semper condimentum. Sed consequat, lectus nec eleifend fringilla, sapien turpis auctor est, ut pellentesque orci felis at erat. Nullam fermentum faucibus mi at fringilla. Donec varius ipsum quis efficitur vulputate. Fusce sed viverra leo. Sed pellentesque eleifend consectetur. Suspendisse potenti. Nulla tortor lorem, mattis eget erat vel, hendrerit sollicitudin orci. Nam sollicitudin sem at ex accumsan, eu varius dolor ultrices. Sed non volutpat ante. Donec ut ligula sit amet metus hendrerit pharetra. Vivamus consectetur tincidunt placerat.
+
+Interdum et malesuada fames ac ante ipsum primis in faucibus. Vivamus eget posuere arcu. Aenean placerat, felis id elementum sodales, libero purus fringilla ligula, non sollicitudin libero urna in nibh. Donec et viverra ligula. Etiam mattis turpis sed turpis lobortis porta. Nulla non ligula vitae risus vulputate porta. Quisque sit amet odio eu massa laoreet feugiat quis iaculis dolor.
+
+Proin erat est, sodales vitae dictum at, bibendum at purus. Curabitur vitae mauris diam. Suspendisse blandit ipsum risus, ut tincidunt enim tincidunt a. Maecenas eu mi sed felis faucibus tempus. Duis condimentum vulputate mauris vel ornare. Nulla pharetra dolor eget varius rutrum. Pellentesque libero eros, lacinia sit amet elementum vitae, sagittis in justo. Quisque tincidunt ligula ac massa maximus viverra. Nulla ac felis sit amet nisl ornare sollicitudin. Aliquam semper non ipsum nec efficitur. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vestibulum velit in quam ullamcorper feugiat. Nullam in urna sodales, efficitur urna ut, efficitur augue.
+
+Ut suscipit mi felis, vel posuere dui accumsan ac. Pellentesque placerat augue iaculis, sollicitudin velit vel, volutpat lorem. Sed vel tortor libero. Donec sit amet odio non lectus finibus gravida. Aenean ut blandit dui. Maecenas vel cursus est. Maecenas efficitur, nulla tempus mollis congue, justo lacus molestie mi, et vehicula mi massa eu risus. Donec at orci ex. Morbi placerat commodo nisl, in aliquet diam lacinia vel. Integer viverra malesuada diam. Sed odio urna, aliquet a congue quis, sodales quis erat. In hac habitasse platea dictumst. Maecenas volutpat ligula viverra quam posuere, et venenatis ligula placerat. Pellentesque eros ipsum, cursus porta egestas vel, iaculis at lectus. Mauris mattis consectetur dolor non pulvinar.
+
+Proin augue lorem, tempor placerat ex et, facilisis venenatis augue. Proin finibus sed ante ut ultricies. Cras maximus semper sapien sit amet lobortis. Donec accumsan lorem turpis, et placerat orci volutpat quis. Nam mattis in nisl sed dignissim. Pellentesque consectetur maximus eros, nec auctor risus ullamcorper sit amet. Aliquam rhoncus at quam non cursus. Suspendisse ipsum purus, vulputate at dui vitae, finibus pharetra justo. Vestibulum vulputate risus eros, vitae tristique risus varius sit amet. Vivamus ullamcorper mollis lectus eu sollicitudin.
+
+Nullam porttitor a justo nec pretium. Aliquam erat volutpat. Suspendisse potenti. Sed id tempus arcu. Cras nec feugiat nulla. Sed blandit, metus in ullamcorper convallis, eros odio congue dui, ut pretium felis felis ac massa. Cras elit erat, pretium et vestibulum sit amet, hendrerit at sem. Aliquam mauris ex, hendrerit a sodales nec, pulvinar ut nisi. Vestibulum sit amet risus quis mauris venenatis sagittis non nec enim. In vestibulum hendrerit dapibus.
+
+Duis dignissim mauris at tristique maximus. Vestibulum ipsum quam, consectetur nec malesuada ut, dignissim in orci. Suspendisse at lectus eros. Sed mauris neque, placerat ac sem id, rutrum sollicitudin lectus. Integer purus metus, interdum nec enim ac, malesuada porttitor ligula. Donec ultricies turpis nec dolor pretium, ut luctus magna scelerisque. Duis laoreet ultricies quam, et rhoncus neque tincidunt quis. Proin tincidunt libero ut quam malesuada tincidunt. Nunc porta elit non urna tempus, et ultricies odio aliquam. Donec eu augue at velit auctor pellentesque ac id diam. Ut tincidunt nisi non maximus fermentum. Fusce dui turpis, hendrerit dapibus feugiat non, sollicitudin ultrices velit.</p>
+      
         </article>
-      </main>
+        </main>
+      <footer style={{ marginTop: "auto", textAlign: "center" }}>
+      </footer>
+    
     </div>
+    
   );
 }
 
