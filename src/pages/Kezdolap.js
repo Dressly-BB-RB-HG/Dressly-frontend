@@ -1,18 +1,29 @@
+import React from "react";
 import useAuthContext from "../contexts/AuthContext";
 
 function Kezdolap() {
   const { user } = useAuthContext();
 
   return (
-    <main className="row">
-      <aside className="col-lg-3"></aside>
-      <article className="row col-lg-7">
-        <p>
-          Bejelentkezett felhasználó:{" "}
-          {user === null ? "Nincs bejelentkezett felhasználó!" : user.name}
-        </p>
-      </article>
-    </main>
+    <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
+      <main className="row" style={{ flex: 1 }}>
+        <aside className="col-lg-3"></aside>
+        <article className="row col-lg-7">
+          <p>
+            {user === null ? (
+              "Nincs bejelentkezett felhasználó!"
+            ) : (
+              <>
+                <p>Bejelentkezett felhasználó: {user.name}</p>
+                <p>Felhasználói szerep: {user.role === 1 ? "Admin" : user.role === 2 ? "Raktáros" : "Felhasználó"}</p>
+              </>
+            )}
+          </p>
+        </article>
+      </main>
+      <footer style={{ marginTop: "auto", textAlign: "center" }}>
+      </footer>
+    </div>
   );
 }
 

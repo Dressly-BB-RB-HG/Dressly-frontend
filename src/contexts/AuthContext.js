@@ -49,7 +49,7 @@ export const AuthProvider = ({ children }) => {
       await myAxios.post("/logout");
       setUser(null);
       localStorage.removeItem("user");
-      navigate("/bejelentkezes");
+      navigate("/");
     } catch (error) {
       console.error("Hiba történt a kijelentkezés során:", error);
     }
