@@ -1,42 +1,50 @@
 import { createContext, useEffect, useState } from "react";
 import { myAxios } from "./MyAxios";
 
+export const ApiContext = createContext("");
 
-export const ApiContext = createContext("")
-export const ApiProvider = ({children})=> {
-    const [termekLista, setTermekLista] = useState([])
+export const ApiProvider = ({ children }) => {
+  const [termekLista, setTermekLista] = useState([]);
 
-    const getAdat = async (vegpont, callbackFv ) => {
-        try {
-            const response = await myAxios.get(vegpont, callbackFv);
-            callbackFv( response.data);
-            console.log("adat:", response.data)
-          } catch (err) {
-            console.log("Hiba történt az adat elküldésekor.", err)
+  const getAdat = async (vegpont, callbackFv) => {
+    try {
+      const response = await myAxios.get(vegpont);
+      callbackFv(response.data);
+      console.log("adat:", response.data);
+    } catch (err) {
+      console.log("Hiba történt az adat elküldésekor.", err);
     }
+  };
+
+  const profilFrissit = async (vegpont, callbackFv) => {
+    try {
+      const response = await myAxios.patch(vegpont, callbackFv);
+      console.log("Profil frissítve:", response.data);
+      return response.data;
+    } catch (err) {
+      console.error("Hiba történt a profil frissítésekor.", err);
     }
+  };
 
+  // Modell feltöltése metódus
+  const uploadModel = async (modelData) => {
+    try {
+      const response = await myAxios.post("/api/admin/modell", modelData);
+      console.log("Modell sikeresen feltöltve:", response.data);
+      return response.data;
+    } catch (err) {
+      console.error("Hiba történt a modell feltöltése során:", err);
+      throw err; // Hiba dobása, hogy a hívó függvény tudja kezelni
+    }
+  };
 
-    const profilFrissit = async (vegpont, callbackFv) => {
-        try {
-          const response = await myAxios.patch(vegpont, callbackFv);
-          console.log("Profil frissítve:", response.data);
-          return response.data;
-        } catch (err) {
-          console.error("Hiba történt a profil frissítésekor.", err);
-        }
-      };
+  useEffect(() => {
+    getAdat("/api/admin/modellek", setTermekLista);
+  }, []);
 
-    useEffect(()=>{
-        getAdat("/api/admin/modellek", setTermekLista)
-    },
-    [])
-
-    return (
-        <ApiContext.Provider value = {{termekLista, profilFrissit}}>
-        {children}
-        </ApiContext.Provider>
-    );
-    
-
-}
+  return (
+    <ApiContext.Provider value={{ termekLista, profilFrissit, uploadModel }}>
+      {children}
+    </ApiContext.Provider>
+  );
+};

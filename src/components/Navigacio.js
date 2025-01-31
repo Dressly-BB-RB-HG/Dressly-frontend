@@ -53,7 +53,7 @@ function Navigacio() {
                                     <Nav.Link as={Link} to="/profil">
                                         <img className="ikon" src="/profil.png" alt="profil" />
                                     </Nav.Link>
-                                    <Nav.Link onClick={() => { logout() }}>
+                                    <Nav.Link onClick={logout}>
                                         <img className="ikon" src="/kijelentkezes.png" alt="kijelentkezes" />
                                     </Nav.Link>
                                     {(user.role === 1 || user.role === 2) && (
