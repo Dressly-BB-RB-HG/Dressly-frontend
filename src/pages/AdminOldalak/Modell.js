@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom"; // Átirányításhoz szükséges
-import useAuthContext from "../../contexts/AuthContext"; // AuthContext importálása
+import { useNavigate } from "react-router-dom"; 
+import useAuthContext from "../../contexts/AuthContext"; 
 import { myAxios } from "../../contexts/MyAxios";
 
 const Modell = () => {
   const navigate = useNavigate();
-  const { user } = useAuthContext(); // Bejelentkezett felhasználó lekérése
+  const { user } = useAuthContext(); 
   const [modelData, setModelData] = useState({
     kategoria: "",
     tipus: "",
@@ -13,21 +13,21 @@ const Modell = () => {
     kep: "",
   });
   const [loading, setLoading] = useState(false);
-  const [models, setModels] = useState([]); // Modellek tárolása
+  const [models, setModels] = useState([]); 
 
-  // Jogosultság ellenőrzése, ha nincs jogosultság, átirányítás
+  
   useEffect(() => {
     if (!user || (user.role !== 1 && user.role !== 2)) {
-      navigate("/Bejelentkezes"); // Átirányítjuk a belépési oldalra
+      navigate("/Bejelentkezes"); 
     }
-    fetchModels(); // Lekérjük a modelleket
+    fetchModels(); 
   }, [user, navigate]);
 
   // Modell adatainak lekérése
   const fetchModels = async () => {
     try {
       const response = await myAxios.get("/api/admin/modellek");
-      setModels(response.data); // Modellek beállítása
+      setModels(response.data); 
     } catch (error) {
       console.error("Hiba történt a modellek lekérése során:", error);
       alert("Hiba történt a modellek lekérése során.");
@@ -42,7 +42,7 @@ const Modell = () => {
       await myAxios.post("/api/admin/modell", modelData);
       alert("Új modell sikeresen feltöltve!");
       setModelData({ kategoria: "", tipus: "", gyarto: "", kep: "" });
-      fetchModels(); // Frissítjük a modellek listáját
+      fetchModels(); 
     } catch (error) {
       console.error("Hiba történt a modell feltöltése során:", error);
       alert("Hiba történt a modell feltöltése során.");

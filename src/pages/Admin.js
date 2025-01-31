@@ -1,14 +1,14 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";  // useHistory helyett useNavigate
+import { useNavigate } from "react-router-dom";  
 
-function Admin({ user }) {  // user prop hozzáadása a komponenshez
-  const navigate = useNavigate(); // useNavigate hook inicializálása
+function Admin({ user }) {  
+  const navigate = useNavigate(); 
 
   const handleNavigation = (page) => {
     if (page === "felhasznalok") {
-      navigate("/felhasznalok"); // A felhasználók kezelő oldalra navigálás
+      navigate("/felhasznalok"); 
     } else if (page === "modell") {
-      navigate("/modell"); // A modell kezelő oldalra navigálás
+      navigate("/modell"); 
     }
   };
 

@@ -18,7 +18,7 @@ export const ApiProvider = ({ children }) => {
 
   const profilFrissit = async (vegpont, callbackFv) => {
     try {
-      const response = await myAxios.patch(vegpont, callbackFv);
+      const response = await myAxios.put(vegpont, callbackFv);
       console.log("Profil frissítve:", response.data);
       return response.data;
     } catch (err) {
@@ -26,7 +26,7 @@ export const ApiProvider = ({ children }) => {
     }
   };
 
-  // Modell feltöltése metódus
+
   const uploadModel = async (modelData) => {
     try {
       const response = await myAxios.post("/api/admin/modell", modelData);
@@ -34,7 +34,7 @@ export const ApiProvider = ({ children }) => {
       return response.data;
     } catch (err) {
       console.error("Hiba történt a modell feltöltése során:", err);
-      throw err; // Hiba dobása, hogy a hívó függvény tudja kezelni
+      throw err;
     }
   };
 

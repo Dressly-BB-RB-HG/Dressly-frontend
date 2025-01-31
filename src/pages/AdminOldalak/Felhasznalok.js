@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom"; // Átirányításhoz szükséges
-import useAuthContext from "../../contexts/AuthContext"; // AuthContext importálása
+import useAuthContext from "../../contexts/AuthContext"; 
 import { myAxios } from "../../contexts/MyAxios";
 
 const Felhasznalok = () => {
   const navigate = useNavigate();
-  const { user } = useAuthContext(); // Bejelentkezett felhasználó lekérése
+  const { user } = useAuthContext(); 
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (!user || (user.role !== 1 && user.role !== 2)) {
-      // Ha a felhasználó nincs bejelentkezve, vagy nincs megfelelő jogosultsága
-      navigate("/Bejelentkezes"); // Átirányítjuk a belépési oldalra
+      
+      navigate("/Bejelentkezes"); 
     } else {
-      fetchUsers(); // Ha jogosultság van, lekérjük a felhasználókat
+      fetchUsers(); 
     }
   }, [user, navigate]);
 
@@ -35,7 +35,7 @@ const Felhasznalok = () => {
   const handleRoleChange = async (userId, newRole) => {
     try {
       await myAxios.put(`/api/admin/felhasznalok/${userId}/role`, { role: newRole });
-      fetchUsers(); // Frissítjük a felhasználók listáját
+      fetchUsers(); 
       alert("A szerep sikeresen módosítva!");
     } catch (error) {
       console.error("Hiba történt a szerep módosítása során:", error);
@@ -48,7 +48,7 @@ const Felhasznalok = () => {
     if (window.confirm("Biztosan törölni szeretnéd ezt a felhasználót?")) {
       try {
         await myAxios.delete(`/api/admin/felhasznaloTorles/${userId}`);
-        fetchUsers(); // Frissítjük a felhasználók listáját
+        fetchUsers(); 
         alert("A felhasználó sikeresen törölve!");
       } catch (error) {
         console.error("Hiba történt a felhasználó törlése során:", error);

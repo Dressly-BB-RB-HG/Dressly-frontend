@@ -17,6 +17,8 @@ export const AuthProvider = ({ children }) => {
     email: "",
   });
 
+  
+
   const csrf = () => myAxios.get("/sanctum/csrf-cookie");
 
   const getUser = async () => {
