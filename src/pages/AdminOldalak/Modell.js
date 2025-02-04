@@ -188,7 +188,7 @@ const Modell = () => {
               <th>Gyártó</th>
               <th>Kép</th>
               <th>Törlés</th>
-              <th>Kiegészítés</th>
+              <th>Termék adatok</th>
             </tr>
           </thead>
           <tbody>
@@ -221,7 +221,7 @@ const Modell = () => {
                       className="btn btn-info"
                       onClick={() => handleOpenModal(model)}
                     >
-                      Kiegészítés
+                      Termék adatok frissítése
                     </button>
                   </td>
                 </tr>

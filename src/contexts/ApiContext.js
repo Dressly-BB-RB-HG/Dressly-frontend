@@ -64,12 +64,31 @@ export const ApiProvider = ({ children }) => {
     }
   };
 
+  const updateTermek = async (modellId, termekData) => {
+    try {
+      const response = await myAxios.put(`/api/admin/termek-modosit/${modellId}`, termekData);
+      console.log("Termék sikeresen frissítve:", response.data);
+      
+      // A termekLista frissítése a módosított termékkel
+      setTermekLista((prevState) =>
+        prevState.map((termek) =>
+          termek.modell_id === modellId ? { ...termek, ...termekData } : termek
+        )
+      );
+    } catch (err) {
+      console.error("Hiba történt a termék frissítése során:", err);
+      throw err;
+    }
+  };
+
+
+
   useEffect(() => {
     getAdat("/api/admin/modellek", setTermekLista);
   }, []);
 
   return (
-    <ApiContext.Provider value={{ termekLista, profilFrissit, uploadModel, uploadTermek, deleteModel }}>
+    <ApiContext.Provider value={{ termekLista, profilFrissit, uploadModel, uploadTermek, deleteModel, updateTermek }}>
       {children}
     </ApiContext.Provider>
   );
