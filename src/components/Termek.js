@@ -17,7 +17,7 @@ function Termek(props) {
         <h4 className="gyarto card-text">{props.adat.gyarto}</h4>
         <p className="ar card-text">{props.adat.ar}</p>
         <div className="gombok">
-          <button className="kosarbagomb btn btn-primary mt-4" onClick={() => kosarbaTesz(props.data)}>Kosárba tesz</button>
+          <button className="kosarbagomb btn btn-primary mt-4" onClick={() => kosarbaTesz(props.adat)}>Kosárba tesz</button>
           <button className={`kedvenc-gomb ${kedvenc ? 'kedvenc-aktiv' : ''}`}
           onClick={kedvencKezelo}
           >

@@ -27,7 +27,6 @@ function Admin({ user }) {
 
   return (
     <div className="d-flex flex-column min-vh-100">
-      {/* Fejléc */}
       <header className="bg-light py-4 text-center border-bottom">
         <h1 className="mb-3" style={{ fontSize: "2rem" }}>Adminisztrációs felület</h1>
 
@@ -51,7 +50,7 @@ function Admin({ user }) {
             "Nincs bejelentkezett felhasználó!"
           )}
         </motion.p>
-
+      
         <p className="text-muted" style={{ fontSize: "1.2rem" }}>
           Kérlek válaszd ki, hogy mit szeretnél kezelni.
         </p>

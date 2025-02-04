@@ -1,38 +1,27 @@
-import React, { useState } from 'react'
+import React, { useContext } from 'react';
+import { KosarContext } from '../contexts/KosarContext';
 import KosarElem from './KosarElem';
+import './Kosar.css';
 
-function Kosar({ termekek }) {
-    const [nyitva, setNyitva] = useState(false);
-
-    const kosarOsszeg = termekek.reduce((osszeg, termek) => osszeg + termek.ar, 0);
+function Kosar({ isKosarVisible }) {
+    const { kosarLISTA } = useContext(KosarContext);
 
     return (
-        <div className="relative">
-            <button 
-                onClick={() => setNyitva(!nyitva)} 
-                className="w-full px-4 py-2 bg-blue-500 text-white rounded-lg">
-                Kosár ({termekek.length} tétel) - {kosarOsszeg} Ft
-            </button>
-
-            {nyitva && (
-                <div className="absolute top-full right-0 w-64 mt-2 p-4 bg-white border rounded-lg shadow-lg">
-                    {termekek.length > 0 ? (
-                        <div>
-                            {termekek.map((termek, index) => (
-                                <KosarElem key={index} adat={termek} />
-                            ))}
-                            <p className="mt-4 font-bold">Teljes összeg: {kosarOsszeg} Ft</p>
-                            <button className="mt-2 w-full px-4 py-2 bg-green-500 text-white rounded-lg">
-                                Tovább a fizetéshez
-                            </button>
-                        </div>
-                    ) : (
-                        <p>A kosár üres.</p>
-                    )}
-                </div>
+        <div className={`kosar ${isKosarVisible ? 'visible' : ''}`}>
+            <h2 className="kosar-title">Kosár</h2>
+            {kosarLISTA.length > 0 ? (
+                kosarLISTA.map((adat, index) => (
+                    <div className="kosar-item" key={index}>
+                        <KosarElem adat={adat} />
+                        
+                    </div>
+                ))
+            ) : (
+                <p className="kosar-item">A kosár üres.</p>
             )}
+            <button className="kosar-button">Megrendelés</button>
         </div>
     );
 }
 
-export default Kosar
+export default Kosar;
