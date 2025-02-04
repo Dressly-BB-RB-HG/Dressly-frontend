@@ -3,10 +3,12 @@ import { Link } from 'react-router-dom';
 import { Navbar, Nav, Container } from 'react-bootstrap';
 import useAuthContext from "../contexts/AuthContext";
 import './Navigacio.css';
+import Kosar from './Kosar';
 
 function Navigacio() {
     const { user, logout } = useAuthContext();
     const [isScrolled, setIsScrolled] = useState(false);
+    const [isKosarVisible, setIsKosarVisible] = useState(false); // Alapból legyen rejtve
 
     useEffect(() => {
         const handleScroll = () => {
@@ -18,10 +20,14 @@ function Navigacio() {
         };
     }, []);
 
+    const toggleKosar = () => {
+        setIsKosarVisible(prevState => !prevState);
+    };
+
     return (
+        <>
         <Navbar expand="lg" className={isScrolled ? "navbar navbar-scrolled" : "navbar"}>
             <Container>
-                {/* Logo és bal oldali menüpontok */}
                 <Navbar.Brand>
                     <img
                         className={isScrolled ? "logo logo-small" : "logo"}
@@ -31,18 +37,15 @@ function Navigacio() {
                 </Navbar.Brand>
 
                 <Navbar.Toggle aria-controls="navbarNav" />
-
+                
                 <Navbar.Collapse id="navbarNav">
                     <div className="d-flex w-100 justify-content-between">
-                        {/* Bal oldali menüpontok */}
                         <Nav className="d-flex">
                             <Nav.Link as={Link} to="/">Kezdőlap</Nav.Link>
                             <Nav.Link as={Link} to="/ruhazat">Termékek</Nav.Link>
                         </Nav>
-
-                        {/* Jobb oldali menüpontok */}
                         <Nav className="d-flex">
-                            <Nav.Link as={Link} to="/kosar">
+                            <Nav.Link as={Link} onClick={toggleKosar}>
                                 <img className="ikon" src="/kosar.png" alt="kosar" />
                             </Nav.Link>
                             <Nav.Link as={Link} to="/kivansaglista">
@@ -70,6 +73,8 @@ function Navigacio() {
                 </Navbar.Collapse>
             </Container>
         </Navbar>
+        <Kosar isKosarVisible={isKosarVisible} />
+        </>
     );
 }
 

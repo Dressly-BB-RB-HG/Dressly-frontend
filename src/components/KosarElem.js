@@ -1,9 +1,12 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { KosarContext } from '../contexts/KosarContext';
 
 function KosarElem(props) {
+  const { kosarbolTorol } = useContext(KosarContext);
   return (
     <div>
-        <p>{props.adat.marka}{props.adat.ar}Ft</p>
+        {props.adat.gyarto}-{props.adat.ar}Ft{props.adat.meret}
+        <button onClick={kosarbolTorol}>🗑️</button>
     </div>
   )
 }

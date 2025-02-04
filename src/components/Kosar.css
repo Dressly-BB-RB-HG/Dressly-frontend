@@ -1,0 +1,57 @@
+.kosar {
+    position: fixed;
+    right: 20px;
+    top: 160px;
+    width: 620px;
+    background-color: #EFD9CE;
+    border: 1px solid #5C3D2E;
+    border-radius: 24px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    padding: 16px;
+    text-align: center;
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+    z-index: 1000;
+    /* elrejtve */
+    opacity: 0;
+    transform: translateY(-20px);
+    pointer-events: none;
+    
+}
+
+.kosar.visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.kosar-item {
+    background: white;
+    padding: 12px;
+    border-radius: 12px;
+    margin-bottom: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.kosar-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 12px;
+    color: #5C3D2E;
+}
+
+.kosar-button {
+    width: 100%;
+    background-color: #5C3D2E;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 12px;
+}
+
+.kosar-button:hover {
+    background-color: #8A5A44;
+}
