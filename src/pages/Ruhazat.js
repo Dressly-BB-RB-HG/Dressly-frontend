@@ -4,6 +4,7 @@ import Termekek from '../components/Termekek'
 import './pages-css/Ruhazat.css';
 
 function Ruhazat() {
+
     return (
         <div className="container-fluid">
             <div className="szuroFeltetelek">

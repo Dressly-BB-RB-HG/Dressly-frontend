@@ -47,7 +47,7 @@ const Felhasznalok = () => {
   const handleDelete = async (userId) => {
     if (window.confirm("Biztosan törölni szeretnéd ezt a felhasználót?")) {
       try {
-        await myAxios.delete(`/api/admin/felhasznaloTorles/${userId}`);
+        await myAxios.delete(`/api/admin/felhasznalo-torles/${userId}`);
         fetchUsers(); 
         alert("A felhasználó sikeresen törölve!");
       } catch (error) {
