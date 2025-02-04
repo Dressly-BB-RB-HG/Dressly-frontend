@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom"; 
 import useAuthContext from "../../contexts/AuthContext"; 
 import { myAxios } from "../../contexts/MyAxios";
+import Termekmodel from "./Termekmodel"; // A külön komponens a termék kiegészítéshez
 
 const Modell = () => {
   const navigate = useNavigate();
@@ -14,8 +15,9 @@ const Modell = () => {
   });
   const [loading, setLoading] = useState(false);
   const [models, setModels] = useState([]); 
+  const [isModalOpen, setIsModalOpen] = useState(false); // A modális ablak nyitásához
+  const [selectedModel, setSelectedModel] = useState(null); // Kiválasztott modell
 
-  
   useEffect(() => {
     if (!user || (user.role !== 1 && user.role !== 2)) {
       navigate("/Bejelentkezes"); 
@@ -51,6 +53,20 @@ const Modell = () => {
     }
   };
 
+  // Modell törlése
+  const handleDeleteModel = async (modelId) => {
+    if (window.confirm("Biztosan törölni szeretnéd ezt a modellt?")) {
+      try {
+        await myAxios.delete(`/api/admin/modell-torles/${modelId}`);
+        alert("Modell sikeresen törölve!");
+        fetchModels();  // Frissítjük a modellek listáját a törlés után
+      } catch (error) {
+        console.error("Hiba történt a modell törlése során:", error);
+        alert("Hiba történt a modell törlése során.");
+      }
+    }
+  };
+
   // Kategória szövegek lekérése
   const getCategoryText = (kategoria) => {
     switch (kategoria) {
@@ -73,6 +89,12 @@ const Modell = () => {
       default:
         return "";
     }
+  };
+
+  // Kiegészítés gomb kattintásakor megjelenik a modális ablak
+  const handleOpenModal = (model) => {
+    setSelectedModel(model);
+    setIsModalOpen(true);
   };
 
   return (
@@ -165,6 +187,8 @@ const Modell = () => {
               <th>Típus</th>
               <th>Gyártó</th>
               <th>Kép</th>
+              <th>Törlés</th>
+              <th>Kiegészítés</th>
             </tr>
           </thead>
           <tbody>
@@ -184,11 +208,27 @@ const Modell = () => {
                       style={{ width: "100px", height: "auto" }}
                     />
                   </td>
+                  <td>
+                    <button
+                      className="btn btn-danger"
+                      onClick={() => handleDeleteModel(model.modell_id)}
+                    >
+                      Törlés
+                    </button>
+                  </td>
+                  <td>
+                    <button
+                      className="btn btn-info"
+                      onClick={() => handleOpenModal(model)}
+                    >
+                      Kiegészítés
+                    </button>
+                  </td>
                 </tr>
               ))
             ) : (
               <tr>
-                <td colSpan="5" className="text-center">
+                <td colSpan="7" className="text-center">
                   Nincsenek modellek.
                 </td>
               </tr>
@@ -196,6 +236,15 @@ const Modell = () => {
           </tbody>
         </table>
       </div>
+
+      {/* Modális ablak megjelenítése a termékek feltöltéséhez */}
+      {isModalOpen && (
+        <Termekmodel
+          model={selectedModel}
+          closeModal={() => setIsModalOpen(false)}
+          fetchModels={fetchModels}
+        />
+      )}
     </div>
   );
 };
