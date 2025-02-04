@@ -10,51 +10,67 @@ const Termekmodel = ({ model, closeModal, fetchModels }) => {
     ar: 0,
   });
 
-  // Termék adatok betöltése a modell ID alapján
-  useEffect(() => {
-    const fetchTermekData = async () => {
+  // A szerkesztés gombra kattintva hívjuk meg a terméket
+  const handleEdit = async () => {
+    if (model && model.modell_id) {
       try {
-        const response = await myAxios.get(`/api/admin/termek/${model.modell_id}`);
-        const data = response.data.termek;
-        setTermekData({
-          szin: data.szin,
-          meret: data.meret,
-          keszlet: data.keszlet,
-          ar: data.ar,
-        });
+        const response = await myAxios.get(`/api/admin/termekek/${model.modell_id}`);
+        if (response.data.termek) {
+          const data = response.data.termek;
+          setTermekData({
+            szin: data.szin,
+            meret: data.meret,
+            keszlet: data.keszlet,
+            ar: data.ar,
+          });
+        } else {
+          console.log('Nem található termék az adott modellhez');
+          alert('Ez a modell nem rendelkezik termékadatokkal.');
+        }
       } catch (error) {
-        console.error("Hiba történt a termék adatainak betöltése során:", error);
+        console.error('Figyelem! Még nem lettek feltöltve termék értékek a modellhez!', error.response ? error.response.data : error.message);
+        alert('Figyelem! Még nem lettek feltöltve termék értékek a modellhez!');
       }
-    };
-
-    if (model.modell_id) {
-      fetchTermekData();
     }
-  }, [model.modell_id]);
+  };
+
+  // Betöltjük a termékadatokat amikor a modell megváltozik (ha szükséges)
+  useEffect(() => {
+    handleEdit();
+  }, [model]);
 
   const handleTermekSubmit = async (e) => {
     e.preventDefault();
     try {
-      await myAxios.post(`/api/admin/termek`, {
-        modell_id: model.modell_id,  // A modell_id-t is át kell adni a requestben
+      console.log('Termékadatok:', termekData);
+      console.log('Aktuális modell:', model.modell_id);
+  
+      // PUT kérés az API-ra (ez automatikusan új terméket is létrehoz, ha kell)
+      await myAxios.put(`/api/admin/termek-modosit/${model.modell_id}`, {
+        modell: model.modell_id, 
         ...termekData,
       });
-      alert("Termék sikeresen feltöltve!");
+  
+      alert("Termék sikeresen mentve!");
       setTermekData({ szin: "", meret: "", keszlet: "", ar: "" });
-      fetchModels();
-      closeModal();
+      fetchModels(); // A modellek újratöltése
+      closeModal(); // Modális ablak bezárása
     } catch (error) {
-      console.error("Hiba történt a termék feltöltése során:", error);
-      alert("Hiba történt a termék feltöltése során.");
+      console.error("Hiba történt a termék frissítése során:", error.response ? error.response.data : error.message);
+      alert("Hiba történt a termék frissítése során.");
     }
   };
 
   return (
     <Modal show={true} onHide={closeModal} size="lg">
       <Modal.Header closeButton>
-        <Modal.Title>Termék kiegészítése</Modal.Title>
+        <Modal.Title>Termék adatok feltöltése</Modal.Title>
       </Modal.Header>
       <Modal.Body>
+        <div>
+          <p><strong>Aktuális Modell ID: </strong>{model.modell_id}</p>
+        </div>
+
         <Form onSubmit={handleTermekSubmit}>
           <Form.Group className="mb-3" controlId="szin">
             <Form.Label>Szín</Form.Label>
@@ -111,7 +127,7 @@ const Termekmodel = ({ model, closeModal, fetchModels }) => {
 
           <div className="d-flex justify-content-center">
             <Button variant="success" type="submit" size="lg">
-              Feltöltés
+              Frissítés
             </Button>
           </div>
         </Form>
