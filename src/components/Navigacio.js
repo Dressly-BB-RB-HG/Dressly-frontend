@@ -8,7 +8,7 @@ import Kosar from './Kosar';
 function Navigacio() {
     const { user, logout } = useAuthContext();
     const [isScrolled, setIsScrolled] = useState(false);
-    const [isKosarVisible, setIsKosarVisible] = useState(false); // Alapból legyen rejtve
+    const [isKosarVisible, setIsKosarVisible] = useState(false);
 
     useEffect(() => {
         const handleScroll = () => {
