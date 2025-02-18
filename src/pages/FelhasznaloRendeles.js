@@ -3,12 +3,15 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import useAuthContext from "../contexts/AuthContext";
 import { myAxios } from "../contexts/MyAxios";
+import RendelesPopup from "./FelhasznaloRendelesPopup";  // Importáljuk a popup komponenst
 
 const FelhasznaloRendeles = () => {
   const navigate = useNavigate();
   const { user } = useAuthContext();
   const [rendeles, setRendeles] = useState([]);
-
+  const [selectedRendeles, setSelectedRendeles] = useState(null);
+  const [rendelesTetel, setRendelesTetel] = useState([]);
+  
   useEffect(() => {
     if (!user) {
       navigate("/bejelentkezes");
@@ -25,6 +28,32 @@ const FelhasznaloRendeles = () => {
       console.error("Hiba történt a rendelések lekérése során:", error);
       alert("Hiba történt a rendelések lekérése során.");
     }
+  };
+
+  const fetchRendelesTetel = async (rendelesSzam) => {
+    try {
+      const response = await myAxios.get(`/api/rendeles/${rendelesSzam}/tetel`);
+      const termekek = await Promise.all(
+        response.data.map(async (rendeles_tetel) => {
+          const termekResponse = await myAxios.get(`/api/termek/${rendeles_tetel.termek_id}`);
+          return { ...rendeles_tetel, ...termekResponse.data };
+        })
+      );
+      setRendelesTetel(termekek);
+    } catch (error) {
+      console.error("Hiba történt a rendelés tételeinek lekérése során:", error);
+      alert("Hiba történt a rendelés tételeinek lekérése során.");
+    }
+  };
+
+  const handleRendelesClick = (rendelesSzam) => {
+    setSelectedRendeles(rendelesSzam);
+    fetchRendelesTetel(rendelesSzam);
+  };
+
+  const closePopup = () => {
+    setSelectedRendeles(null);
+    setRendelesTetel([]);
   };
 
   return (
@@ -46,7 +75,7 @@ const FelhasznaloRendeles = () => {
           )}
         </ul>
       </div>
-      
+
       <div className="container my-5">
         <div className="col-lg-12 mt-5">
           <h3 className="text-center mb-4">Rendelések</h3>
@@ -57,6 +86,7 @@ const FelhasznaloRendeles = () => {
                 <th>Rendelés Szám</th>
                 <th>Rendelés Dátum</th>
                 <th>Fizetve</th>
+                <th>Részletek</th>
               </tr>
             </thead>
             <tbody>
@@ -67,11 +97,16 @@ const FelhasznaloRendeles = () => {
                     <td>{rendeles.rendeles_szam}</td>
                     <td>{new Date(rendeles.rendeles_datum).toLocaleDateString()}</td>
                     <td>{rendeles.fizetve_e ? "Igen" : "Nem"}</td>
+                    <td>
+                      <button className="btn btn-info" onClick={() => handleRendelesClick(rendeles.rendeles_szam)}>
+                        Részletek
+                      </button>
+                    </td>
                   </tr>
                 ))
               ) : (
                 <tr>
-                  <td colSpan="4" className="text-center">
+                  <td colSpan="5" className="text-center">
                     Nincsenek rendelések.
                   </td>
                 </tr>
@@ -80,6 +115,11 @@ const FelhasznaloRendeles = () => {
           </table>
         </div>
       </div>
+
+      {/* Popup ablak, ha van kijelölt rendelés */}
+      {selectedRendeles && (
+        <RendelesPopup rendelesTetel={rendelesTetel} closePopup={closePopup} />
+      )}
     </div>
   );
 };
