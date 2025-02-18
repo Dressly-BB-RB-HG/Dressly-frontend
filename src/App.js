@@ -12,6 +12,7 @@ import { KosarProvider } from "./contexts/KosarContext";
 import Felhasznalok from './pages/AdminOldalak/Felhasznalok';
 import Modell from './pages/AdminOldalak/Modell';
 import Rendelesek from './pages/AdminOldalak/Rendelesek';
+import FelhasznaloRendeles from './pages/FelhasznaloRendeles';
 
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
               <Route path="felhasznalok" element={<Felhasznalok />} />
               <Route path="modell" element={<Modell />} />
               <Route path="rendelesek" element={<Rendelesek />} />
+              <Route path="felhasznalorendelesek" element={<FelhasznaloRendeles />} />
             </Route>
           </Routes>
         </AuthProvider>
