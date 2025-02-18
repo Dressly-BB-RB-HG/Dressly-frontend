@@ -35,7 +35,7 @@ const FelhasznaloRendeles = () => {
       const response = await myAxios.get(`/api/rendeles/${rendelesSzam}/tetel`);
       const termekek = await Promise.all(
         response.data.map(async (rendeles_tetel) => {
-          const termekResponse = await myAxios.get(`/api/termek/${rendeles_tetel.termek_id}`);
+          const termekResponse = await myAxios.get(`/api/termek/${rendeles_tetel.termek}`);
           return { ...rendeles_tetel, ...termekResponse.data };
         })
       );
