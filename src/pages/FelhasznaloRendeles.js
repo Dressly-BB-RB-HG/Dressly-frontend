@@ -38,6 +38,7 @@ const FelhasznaloRendeles = () => {
           <li className="nav-item">
             <Link className="nav-link text-dark fw-bold px-3 py-2 rounded bg-secondary bg-opacity-25" to="/felhasznalorendelesek">Rendeléseim</Link>
           </li>
+          <hr className="my-3" />
           {(user.role === 1 || user.role === 2) && (
             <li className="nav-item mb-2">
               <Link className="nav-link text-dark fw-bold px-3 py-2 rounded bg-secondary bg-opacity-25" to="/admin">Adminisztrációs felület</Link>
