@@ -46,7 +46,7 @@ function Profil() {
     }
   };
 
-  const getGreeting = () => {
+  const udvozles = () => {
     const hour = new Date().getHours();
     if (hour < 12) return 'Jó reggelt';
     if (hour < 18) return 'Jó napot';
@@ -68,7 +68,7 @@ function Profil() {
             <Link className="nav-link text-dark fw-bold px-3 py-2 rounded bg-secondary bg-opacity-25" to="/felhasznalorendelesek">Rendeléseim</Link>
           </li>
           <hr className="my-3" />
-          {/* Adminisztrációs felület link megjelenítése megfelelő szerepkör esetén */}
+          
           {(user.role === 1 || user.role === 2) && (
             <li className="nav-item mb-2">
               <Link className="nav-link text-dark fw-bold px-3 py-2 rounded bg-secondary bg-opacity-25" to="/admin">Adminisztrációs felület</Link>
@@ -77,7 +77,7 @@ function Profil() {
         </ul>
       </div>
 
-      {/* Jobb oldal: üdvözlés és profil frissítés */}
+      
       <div className="flex-grow-1 d-flex flex-column align-items-center justify-content-center bg-light" style={{ padding: '20px' }}>
         <motion.div 
           className="text-center mb-4"
@@ -85,7 +85,7 @@ function Profil() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="fw-bold" style={{ color: "#4CAF50" }}>{getGreeting()}, {user?.name}!</h2>
+          <h2 className="fw-bold" style={{ color: "#4CAF50" }}>{udvozles()}, {user?.name}!</h2>
           <p className="text-muted">Dátum: {today}</p>
         </motion.div>
         

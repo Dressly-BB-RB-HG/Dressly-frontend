@@ -32,16 +32,16 @@ function Lablec() {
             <div className="container">
                 <div className="row">
                     <div className="col-md-6">
-                        <p>&copy; {new Date().getFullYear()} Dressly. Minden jog fenntartva.</p>
+                        <p style={{ color: 'black' }}>&copy; {new Date().getFullYear()} Dressly. Minden jog fenntartva.</p>
                     </div>
                     <div className="col-md-6 text-end">
-                    <button className="btn btn-link me-3" aria-label="Facebook">
+                    <button className="btn btn-link me-3" aria-label="Facebook" style={{ color: 'black' }}>
                         <i className="fa fa-facebook fa-lg"></i>
                     </button>
-                    <button className="btn btn-link me-3" aria-label="Instagram">
+                    <button className="btn btn-link me-3" aria-label="Instagram" style={{ color: 'black' }}>
                         <i className="fa fa-instagram fa-lg"></i>
                     </button>
-                    <button className="btn btn-link me-3" aria-label="YouTube">
+                    <button className="btn btn-link me-3" aria-label="YouTube" style={{ color: 'black' }}>
                         <i className="fa fa-youtube fa-lg"></i>
                     </button>
                     </div>
