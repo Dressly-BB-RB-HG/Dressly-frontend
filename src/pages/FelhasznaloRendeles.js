@@ -54,12 +54,12 @@ const FelhasznaloRendeles = () => {
             </thead>
             <tbody>
               {rendeles.length > 0 ? (
-                rendeles.map((order, index) => (
-                  <tr key={order.kod}>
+                rendeles.map((rendeles, index) => (
+                  <tr key={rendeles.kod}>
                     <td>{index + 1}</td>
-                    <td>{order.rendeles_szam}</td>
-                    <td>{new Date(order.rendeles_datum).toLocaleDateString()}</td>
-                    <td>{order.fizetve_e ? "Igen" : "Nem"}</td>
+                    <td>{rendeles.rendeles_szam}</td>
+                    <td>{new Date(rendeles.rendeles_datum).toLocaleDateString()}</td>
+                    <td>{rendeles.fizetve_e ? "Igen" : "Nem"}</td>
                   </tr>
                 ))
               ) : (

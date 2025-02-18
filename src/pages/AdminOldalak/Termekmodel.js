@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { myAxios } from "../../contexts/MyAxios";
-import { Modal, Button, Form } from "react-bootstrap"; // React Bootstrap importálása
+import { Modal, Button, Form } from "react-bootstrap"; 
 
 const Termekmodel = ({ model, closeModal, fetchModels }) => {
   const [termekData, setTermekData] = useState({
