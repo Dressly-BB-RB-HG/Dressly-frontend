@@ -118,7 +118,8 @@ const FelhasznaloRendeles = () => {
 
       {/* Popup ablak, ha van kijelölt rendelés */}
       {selectedRendeles && (
-        <RendelesPopup rendelesTetel={rendelesTetel} closePopup={closePopup} />
+        <RendelesPopup rendelesSzam={selectedRendeles} closePopup={closePopup} />
+
       )}
     </div>
   );
