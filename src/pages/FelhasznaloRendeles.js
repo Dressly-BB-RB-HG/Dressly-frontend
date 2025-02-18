@@ -12,13 +12,14 @@ const FelhasznaloRendeles = () => {
   useEffect(() => {
     if (!user) {
       navigate("/bejelentkezes");
+    } else {
+      fetchRendeles(user.id);
     }
-    fetchRendeles();
   }, [user, navigate]);
 
-  const fetchRendeles = async () => {
+  const fetchRendeles = async (userID) => {
     try {
-      const response = await myAxios.get("/api/rendelesek");
+      const response = await myAxios.get(`/api/felhasznalo/${userID}/rendelesek`);
       setRendeles(response.data);
     } catch (error) {
       console.error("Hiba történt a rendelések lekérése során:", error);
@@ -37,6 +38,11 @@ const FelhasznaloRendeles = () => {
           <li className="nav-item">
             <Link className="nav-link text-dark fw-bold px-3 py-2 rounded bg-secondary bg-opacity-25" to="/felhasznalorendelesek">Rendeléseim</Link>
           </li>
+          {(user.role === 1 || user.role === 2) && (
+            <li className="nav-item mb-2">
+              <Link className="nav-link text-dark fw-bold px-3 py-2 rounded bg-secondary bg-opacity-25" to="/admin">Adminisztrációs felület</Link>
+            </li>
+          )}
         </ul>
       </div>
       
@@ -55,7 +61,7 @@ const FelhasznaloRendeles = () => {
             <tbody>
               {rendeles.length > 0 ? (
                 rendeles.map((rendeles, index) => (
-                  <tr key={rendeles.kod}>
+                  <tr key={rendeles.rendeles_szam}>
                     <td>{index + 1}</td>
                     <td>{rendeles.rendeles_szam}</td>
                     <td>{new Date(rendeles.rendeles_datum).toLocaleDateString()}</td>
