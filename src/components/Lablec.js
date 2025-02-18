@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import './Lablec.css';
-import { myAxios } from '../contexts/MyAxios';  // A myAxios importálása
+import { myAxios } from '../contexts/MyAxios';  
 import { useNavigate } from 'react-router-dom';
 
 function Lablec() {
-    const [isSubscribed, setIsSubscribed] = useState(false);  // Feliratkozás állapota
+    const [isSubscribed, setIsSubscribed] = useState(false);  
     const navigate = useNavigate();
 
     const handleCheckboxChange = (event) => {
@@ -14,10 +14,10 @@ function Lablec() {
     const handleSubmit = async () => {
         if (isSubscribed) {
             try {
-                // Feliratkozás kérés küldése a backendre
-                await myAxios.patch('/api/feliratkozas-hirlevelre', { subscribed: true });
+                
+                await myAxios.patch('/api/feliratkozas-hirlevelre', { subscribed: false });
                 alert('Sikeresen feliratkoztál a hírlevélre!');
-                navigate('/');  // Például visszairányítunk a főoldalra
+                navigate('/');
             } catch (err) {
                 alert('Hiba történt a feliratkozás során.');
                 console.error('Hiba történt:', err);
@@ -35,9 +35,15 @@ function Lablec() {
                         <p>&copy; {new Date().getFullYear()} Dressly. Minden jog fenntartva.</p>
                     </div>
                     <div className="col-md-6 text-end">
-                        <a href="#" className="me-3"><i className="fa fa-facebook fa-lg"></i></a>
-                        <a href="#" className="me-3"><i className="fa fa-instagram fa-lg"></i></a>
-                        <a href="#" className="me-3"><i className="fa fa-youtube fa-lg"></i></a>
+                    <button className="btn btn-link me-3" aria-label="Facebook">
+                        <i className="fa fa-facebook fa-lg"></i>
+                    </button>
+                    <button className="btn btn-link me-3" aria-label="Instagram">
+                        <i className="fa fa-instagram fa-lg"></i>
+                    </button>
+                    <button className="btn btn-link me-3" aria-label="YouTube">
+                        <i className="fa fa-youtube fa-lg"></i>
+                    </button>
                     </div>
                     <div className="col-md-12 text-center mt-4">
                         <div className="newsletter-subscription">

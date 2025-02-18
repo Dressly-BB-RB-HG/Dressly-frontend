@@ -59,9 +59,6 @@ function Navigacio() {
                                     <Nav.Link onClick={logout}>
                                         <img className="ikon" src="/kijelentkezes.png" alt="kijelentkezes" />
                                     </Nav.Link>
-                                    {(user.role === 1 || user.role === 2) && (
-                                        <Nav.Link as={Link} to="/admin">Adminisztrációs felület</Nav.Link>
-                                    )}
                                 </>
                             ) : (
                                 <Nav.Link as={Link} to="/bejelentkezes">

@@ -30,7 +30,7 @@ function Admin({ user }) {
       <header className="bg-light py-4 text-center border-bottom">
         <h1 className="mb-3" style={{ fontSize: "2rem" }}>Adminisztrációs felület</h1>
 
-        {/* Üdvözlés animációval */}
+        
         <motion.p
           className="text-muted fw-bold text-center mt-3"
           style={{ fontSize: "1.3rem", color: "#333" }}
