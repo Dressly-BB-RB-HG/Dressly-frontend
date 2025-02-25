@@ -9,12 +9,11 @@ export const KosarProvider = ({ children }) => {
     });
 
     const [kosarLISTA, setKosarLista] = useState(() => {
-        // Betöltjük a kosarat csak akkor, ha a user be van jelentkezve
         const storedKosar = localStorage.getItem("kosar");
         return storedKosar ? JSON.parse(storedKosar) : [];
     });
 
-    // 1️⃣ Kosár szinkronizálása bejelentkezés/kijelentkezés esetén
+
     useEffect(() => {
         if (user) {
             const storedKosar = localStorage.getItem("kosar");
@@ -22,33 +21,32 @@ export const KosarProvider = ({ children }) => {
                 setKosarLista(JSON.parse(storedKosar)); // Ha be van jelentkezve, betöltjük a kosarat
             }
         } else {
-            setKosarLista([]); // Kijelentkezéskor töröljük a kosarat
+            setKosarLista([]);
             localStorage.removeItem("kosar");
         }
     }, [user]);
 
-    // 2️⃣ Kosár frissítése és mentése localStorage-ba
+
     useEffect(() => {
         if (kosarLISTA.length > 0) {
             localStorage.setItem("kosar", JSON.stringify(kosarLISTA)); // Kosár elmentése
         }
-    }, [kosarLISTA]); // Kosár frissítésekor mindig mentjük el
+    }, [kosarLISTA]);
 
     function kosarbaTesz(adat) {
-        if (!user) return alert("Jelentkezz be vagy regisztrálj!"); // Csak bejelentkezett felhasználók tehetnek a kosárba
+        if (!user) return alert("Jelentkezz be vagy regisztrálj!");
 
         setKosarLista((prevKosar) => {
             const ujKosar = [...prevKosar, adat];
-            return ujKosar; // Kosár frissítése
+            return ujKosar; 
         });
     }
 
-    const kosarbolTorol = (id) => {
-        if (!user) return;
+    const kosarbolTorol = (termek_id) => {
 
         setKosarLista((prevKosar) => {
-            const updatedKosar = prevKosar.filter((termek) => termek.id !== id);
-            return updatedKosar; // Kosár frissítése
+            const updatedKosar = prevKosar.filter((termek) => termek.termek_id !== termek_id);
+            return updatedKosar; 
         });
     };
 
