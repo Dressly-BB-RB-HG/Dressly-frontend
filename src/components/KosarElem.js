@@ -4,6 +4,7 @@ import { KosarContext } from '../contexts/KosarContext';
 function KosarElem(props) {
   const { kosarbolTorol } = useContext(KosarContext);
 
+
   const handleDelete = () => {
     kosarbolTorol(props.adat.termek_id);
   };

@@ -1,4 +1,5 @@
 import { createContext, useState, useEffect } from "react";
+import axios from "axios"; // Importáljuk az axios-t
 
 export const KosarContext = createContext("");
 
@@ -13,7 +14,6 @@ export const KosarProvider = ({ children }) => {
         return storedKosar ? JSON.parse(storedKosar) : [];
     });
 
-
     useEffect(() => {
         if (user) {
             const storedKosar = localStorage.getItem("kosar");
@@ -26,27 +26,38 @@ export const KosarProvider = ({ children }) => {
         }
     }, [user]);
 
-
     useEffect(() => {
         if (kosarLISTA.length > 0) {
             localStorage.setItem("kosar", JSON.stringify(kosarLISTA)); // Kosár elmentése
         }
     }, [kosarLISTA]);
 
-    function kosarbaTesz(adat) {
+    // Kosárba tétel API hívás
+    const kosarbaTesz = async (adat) => {
         if (!user) return alert("Jelentkezz be vagy regisztrálj!");
 
-        setKosarLista((prevKosar) => {
-            const ujKosar = [...prevKosar, adat];
-            return ujKosar; 
-        });
-    }
+        try {
+            // API hívás
+            const response = await axios.post('/api/kosar', {
+                termek_id: adat.termek_id,
+                mennyiseg: 1 // Alapértelmezett mennyiség, vagy módosítható
+            }, {
+                headers: {
+                    Authorization: `Bearer ${user.token}` // Bejelentkezett felhasználó tokenjének átadása
+                }
+            });
+
+            // Kosár lista frissítése
+            setKosarLista((prevKosar) => [...prevKosar, response.data]);
+        } catch (error) {
+            console.error('Hiba a kosárba tétel során:', error);
+        }
+    };
 
     const kosarbolTorol = (termek_id) => {
-
         setKosarLista((prevKosar) => {
             const updatedKosar = prevKosar.filter((termek) => termek.termek_id !== termek_id);
-            return updatedKosar; 
+            return updatedKosar;
         });
     };
 

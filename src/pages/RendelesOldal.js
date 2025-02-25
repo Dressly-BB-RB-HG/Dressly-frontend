@@ -2,17 +2,17 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useAuthContext from '../contexts/AuthContext';
 // import { ApiContext } from '../contexts/ApiContext';
-import { Link } from 'react-router-dom';
+//import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 // import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row, Col, Card, ListGroup, Button, Form } from 'react-bootstrap'; // Importáljuk a szükséges komponenseket
 
 function RendelésOldal() {
-  const { user, errors } = useAuthContext();
+  const { user, /* errors */} = useAuthContext();
   const navigate = useNavigate(); // A navigate hook importálása
 
-  const [kosar, setKosar] = useState([]);
+  const [kosar, /* setKosar */] = useState([]);
   const [szallitasiCim, setSzallitasiCim] = useState({
     utca: '',
     iranyitoszam: '',
