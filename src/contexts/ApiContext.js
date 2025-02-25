@@ -5,10 +5,11 @@ export const ApiContext = createContext("");
 
 export const ApiProvider = ({ children }) => {
   const [termekLista, setTermekLista] = useState([]);
+  const [kategoriak, setKategoriak] = useState([])
 
   const getAdat = async (vegpont, callbackFv) => {
     try {
-      const response = await myAxios.get(vegpont);
+      const response = await myAxios.get(vegpont, callbackFv);
       callbackFv(response.data);
       console.log("adat:", response.data);
     } catch (err) {
@@ -84,10 +85,11 @@ export const ApiProvider = ({ children }) => {
 
   useEffect(() => {
     getAdat("/api/termek-minden-adattal", setTermekLista);
+    getAdat("/api/modellek-kategoriaval", setKategoriak)
   }, []);
 
   return (
-    <ApiContext.Provider value={{ termekLista, profilFrissit, uploadModel, uploadTermek, deleteModel, updateTermek }}>
+    <ApiContext.Provider value={{ termekLista, kategoriak, profilFrissit, uploadModel, uploadTermek, deleteModel, updateTermek }}>
       {children}
     </ApiContext.Provider>
   );
