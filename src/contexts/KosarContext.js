@@ -4,38 +4,36 @@ import { myAxios } from "./MyAxios";
 export const KosarContext = createContext("");
 
 export const KosarProvider = ({ children }) => {
-    const [user, setUser] = useState(() => {
-        const storedUser = localStorage.getItem("user");
-        return storedUser ? JSON.parse(storedUser) : null;
-    });
+    const [user, setUser] = useState(null); // Alapértelmezés szerint nincs beállítva felhasználó
+    const [kosarLISTA, setKosarLista] = useState([]); // Kosár alapértelmezés szerint üres
 
-    const [kosarLISTA, setKosarLista] = useState(() => {
-        const storedKosar = localStorage.getItem("kosar");
-        return storedKosar ? JSON.parse(storedKosar) : [];
-    });
-
+    // Ha be van jelentkezve a felhasználó, töltse be a kosarat az adatbázisból
     useEffect(() => {
         if (user) {
-            const storedKosar = localStorage.getItem("kosar");
-            if (storedKosar) {
-                setKosarLista(JSON.parse(storedKosar)); // Ha be van jelentkezve, betöltjük a kosarat
-            }
+            const fetchKosar = async () => {
+                try {
+                    const response = await myAxios.get('/api/kosar', {
+                        headers: {
+                            Authorization: `Bearer ${user.token}`
+                        }
+                    });
+                    setKosarLista(response.data); // A válaszban kapott adatokat beállítjuk
+                } catch (error) {
+                    console.error('Hiba a kosár betöltése során:', error);
+                }
+            };
+
+            fetchKosar();
         } else {
-            setKosarLista([]);
-            localStorage.removeItem("kosar");
+            setKosarLista([]); // Ha nincs bejelentkezett felhasználó, üres kosár
         }
     }, [user]);
 
-    useEffect(() => {
-        if (kosarLISTA.length > 0) {
-            localStorage.setItem("kosar", JSON.stringify(kosarLISTA)); // Kosár elmentése
-        }
-    }, [kosarLISTA]);
-
     // Kosárba tétel API hívás
     const kosarbaTesz = async (adat) => {
-        if (!user) return alert("Jelentkezz be vagy regisztrálj!");
-
+        if (!user || !user.token) {
+            return console.log("Nincs bejelentkezve felhasználó.");
+        }
         try {
             // API hívás
             const response = await myAxios.post('/api/kosar', {
@@ -54,11 +52,22 @@ export const KosarProvider = ({ children }) => {
         }
     };
 
-    const kosarbolTorol = (termek_id) => {
-        setKosarLista((prevKosar) => {
-            const updatedKosar = prevKosar.filter((termek) => termek.termek_id !== termek_id);
-            return updatedKosar;
-        });
+    // Kosárból törlés API hívás
+    const kosarbolTorol = async (termek_id) => {
+        if (!user) return alert("Jelentkezz be vagy regisztrálj!");
+
+        try {
+            await myAxios.delete(`/api/kosar/${termek_id}`, {
+                headers: {
+                    Authorization: `Bearer ${user.token}` // Bejelentkezett felhasználó tokenjének átadása
+                }
+            });
+
+            // Kosár lista frissítése
+            setKosarLista((prevKosar) => prevKosar.filter((termek) => termek.termek_id !== termek_id));
+        } catch (error) {
+            console.error('Hiba a kosárból való törlés során:', error);
+        }
     };
 
     return (
