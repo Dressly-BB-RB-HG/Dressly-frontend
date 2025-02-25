@@ -9,7 +9,7 @@ function Kosar({ isKosarVisible }) {
     return (
         <div className={`kosar ${isKosarVisible ? 'visible' : ''}`}>
             <div className='row'>
-                <h2 className="kosar-title col-lg-6">Kosár</h2>
+                <h2 className="kosar-title ">Kosár</h2>
             </div>
             {kosarLISTA.length > 0 ? (
                 kosarLISTA.map((adat, index) => (
