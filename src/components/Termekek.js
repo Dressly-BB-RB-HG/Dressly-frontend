@@ -4,7 +4,7 @@ import { ApiContext } from '../contexts/ApiContext'
 
 function Termekek() {
 
-    const {termekLista} = useContext(ApiContext)
+    const {termekLista, kategoria} = useContext(ApiContext)
 
 
   return (
