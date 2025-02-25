@@ -32,7 +32,7 @@ function Termek(props) {
           src={props.adat.modell.kep}
           onClick={handleImageClick}
           style={{ cursor: "pointer", width: '100%', height: 'auto' }}
-        />
+        /> 
         <h4 className="gyarto card-text">{props.adat.modell.gyarto} {props.adat.modell.kategoria.ruhazat_kat}</h4>
         <p className="ar card-text">{props.adat.ar} Ft</p>
         <div className="gombok">
