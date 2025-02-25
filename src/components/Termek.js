@@ -56,6 +56,7 @@ function Termek(props) {
           <Button variant="secondary" onClick={handleCloseModal}>Bezárás</Button>
           <Button variant="primary" onClick={() => {
             setShowModal(false); 
+            kosarbaTesz(props.adat);
           }}>Kosárba tesz</Button>
         </Modal.Footer>
       </Modal>
