@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect } from "react";
-import axios from "axios"; // Importáljuk az axios-t
+import { myAxios } from "./MyAxios";
 
 export const KosarContext = createContext("");
 
@@ -38,7 +38,7 @@ export const KosarProvider = ({ children }) => {
 
         try {
             // API hívás
-            const response = await axios.post('/api/kosar', {
+            const response = await myAxios.post('/api/kosar', {
                 termek_id: adat.termek_id,
                 mennyiseg: 1 // Alapértelmezett mennyiség, vagy módosítható
             }, {
