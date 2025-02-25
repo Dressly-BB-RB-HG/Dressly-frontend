@@ -83,7 +83,7 @@ export const ApiProvider = ({ children }) => {
 
 
   useEffect(() => {
-    getAdat("/api/modellek", setTermekLista);
+    getAdat("/api/termek-minden-adattal", setTermekLista);
   }, []);
 
   return (
