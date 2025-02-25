@@ -28,9 +28,9 @@ const Rendelesek = () => {
 
    // Rendelés törlése
    const handleDelete = async (rendelesSzam) => {
-    console.log(`Törléshez használt rendelés szám: ${rendelesSzam}`);  // Ellenőrizzük, hogy valóban elérhető-e az érték
+    console.log(`Törléshez használt rendelés szám: ${rendelesSzam}`);  
     
-    // Ha a rendelés szám nem létezik, figyelmeztetést küldünk és nem küldünk törlési kérést
+    
     if (!rendelesSzam) {
       console.error("A rendelés szám nem elérhető.");
       alert("A rendelés törléséhez szükséges rendelés szám nem elérhető.");
@@ -39,11 +39,10 @@ const Rendelesek = () => {
   
     if (window.confirm("Biztosan törlöd ezt a rendelést?")) {
       try {
-        // Kiírjuk a törlés URL-jét is a konzolra
-        console.log(`Törléshez használt URL: /api/admin/adott-rendeles-torlese/${rendelesSzam}`);
+        
         await myAxios.delete(`/api/admin/adott-rendeles-torlese/${rendelesSzam}`);
         
-        setRendeles(rendeles.filter((r) => r.rendeles_szam !== rendelesSzam));  // Korrekt szűrés
+        setRendeles(rendeles.filter((r) => r.rendeles_szam !== rendelesSzam));  
         alert("Rendelés sikeresen törölve.");
       } catch (error) {
         console.error("Hiba történt a rendelés törlése során:", error);
