@@ -5,7 +5,7 @@ function KosarElem(props) {
   const { kosarbolTorol } = useContext(KosarContext);
   return (
     <div>
-        {props.adat.gyarto}-{props.adat.ar}Ft{props.adat.meret}
+        Gyártó: {props.adat.modell.gyarto} Ár: {props.adat.ar}Ft Méret: {props.adat.meret}
         <button onClick={kosarbolTorol}>🗑️</button>
     </div>
   )
