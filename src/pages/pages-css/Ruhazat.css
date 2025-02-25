@@ -1,6 +1,6 @@
 .szuro {
     padding: 20px;
-    background-color: #CDC5B4; 
+    background-color: #ff7d7d; 
     border-right: 1px solid #ddd;
     height: 100vh;
     top: 0;
@@ -65,19 +65,19 @@
 
 
 .custom-dropdown .dropdown-toggle {
-    background-color: #635C51; 
+    background-color: #c0a79c; 
     color: white; 
     border: none; 
 }
 
 
 .custom-dropdown .dropdown-toggle:hover    {
-    background-color: #635C51; 
+    background-color: #c0a79c; 
     color: white;
     
 }
 
 #dropdown-basic-button{
-    background-color: #635C51;
+    background-color: #c0a79c;
 }
 
