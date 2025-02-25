@@ -32,9 +32,9 @@ const Felhasznalok = () => {
   };
 
   // Szerep módosítása
-  const handleRoleChange = async (userId, newRole) => {
+  const handleRoleChange = async (felhasznaloId, ujRole) => {
     try {
-      await myAxios.put(`/api/admin/felhasznalok/${userId}/role`, { role: newRole });
+      await myAxios.put(`/api/admin/felhasznalok/${felhasznaloId}/role`, { role: ujRole });
       fetchUsers(); 
       alert("A szerep sikeresen módosítva!");
     } catch (error) {
@@ -44,10 +44,10 @@ const Felhasznalok = () => {
   };
 
   // Felhasználó törlése
-  const handleDelete = async (userId) => {
+  const handleDelete = async (felhasznaloId) => {
     if (window.confirm("Biztosan törölni szeretnéd ezt a felhasználót?")) {
       try {
-        await myAxios.delete(`/api/admin/felhasznalo-torles/${userId}`);
+        await myAxios.delete(`/api/admin/felhasznalo-torles/${felhasznaloId}`);
         fetchUsers(); 
         alert("A felhasználó sikeresen törölve!");
       } catch (error) {
