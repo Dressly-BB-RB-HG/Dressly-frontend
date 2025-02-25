@@ -13,6 +13,7 @@ import Felhasznalok from './pages/AdminOldalak/Felhasznalok';
 import Modell from './pages/AdminOldalak/Modell';
 import Rendelesek from './pages/AdminOldalak/Rendelesek';
 import FelhasznaloRendeles from './pages/FelhasznaloRendeles';
+import RendelesOldal from './pages/RendelesOldal';
 
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
               <Route path="modell" element={<Modell />} />
               <Route path="rendelesek" element={<Rendelesek />} />
               <Route path="felhasznalorendelesek" element={<FelhasznaloRendeles />} />
+              <Route path="rendelesoldal" element={<RendelesOldal />} />
             </Route>
           </Routes>
         </AuthProvider>
