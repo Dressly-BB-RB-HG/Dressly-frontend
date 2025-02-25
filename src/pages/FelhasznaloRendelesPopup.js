@@ -6,8 +6,11 @@ const RendelesPopup = ({ rendelesSzam, closePopup }) => {
 
   useEffect(() => {
     const fetchRendelesTetel = async () => {
-      
-  
+      if (!rendelesSzam) {
+        console.error("Nincs rendelés szám.");
+        return;
+      }
+
       try {
         const response = await myAxios.get(`/api/rendeles/${rendelesSzam}/tetel`);
         setRendelesTetel(response.data);
@@ -15,22 +18,14 @@ const RendelesPopup = ({ rendelesSzam, closePopup }) => {
         console.error("Hiba történt a rendelés tételeinek lekérése során:", error);
         alert("Hiba történt a rendelés tételeinek lekérése során.");
       }
-
-      if (!rendelesSzam) {
-        console.error("Nincs rendelés szám.");
-        return;
-      }
     };
-  
-    // Ha a rendelesSzam értéke nem létezik, ne próbáld lekérni az adatokat
+
+    // Csak akkor kérjük le a tételeket, ha a rendelesSzam elérhető
     if (rendelesSzam) {
       fetchRendelesTetel();
-    } else {
-      console.log('A rendelés szám nem elérhető.');
     }
-  }, [rendelesSzam]);
-  
-  
+
+  }, [rendelesSzam]); // A hook csak akkor fut újra, ha a rendelesSzam változik
 
   return (
     <div className="modal show" style={{ display: 'block' }} tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -56,12 +51,12 @@ const RendelesPopup = ({ rendelesSzam, closePopup }) => {
                 {rendelesTetel.length > 0 ? (
                   rendelesTetel.map((rendeles_tetel, index) => (
                     <tr key={index}>
-                      <td>{rendeles_tetel.termek}</td> {/* Termék neve a rendeles_tetels-ből */}
-                      <td>{rendeles_tetel.mennyiseg}</td> {/* Mennyiség a rendeles_rendeles_tetels-ből */}
-                      <td>{rendeles_tetel.modell}</td> {/* Modell a termeks-ből */}
-                      <td>{rendeles_tetel.szin}</td> {/* Szín a termeks-ből */}
-                      <td>{rendeles_tetel.meret}</td> {/* Méret a termeks-ből */}
-                      <td>{rendeles_tetel.ar}</td> {/* Ár a termeks-ből */}
+                      <td>{rendeles_tetel.termek}</td>
+                      <td>{rendeles_tetel.mennyiseg}</td>
+                      <td>{rendeles_tetel.modell}</td>
+                      <td>{rendeles_tetel.szin}</td>
+                      <td>{rendeles_tetel.meret}</td>
+                      <td>{rendeles_tetel.ar}</td>
                     </tr>
                   ))
                 ) : (

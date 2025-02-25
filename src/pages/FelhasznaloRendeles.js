@@ -30,7 +30,8 @@ const FelhasznaloRendeles = () => {
     }
   };
 
-  const fetchRendelesTetel = async (rendelesSzam) => {
+  // ÚGY NÉZ KI NEM KELL DE MÉG NE TÖRÖLD
+ /*  const fetchRendelesTetel = async (rendelesSzam) => {
     try {
       const response = await myAxios.get(`/api/rendeles/${rendelesSzam}/tetel`);
       const termekek = await Promise.all(
@@ -44,11 +45,12 @@ const FelhasznaloRendeles = () => {
       console.error("Hiba történt a rendelés tételeinek lekérése során:", error);
       alert("Hiba történt a rendelés tételeinek lekérése során.");
     }
-  };
+  }; */
 
   const handleRendelesClick = (rendelesSzam) => {
     setSelectedRendeles(rendelesSzam);
-    fetchRendelesTetel(rendelesSzam);
+    // ÚGY NÉZ KI NEM KELL DE MÉG NE TÖRÖLD
+    /* fetchRendelesTetel(rendelesSzam); */
   };
 
   const closePopup = () => {

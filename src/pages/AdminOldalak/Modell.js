@@ -91,7 +91,7 @@ const Modell = () => {
     }
   };
 
-  // Kiegészítés gomb kattintásakor megjelenik a modális ablak
+  
   const handleOpenModal = (model) => {
     setSelectedModel(model);
     setIsModalOpen(true);
