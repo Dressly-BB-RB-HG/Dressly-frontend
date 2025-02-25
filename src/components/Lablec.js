@@ -19,7 +19,7 @@ function Lablec() {
                 alert('Sikeresen feliratkoztál a hírlevélre!');
                 navigate('/');
             } catch (err) {
-                alert('Hiba történt a feliratkozás során.');
+                alert('Hiba történt a feliratkozás során. Ellenőrizd, hogy bevagy-e jelentkezve!');
                 console.error('Hiba történt:', err);
             }
         } else {
