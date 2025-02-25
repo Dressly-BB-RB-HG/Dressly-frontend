@@ -9,25 +9,37 @@ export const KosarProvider = ({ children }) => {
     });
 
     const [kosarLISTA, setKosarLista] = useState(() => {
+        // Betöltjük a kosarat csak akkor, ha a user be van jelentkezve
         const storedKosar = localStorage.getItem("kosar");
-        return storedKosar && user ? JSON.parse(storedKosar) : [];
+        return storedKosar ? JSON.parse(storedKosar) : [];
     });
 
+    // 1️⃣ Kosár szinkronizálása bejelentkezés/kijelentkezés esetén
     useEffect(() => {
         if (user) {
-            localStorage.setItem("kosar", JSON.stringify(kosarLISTA));
+            const storedKosar = localStorage.getItem("kosar");
+            if (storedKosar) {
+                setKosarLista(JSON.parse(storedKosar)); // Ha be van jelentkezve, betöltjük a kosarat
+            }
         } else {
-            localStorage.removeItem("kosar"); // Ha nincs bejelentkezve, töröljük a kosarat
+            setKosarLista([]); // Kijelentkezéskor töröljük a kosarat
+            localStorage.removeItem("kosar");
         }
-    }, [kosarLISTA, user]);
+    }, [user]);
+
+    // 2️⃣ Kosár frissítése és mentése localStorage-ba
+    useEffect(() => {
+        if (kosarLISTA.length > 0) {
+            localStorage.setItem("kosar", JSON.stringify(kosarLISTA)); // Kosár elmentése
+        }
+    }, [kosarLISTA]); // Kosár frissítésekor mindig mentjük el
 
     function kosarbaTesz(adat) {
-        if (!user) return; // Csak bejelentkezett felhasználók tehetnek a kosárba
+        if (!user) return alert("Jelentkezz be vagy regisztrálj!"); // Csak bejelentkezett felhasználók tehetnek a kosárba
 
         setKosarLista((prevKosar) => {
             const ujKosar = [...prevKosar, adat];
-            localStorage.setItem("kosar", JSON.stringify(ujKosar));
-            return ujKosar;
+            return ujKosar; // Kosár frissítése
         });
     }
 
@@ -36,8 +48,7 @@ export const KosarProvider = ({ children }) => {
 
         setKosarLista((prevKosar) => {
             const updatedKosar = prevKosar.filter((termek) => termek.id !== id);
-            localStorage.setItem("kosar", JSON.stringify(updatedKosar));
-            return updatedKosar;
+            return updatedKosar; // Kosár frissítése
         });
     };
 
