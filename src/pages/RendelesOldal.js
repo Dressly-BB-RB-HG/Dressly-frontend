@@ -137,16 +137,16 @@ function RendelésOldal() {
           <Card className="shadow-lg mt-4 p-4 rounded-3">
             <Card.Header as="h5" className="text-center">Szállítási cím</Card.Header>
             <Card.Body>
+              {/* Új szöveg hozzáadása */}
+              <p className="text-muted mt-3 fs-6">
+                Amennyiben változtatni szeretne a szállítási címen, azt a profil módosításnál tudja megtenni!
+              </p>
               <ListGroup>
                 <ListGroup.Item><strong>Város:</strong> {user?.varos || 'Nincs megadva'}</ListGroup.Item>
                 <ListGroup.Item><strong>Kerület:</strong> {user?.kerulet || 'Nincs megadva'}</ListGroup.Item>
                 <ListGroup.Item><strong>Utca:</strong> {user?.utca || 'Nincs megadva'}</ListGroup.Item>
                 <ListGroup.Item><strong>Házszám:</strong> {user?.hazszam || 'Nincs megadva'}</ListGroup.Item>
-              </ListGroup>
-              {/* Új szöveg hozzáadása */}
-              <p className="text-muted mt-3 fs-6">
-                Amennyiben változtatni szeretne a szállítási címen, azt a profil módosításnál tudja megtenni!
-              </p>
+              </ListGroup>             
             </Card.Body>
           </Card>
         </Col>
