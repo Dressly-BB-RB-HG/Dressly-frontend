@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import useAuthContext from '../contexts/AuthContext';
 import { motion } from 'framer-motion';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Container, Row, Col, Card, ListGroup, Button, Form } from 'react-bootstrap'; 
+import { Container, Row, Col, Card, ListGroup, Button, Form } from 'react-bootstrap';
+import axios from 'axios'; // Axios importálása
 
 function RendelésOldal() {
   const { user } = useAuthContext();
@@ -19,6 +20,21 @@ function RendelésOldal() {
     if (!user) {
       navigate('/bejelentkezes');
     }
+
+    // Az email küldés
+    const sendEmail = async () => {
+      try {
+        const response = await axios.post('/api/send-welcome-email', {
+          email: user?.email // Ha az emailt is elküldjük
+        });
+        console.log('Email sikeresen elküldve:', response);
+      } catch (error) {
+        console.error('Email küldési hiba:', error);
+      }
+    };
+
+    // Email küldése az oldal betöltésekor
+    sendEmail();
   }, [user, navigate]);
 
   const handleSzallitasModValtozas = (e) => {
