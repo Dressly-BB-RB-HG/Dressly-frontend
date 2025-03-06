@@ -141,6 +141,7 @@ function Regisztracio() {
               name="password_confirmation"
             />
           </div>
+          
 
           {/* Szállítási adatok szekció */}
           <div className="mt-4">
@@ -166,7 +167,7 @@ function Regisztracio() {
                 Kerület:
               </label>
               <input
-                type="number"
+                type="integer"
                 className="form-control"
                 value={kerulet}
                 onChange={(e) => setKerulet(e.target.value)}
