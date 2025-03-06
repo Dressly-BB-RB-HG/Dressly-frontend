@@ -1,9 +1,27 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Dropdown, DropdownButton } from 'react-bootstrap'
+import { ApiContext } from '../contexts/ApiContext';
 import Termekek from '../components/Termekek'
 import './pages-css/Ruhazat.css';
 
 function Ruhazat() {
+
+    const { getLegkedveltebb,getAdat, getMarkaRuhak, getSzinRuhak, legkedveltebb } = useContext(ApiContext);
+
+  
+  const handleLegkedveltebb = () => {
+    getLegkedveltebb();  
+  };
+
+  const handleMarkaValtozas = (marka) => {
+    if (marka === "Minden márka") {
+      // Ha "Minden márka" van kiválasztva, az összes terméket lekérjük
+      getAdat("/api/termek-minden-adattal");
+    } else {
+      // Egy konkrét márka esetén meghívjuk a márkára vonatkozó lekérdezést
+      getMarkaRuhak(marka);
+    }
+  };
 
     return (
         <div className="container-fluid">
@@ -14,21 +32,28 @@ function Ruhazat() {
                         title="Rendezési szempont"
                         className="mb-3 custom-dropdown"
                         size="sm">
-                        <Dropdown.Item href="#/action-1">Legnépszerűbb</Dropdown.Item>
-                        <Dropdown.Item href="#/action-2">Legújabb</Dropdown.Item>
-                        <Dropdown.Item href="#/action-2">Legalacsonyabb ár</Dropdown.Item>
+                        <Dropdown.Item href="#/action-1">Legalacsonyabb ár</Dropdown.Item>
                         <Dropdown.Item href="#/action-2">Legmagasabb ár</Dropdown.Item>
+                    </DropdownButton>
+                    <DropdownButton
+                        id="dropdown-basic-button"
+                        title="Szürési szempont"
+                        className="mb-3 custom-dropdown"
+                        size="sm">
+                        <Dropdown.Item href="#/action-1" onClick={handleLegkedveltebb}
+                        >Legnépszerűbb</Dropdown.Item>
+                        <Dropdown.Item href="#/action-2">Legújabb</Dropdown.Item>
                     </DropdownButton>
                     <DropdownButton
                         id="dropdown-basic-button"
                         title="Márka"
                         className="mb-3 custom-dropdown"
                         size="sm">
-                        <Dropdown.Item href="#/action-1">Minden márka</Dropdown.Item>
-                        <Dropdown.Item href="#/action-2">Nike</Dropdown.Item>
-                        <Dropdown.Item href="#/action-3">The North Face</Dropdown.Item>
-                        <Dropdown.Item href="#/action-4">Adidas</Dropdown.Item>
-                        <Dropdown.Item href="#/action-5">Puma</Dropdown.Item>
+                        <Dropdown.Item href="#/action-1" onClick={() => handleMarkaValtozas("Minden márka")}>Minden márka</Dropdown.Item>
+                        <Dropdown.Item href="#/action-2" onClick={() => handleMarkaValtozas("Nike")}>Nike</Dropdown.Item>
+                        <Dropdown.Item href="#/action-3"onClick={() => handleMarkaValtozas("The North Face")}>The North Face</Dropdown.Item>
+                        <Dropdown.Item href="#/action-4" onClick={() => handleMarkaValtozas("Adidas")}>Adidas</Dropdown.Item>
+                        <Dropdown.Item href="#/action-5" onClick={() => handleMarkaValtozas("Puma")}>Puma</Dropdown.Item>
                         <Dropdown.Item href="#/action-5">Ralph Lauren</Dropdown.Item>
                         <Dropdown.Item href="#/action-5">Tommy Hilfiger</Dropdown.Item>
                         <Dropdown.Item href="#/action-5">Calvin Klein</Dropdown.Item>
@@ -50,7 +75,7 @@ function Ruhazat() {
                         title="Nem"
                         className="mb-3 custom-dropdown"
                         size="sm">
-                        <Dropdown.Item href="#/action-1">Női</Dropdown.Item>
+                        <Dropdown.Item href="#/action-1" >Női</Dropdown.Item>
                         <Dropdown.Item href="#/action-2">Férfi</Dropdown.Item>
                         <Dropdown.Item href="#/action-3">Uniszex</Dropdown.Item>
                     </DropdownButton>
