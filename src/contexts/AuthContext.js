@@ -23,30 +23,32 @@ export const AuthProvider = ({ children }) => {
 
   const getUser = async () => {
     try {
-      const { data } = await myAxios.get("/api/user");
-      setUser(data);
-      localStorage.setItem("user", JSON.stringify(data));
+        const { data } = await myAxios.get("/api/user");
+        if (data) {
+            setUser(data);
+            localStorage.setItem("user", JSON.stringify(data));
+        } else {
+            throw new Error("Nincs felhasználói adat.");
+        }
     } catch (error) {
-      if (error.response?.status === 401) {
-        console.warn("Nem hitelesített felhasználó.");
-      } else {
         console.error("Felhasználó lekérdezése sikertelen:", error);
-      }
-      setUser(null);
-      localStorage.removeItem("user");
+        setUser(null);
+        localStorage.removeItem("user");
     }
-  };
+};
 
-  const checkAuth = async () => {
-    try {
-      await csrf();
-      await getUser();
-    } catch (error) {
-      console.error("Autentikáció ellenőrzése sikertelen:", error);
-      setUser(null);
-      localStorage.removeItem("user");
-    }
-  };
+const checkAuth = async () => {
+  try {
+    await csrf();
+    await getUser();
+    console.log("Frissített user:", user); // Debug üzenet
+  } catch (error) {
+    console.error("Autentikáció ellenőrzése sikertelen:", error);
+    setUser(null);
+    localStorage.removeItem("user");
+  }
+};
+
 
   const logout = async () => {
     try {

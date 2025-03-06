@@ -11,7 +11,8 @@ function KosarElem(props) {
 
   return (
     <div>
-      Gyártó: {props.adat.modell.gyarto} Ár: {props.adat.ar}Ft Méret: {props.adat.meret}
+       Ár: {props.adat.ar}Ft
+       Méret: {props.adat.meret} Szín: {props.adat.szin}
       <button onClick={handleDelete}>🗑️</button>
     </div>
   );

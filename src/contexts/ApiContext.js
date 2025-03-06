@@ -5,7 +5,8 @@ export const ApiContext = createContext("");
 
 export const ApiProvider = ({ children }) => {
   const [termekLista, setTermekLista] = useState([]);
-  const [kategoriak, setKategoriak] = useState([])
+  const [kategoriak, setKategoriak] = useState([]) // összes
+  const [legkedveltebb, setLegkedveltebb] = useState([]); //csak legkedveltebb
 
   const getAdat = async (vegpont, callbackFv) => {
     try {
@@ -16,6 +17,29 @@ export const ApiProvider = ({ children }) => {
       console.log("Hiba történt az adat elküldésekor.", err);
     }
   };
+
+  // szűrések/rendezések
+  const getLegkedveltebb = async (callbackFv) => {
+    try {
+      const response = await myAxios.get("/api/legkedveltebb-modell", callbackFv);
+      setLegkedveltebb(response.data);
+      console.log("adat:", response.data);
+    } catch (err) {
+      console.log("Hiba történt az adat elküldésekor.", err);
+    }
+  };
+
+  const getMarkaRuhak = async (marka) => {
+    try {
+        const response = await myAxios.get(`/api/marka-ruhak/${marka}`);
+        setTermekLista(response.data);
+    } catch (err) {
+        console.error("Hiba történt a márkás ruhák lekérése során:", err);
+    }
+};
+
+  //szűrések/rendezések vége
+
 
   const profilFrissit = async (vegpont, callbackFv) => {
     try {
@@ -85,11 +109,10 @@ export const ApiProvider = ({ children }) => {
 
   useEffect(() => {
     getAdat("/api/termek-minden-adattal", setTermekLista);
-    getAdat("/api/modellek-kategoriaval", setKategoriak)
   }, []);
 
   return (
-    <ApiContext.Provider value={{ termekLista, kategoriak, profilFrissit, uploadModel, uploadTermek, deleteModel, updateTermek }}>
+    <ApiContext.Provider value={{ termekLista, kategoriak, legkedveltebb, getAdat, setTermekLista, getMarkaRuhak, setKategoriak, setLegkedveltebb,  profilFrissit, uploadModel, uploadTermek, deleteModel, updateTermek, getLegkedveltebb, }}>
       {children}
     </ApiContext.Provider>
   );
