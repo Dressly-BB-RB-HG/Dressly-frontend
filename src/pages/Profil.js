@@ -11,18 +11,30 @@ function Profil() {
   const { user, errors } = useAuthContext();
   const navigate = useNavigate();
 
+  // Állapotok a felhasználói adatokhoz
   const [name, setName] = useState(user?.name || '');
   const [email, setEmail] = useState(user?.email || '');
   const [oldPassword, setOldPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [newPasswordConfirmation, setNewPasswordConfirmation] = useState('');
 
+  // Új állapotok a szállítási adatokhoz
+  const [varos, setVaros] = useState(user?.varos || '');
+  const [kerulet, setKerulet] = useState(user?.kerulet || '');
+  const [utca, setUtca] = useState(user?.utca || '');
+  const [hazszam, setHazszam] = useState(user?.hazszam || '');
+
   useEffect(() => {
     if (!user) {
       navigate('/bejelentkezes');
     } else {
+      // Beállítjuk a felhasználói adatokat, beleértve a cím adatokat is
       setName(user.name);
       setEmail(user.email);
+      setVaros(user.varos);
+      setKerulet(user.kerulet);
+      setUtca(user.utca);
+      setHazszam(user.hazszam);
     }
   }, [user, navigate]);
 
@@ -34,6 +46,10 @@ function Profil() {
       old_password: oldPassword,
       new_password: newPassword,
       new_password_confirmation: newPasswordConfirmation,
+      varos,  // Új város
+      kerulet,  // Új kerület
+      utca,  // Új utca
+      hazszam,  // Új házszám
     };
 
     try {
@@ -68,7 +84,6 @@ function Profil() {
             <Link className="nav-link text-dark fw-bold px-3 py-2 rounded bg-secondary bg-opacity-25" to="/felhasznalorendelesek">Rendeléseim</Link>
           </li>
           <hr className="my-3" />
-          
           {(user.role === 1 || user.role === 2) && (
             <li className="nav-item mb-2">
               <Link className="nav-link text-dark fw-bold px-3 py-2 rounded bg-secondary bg-opacity-25" to="/admin">Adminisztrációs felület</Link>
@@ -77,7 +92,7 @@ function Profil() {
         </ul>
       </div>
 
-      
+      {/* Profil frissítés szekció */}
       <div className="flex-grow-1 d-flex flex-column align-items-center justify-content-center bg-light" style={{ padding: '20px' }}>
         <motion.div 
           className="text-center mb-4"
@@ -88,7 +103,7 @@ function Profil() {
           <h2 className="fw-bold" style={{ color: "#4CAF50" }}>{udvozles()}, {user?.name}!</h2>
           <p className="text-muted">Dátum: {today}</p>
         </motion.div>
-        
+
         <div className="card shadow p-4" style={{ maxWidth: '450px', width: '100%' }}>
           <h2 className="text-center mb-4">Profil Frissítése</h2>
           <form onSubmit={handleSubmit}>
@@ -112,6 +127,25 @@ function Profil() {
               <label htmlFor="newPasswordConfirmation" className="form-label">Új jelszó megerősítése:</label>
               <input type="password" className="form-control" value={newPasswordConfirmation} onChange={(e) => setNewPasswordConfirmation(e.target.value)} id="newPasswordConfirmation" name="newPasswordConfirmation" />
             </div>
+            
+            {/* Szállítási adatok mezők hozzáadása */}
+            <div className="mb-3">
+              <label htmlFor="varos" className="form-label">Város:</label>
+              <input type="text" className="form-control" value={varos} onChange={(e) => setVaros(e.target.value)} id="varos" name="varos" />
+            </div>
+            <div className="mb-3">
+              <label htmlFor="kerulet" className="form-label">Kerület:</label>
+              <input type="number" className="form-control" value={kerulet} onChange={(e) => setKerulet(e.target.value)} id="kerulet" name="kerulet" />
+            </div>
+            <div className="mb-3">
+              <label htmlFor="utca" className="form-label">Utca/Út:</label>
+              <input type="text" className="form-control" value={utca} onChange={(e) => setUtca(e.target.value)} id="utca" name="utca" />
+            </div>
+            <div className="mb-3">
+              <label htmlFor="hazszam" className="form-label">Házszám:</label>
+              <input type="number" className="form-control" value={hazszam} onChange={(e) => setHazszam(e.target.value)} id="hazszam" name="hazszam" />
+            </div>
+
             <div className="text-center">
               <button type="submit" className="btn btn-success w-100">Mentés</button>
             </div>

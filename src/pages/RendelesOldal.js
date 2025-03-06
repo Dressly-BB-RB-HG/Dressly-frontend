@@ -1,53 +1,34 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useAuthContext from '../contexts/AuthContext';
-// import { ApiContext } from '../contexts/ApiContext';
-//import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-// import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Container, Row, Col, Card, ListGroup, Button, Form } from 'react-bootstrap'; // Importáljuk a szükséges komponenseket
+import { Container, Row, Col, Card, ListGroup, Button, Form } from 'react-bootstrap'; 
 
 function RendelésOldal() {
-  const { user, /* errors */} = useAuthContext();
-  const navigate = useNavigate(); // A navigate hook importálása
+  const { user } = useAuthContext();
+  const navigate = useNavigate();
 
   const [kosar, /* setKosar */] = useState([]);
-  const [szallitasiCim, setSzallitasiCim] = useState({
-    utca: '',
-    iranyitoszam: '',
-    varos: '',
-  });
+  const [szallitasMod, setSzallitasMod] = useState(''); 
+  const [phone, setPhone] = useState(''); 
 
   const totalPrice = kosar.reduce((sum, item) => sum + item.ar * item.mennyiseg, 0);
-
-  // Kosár adatainak lekérése
- /*  const fetchKosar = async () => {
-    try {
-      const response = await axios.get('/api/kosar');
-      setKosar(response.data);
-    } catch (error) {
-      console.error('Hiba történt a kosár adatainak lekérésekor:', error);
-      alert('Hiba történt a kosár adatainak lekérésekor.');
-    }
-  }; */
 
   useEffect(() => {
     if (!user) {
       navigate('/bejelentkezes');
-    } else {
-      /* setName(user.name); */
     }
-   /*  fetchKosar(); */
   }, [user, navigate]);
 
-  // Szállítási cím változása
-  const handleCimValtozas = (e) => {
-    const { name, value } = e.target;
-    setSzallitasiCim({ ...szallitasiCim, [name]: value });
+  const handleSzallitasModValtozas = (e) => {
+    setSzallitasMod(e.target.value);
   };
 
-  // Rendelés elküldése
+  const handlePhoneValtozas = (e) => {
+    setPhone(e.target.value);
+  };
+
   const handleRendeles = () => {
     alert('Rendelés elküldve!');
   };
@@ -60,76 +41,67 @@ function RendelésOldal() {
 
   return (
     <Container className="my-5">
-      <Row>
-        {/* Bal oldal - Üdvözlés és Telefonszám */}
+      <Row className="g-4">
+        {/* Bal oldal - Üdvözlés, Telefonszám és Szállítási mód */}
         <Col md={4}>
-          <Card className="shadow p-3">
+          <Card className="shadow-lg p-4 rounded-3">
             <Card.Body>
-              <motion.div 
+              <motion.div
                 className="text-center mb-4"
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8 }}
               >
-                <h2 className="fw-bold" style={{ color: "#4CAF50" }}>
-                {udvozles()}, {user?.name}!
+                <h2 className="fw-bold" style={{ color: "#4CAF50" }} >
+                  {udvozles()}, {user?.name}!
                 </h2>
                 <p className="text-muted">Dátum: {today}</p>
               </motion.div>
+
+              {/* Telefonszám */}
               <Form>
                 <Form.Group controlId="formPhone">
                   <Form.Label>Telefonszám</Form.Label>
                   <Form.Control
                     type="text"
                     name="phone"
+                    value={phone}
+                    onChange={handlePhoneValtozas}
                     placeholder="Írd be a telefonszámod"
-                  />
-                </Form.Group>
-              </Form>
-            </Card.Body>
-          </Card>
-        </Col>
-
-        {/* Középső oldal - Szállítási cím */}
-        <Col md={4}>
-          <Card className="shadow p-3">
-            <Card.Header as="h5" className="text-center">Szállítási cím</Card.Header>
-            <Card.Body>
-              <Form>
-                <Form.Group controlId="formVaros">
-                  <Form.Label>Város</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="varos"
-                    value={szallitasiCim.varos}
-                    onChange={handleCimValtozas}
-                    placeholder="Írd be a várost"
+                    className="shadow-sm"
                   />
                 </Form.Group>
 
-                <Form.Group controlId="formUtca">
-                  <Form.Label>Utca és házszám</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="utca"
-                    value={szallitasiCim.utca}
-                    onChange={handleCimValtozas}
-                    placeholder="Írd be az utca nevét és házszámot"
-                  />
+                {/* Szállítási mód választás */}
+                <Form.Group controlId="formSzallitasMod" className="mt-3">
+                  <Form.Label>Szállítási mód</Form.Label>
+                  <div className="d-flex justify-content-start align-items-center">
+                    <Form.Check
+                      type="radio"
+                      id="radioUtanvet"
+                      label="Utánvét"
+                      name="szallitasMod"
+                      value="utanvet"
+                      checked={szallitasMod === 'utanvet'}
+                      onChange={handleSzallitasModValtozas}
+                      custom
+                    />
+                    <Form.Check
+                      type="radio"
+                      id="radioBankkartya"
+                      label="Bankkártyás fizetés"
+                      name="szallitasMod"
+                      value="bankkartya"
+                      checked={szallitasMod === 'bankkartya'}
+                      disabled
+                      custom
+                      className="ms-3"
+                      style={{ opacity: 0.5 }}
+                    />
+                  </div>
                 </Form.Group>
 
-                <Form.Group controlId="formIrsz">
-                  <Form.Label>Irányítószám</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="iranyitoszam"
-                    value={szallitasiCim.iranyitoszam}
-                    onChange={handleCimValtozas}
-                    placeholder="Írd be az irányítószámot"
-                  />
-                </Form.Group>
-
-                <Button variant="primary" onClick={handleRendeles} block>
+                <Button variant="success" onClick={handleRendeles} block className="mt-3 py-2 fs-5 rounded-3 shadow">
                   Rendelés leadása
                 </Button>
               </Form>
@@ -137,19 +109,17 @@ function RendelésOldal() {
           </Card>
         </Col>
 
-        {/* Jobb oldal - Kosár tartalma */}
-        <Col md={4}>
-          <Card className="shadow p-3">
+        {/* Jobb oldal - Kosár tartalma és Szállítási cím részletek */}
+        <Col md={8}>
+          <Card className="shadow-lg p-4 rounded-3">
             <Card.Header as="h5" className="text-center">Kosár tartalma</Card.Header>
             <ListGroup variant="flush">
               {kosar.length > 0 ? (
                 kosar.map((item) => (
-                  <ListGroup.Item key={item.id}>
-                    <Row>
-                      <Col>{item.termek}</Col>
-                      <Col>Mennyiség: {item.mennyiseg}</Col>
-                      <Col>Ár: {item.ar * item.mennyiseg} Ft</Col>
-                    </Row>
+                  <ListGroup.Item key={item.id} className="d-flex justify-content-between align-items-center">
+                    <span>{item.termek}</span>
+                    <span>Mennyiség: {item.mennyiseg}</span>
+                    <span>Ár: {item.ar * item.mennyiseg} Ft</span>
                   </ListGroup.Item>
                 ))
               ) : (
@@ -158,9 +128,26 @@ function RendelésOldal() {
                 </ListGroup.Item>
               )}
             </ListGroup>
-            <Card.Footer className="text-right">
-              <h5>Összesen: {totalPrice} Ft</h5>
+            <Card.Footer className="text-right fs-5">
+              <strong>Összesen: {totalPrice} Ft</strong>
             </Card.Footer>
+          </Card>
+
+          {/* Szállítási cím részletek */}
+          <Card className="shadow-lg mt-4 p-4 rounded-3">
+            <Card.Header as="h5" className="text-center">Szállítási cím</Card.Header>
+            <Card.Body>
+              {/* Új szöveg hozzáadása */}
+              <p className="text-muted mt-3 fs-6">
+                Amennyiben változtatni szeretne a szállítási címen, azt a profil módosításnál tudja megtenni!
+              </p>
+              <ListGroup>
+                <ListGroup.Item><strong>Város:</strong> {user?.varos || 'Nincs megadva'}</ListGroup.Item>
+                <ListGroup.Item><strong>Kerület:</strong> {user?.kerulet || 'Nincs megadva'}</ListGroup.Item>
+                <ListGroup.Item><strong>Utca:</strong> {user?.utca || 'Nincs megadva'}</ListGroup.Item>
+                <ListGroup.Item><strong>Házszám:</strong> {user?.hazszam || 'Nincs megadva'}</ListGroup.Item>
+              </ListGroup>             
+            </Card.Body>
           </Card>
         </Col>
       </Row>

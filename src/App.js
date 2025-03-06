@@ -20,8 +20,8 @@ function App() {
 
   return (
     <BrowserRouter>
-      <KosarProvider>
-        <AuthProvider>
+      <AuthProvider>
+        <KosarProvider>
           <Routes>
             <Route path="/" element={<Layout />}>
               <Route index element={<Kezdolap />} />
@@ -37,8 +37,8 @@ function App() {
               <Route path="rendelesoldal" element={<RendelesOldal />} />
             </Route>
           </Routes>
-        </AuthProvider>
-      </KosarProvider>
+        </KosarProvider>
+       </AuthProvider>
     </BrowserRouter>
   );
 }
