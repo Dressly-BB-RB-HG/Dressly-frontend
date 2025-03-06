@@ -28,6 +28,7 @@ function Profil() {
     if (!user) {
       navigate('/bejelentkezes');
     } else {
+      // Beállítjuk a felhasználói adatokat, beleértve a cím adatokat is
       setName(user.name);
       setEmail(user.email);
       setVaros(user.varos);

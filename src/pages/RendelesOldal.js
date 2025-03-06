@@ -3,15 +3,15 @@ import { useNavigate } from 'react-router-dom';
 import useAuthContext from '../contexts/AuthContext';
 import { motion } from 'framer-motion';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Container, Row, Col, Card, ListGroup, Button, Form } from 'react-bootstrap'; // Importáljuk a szükséges komponenseket
+import { Container, Row, Col, Card, ListGroup, Button, Form } from 'react-bootstrap'; 
 
 function RendelésOldal() {
   const { user } = useAuthContext();
   const navigate = useNavigate();
 
   const [kosar, /* setKosar */] = useState([]);
-  const [szallitasMod, setSzallitasMod] = useState(''); // A fizetési mód választás tárolása
-  const [phone, setPhone] = useState(''); // Telefonszám tárolása
+  const [szallitasMod, setSzallitasMod] = useState(''); 
+  const [phone, setPhone] = useState(''); 
 
   const totalPrice = kosar.reduce((sum, item) => sum + item.ar * item.mennyiseg, 0);
 
@@ -21,17 +21,14 @@ function RendelésOldal() {
     }
   }, [user, navigate]);
 
-  // Szállítási mód változása
   const handleSzallitasModValtozas = (e) => {
     setSzallitasMod(e.target.value);
   };
 
-  // Telefonszám változása
   const handlePhoneValtozas = (e) => {
     setPhone(e.target.value);
   };
 
-  // Rendelés elküldése
   const handleRendeles = () => {
     alert('Rendelés elküldve!');
   };
@@ -47,7 +44,7 @@ function RendelésOldal() {
       <Row className="g-4">
         {/* Bal oldal - Üdvözlés, Telefonszám és Szállítási mód */}
         <Col md={4}>
-          <Card className="shadow p-4">
+          <Card className="shadow-lg p-4 rounded-3">
             <Card.Body>
               <motion.div
                 className="text-center mb-4"
@@ -55,7 +52,7 @@ function RendelésOldal() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8 }}
               >
-                <h2 className="fw-bold" style={{ color: "#4CAF50" }}>
+                <h2 className="fw-bold" style={{ color: "#4CAF50" }} >
                   {udvozles()}, {user?.name}!
                 </h2>
                 <p className="text-muted">Dátum: {today}</p>
@@ -71,6 +68,7 @@ function RendelésOldal() {
                     value={phone}
                     onChange={handlePhoneValtozas}
                     placeholder="Írd be a telefonszámod"
+                    className="shadow-sm"
                   />
                 </Form.Group>
 
@@ -103,7 +101,7 @@ function RendelésOldal() {
                   </div>
                 </Form.Group>
 
-                <Button variant="primary" onClick={handleRendeles} block className="mt-3">
+                <Button variant="success" onClick={handleRendeles} block className="mt-3 py-2 fs-5 rounded-3 shadow">
                   Rendelés leadása
                 </Button>
               </Form>
@@ -111,19 +109,17 @@ function RendelésOldal() {
           </Card>
         </Col>
 
-        {/* Jobb oldal - Kosár tartalma */}
+        {/* Jobb oldal - Kosár tartalma és Szállítási cím részletek */}
         <Col md={8}>
-          <Card className="shadow p-4">
+          <Card className="shadow-lg p-4 rounded-3">
             <Card.Header as="h5" className="text-center">Kosár tartalma</Card.Header>
             <ListGroup variant="flush">
               {kosar.length > 0 ? (
                 kosar.map((item) => (
-                  <ListGroup.Item key={item.id}>
-                    <Row>
-                      <Col>{item.termek}</Col>
-                      <Col>Mennyiség: {item.mennyiseg}</Col>
-                      <Col>Ár: {item.ar * item.mennyiseg} Ft</Col>
-                    </Row>
+                  <ListGroup.Item key={item.id} className="d-flex justify-content-between align-items-center">
+                    <span>{item.termek}</span>
+                    <span>Mennyiség: {item.mennyiseg}</span>
+                    <span>Ár: {item.ar * item.mennyiseg} Ft</span>
                   </ListGroup.Item>
                 ))
               ) : (
@@ -132,9 +128,26 @@ function RendelésOldal() {
                 </ListGroup.Item>
               )}
             </ListGroup>
-            <Card.Footer className="text-right">
-              <h5>Összesen: {totalPrice} Ft</h5>
+            <Card.Footer className="text-right fs-5">
+              <strong>Összesen: {totalPrice} Ft</strong>
             </Card.Footer>
+          </Card>
+
+          {/* Szállítási cím részletek */}
+          <Card className="shadow-lg mt-4 p-4 rounded-3">
+            <Card.Header as="h5" className="text-center">Szállítási cím</Card.Header>
+            <Card.Body>
+              <ListGroup>
+                <ListGroup.Item><strong>Város:</strong> {user?.varos || 'Nincs megadva'}</ListGroup.Item>
+                <ListGroup.Item><strong>Kerület:</strong> {user?.kerulet || 'Nincs megadva'}</ListGroup.Item>
+                <ListGroup.Item><strong>Utca:</strong> {user?.utca || 'Nincs megadva'}</ListGroup.Item>
+                <ListGroup.Item><strong>Házszám:</strong> {user?.hazszam || 'Nincs megadva'}</ListGroup.Item>
+              </ListGroup>
+              {/* Új szöveg hozzáadása */}
+              <p className="text-muted mt-3 fs-6">
+                Amennyiben változtatni szeretne a szállítási címen, azt a profil módosításnál tudja megtenni!
+              </p>
+            </Card.Body>
           </Card>
         </Col>
       </Row>
