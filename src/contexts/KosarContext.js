@@ -62,6 +62,7 @@ export const KosarProvider = ({ children }) => {
                     termek_id: termek.termek_id,
                     ar: termek.ar,  // Az ár hozzáadása
                     meret: termek.meret,  // A méret hozzáadása
+                    szin: termek.szin,
                     mennyiseg: 1,
                 }
             ]);
