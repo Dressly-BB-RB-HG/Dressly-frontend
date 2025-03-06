@@ -1,78 +1,101 @@
-import { createContext, useState, useEffect } from "react";
-import { myAxios } from "./MyAxios";
+import { createContext, useState, useEffect, useContext } from "react";
+import useAuthContext from "./AuthContext";
+import { myAxios } from "../contexts/MyAxios"; 
 
-export const KosarContext = createContext("");
+export const KosarContext = createContext(null);
 
 export const KosarProvider = ({ children }) => {
-    const [user, setUser] = useState(null); // Alapértelmezés szerint nincs beállítva felhasználó
-    const [kosarLISTA, setKosarLista] = useState([]); // Kosár alapértelmezés szerint üres
+    const { user, checkAuth } = useAuthContext(); // Felhasználó lekérése
+    const [kosarLISTA, setKosarLista] = useState([]);
+    const [loading, setLoading] = useState(true); // Állapot a betöltéshez
 
-    // Ha be van jelentkezve a felhasználó, töltse be a kosarat az adatbázisból
+    // Ha be van jelentkezve a felhasználó, akkor a kosarat is lekérjük
     useEffect(() => {
-        if (user) {
-            const fetchKosar = async () => {
+        const fetchKosar = async () => {
+            if (user) {
                 try {
-                    const response = await myAxios.get('/api/kosar', {
+                    const response = await myAxios.get('/api/kosar-megjelen', {
                         headers: {
-                            Authorization: `Bearer ${user.token}`
-                        }
+                            Authorization: `Bearer ${user.token}`,
+                        },
                     });
-                    setKosarLista(response.data); // A válaszban kapott adatokat beállítjuk
+    
+                    // Betöltjük a termékek adatokat a kosárban
+                    setKosarLista(response.data.map(item => ({
+                        ...item,
+                        ar: item.termek.ar,  // Az ár hozzáadása
+                        meret: item.termek.meret,  // A méret hozzáadása
+                        szin: item.termek.szin
+                    })));
                 } catch (error) {
                     console.error('Hiba a kosár betöltése során:', error);
+                    setKosarLista([]);
                 }
-            };
-
-            fetchKosar();
-        } else {
-            setKosarLista([]); // Ha nincs bejelentkezett felhasználó, üres kosár
-        }
+            }
+            setLoading(false);
+        };
+    
+        fetchKosar();
     }, [user]);
 
-    // Kosárba tétel API hívás
-    const kosarbaTesz = async (adat) => {
-        if (!user || !user.token) {
-            return console.log("Nincs bejelentkezve felhasználó.");
-        }
+    if (loading) {
+        return <div>Loading...</div>;
+    }
+
+
+    // Kosárba tétel
+    const kosarbaTesz = async (termek) => {
         try {
-            // API hívás
             const response = await myAxios.post('/api/kosar', {
-                termek_id: adat.termek_id,
-                mennyiseg: 1 // Alapértelmezett mennyiség, vagy módosítható
+                termek_id: termek.termek_id,
+                mennyiseg: 1,
             }, {
                 headers: {
-                    Authorization: `Bearer ${user.token}` // Bejelentkezett felhasználó tokenjének átadása
-                }
+                    Authorization: `Bearer ${user.token}`,
+                },
             });
-
-            // Kosár lista frissítése
-            setKosarLista((prevKosar) => [...prevKosar, response.data]);
+    
+            // A termékek adatainak mentése a kosárba
+            setKosarLista(prevKosar => [
+                ...prevKosar, 
+                {
+                    termek_id: termek.termek_id,
+                    ar: termek.ar,  // Az ár hozzáadása
+                    meret: termek.meret,  // A méret hozzáadása
+                    mennyiseg: 1,
+                }
+            ]);
         } catch (error) {
-            console.error('Hiba a kosárba tétel során:', error);
+            console.error('Hiba a kosárba tétel során:', error.response?.data || error);
+            if (error.response?.status === 422) {
+                alert("A kosárba tett termék érvénytelen. Ellenőrizd a termék ID-ját és a mennyiséget.");
+            }
         }
     };
+    
+    
 
-    // Kosárból törlés API hívás
-    const kosarbolTorol = async (termek_id) => {
-        if (!user) return alert("Jelentkezz be vagy regisztrálj!");
-
+    // Kosárból törlés
+    const kosarbolTorol = async (termekId) => {
         try {
-            await myAxios.delete(`/api/kosar/${termek_id}`, {
+            const response = await myAxios.delete(`/api/kosarTorles/${termekId}`, {
                 headers: {
-                    Authorization: `Bearer ${user.token}` // Bejelentkezett felhasználó tokenjének átadása
-                }
+                    Authorization: `Bearer ${user.token}`,
+                },
             });
-
-            // Kosár lista frissítése
-            setKosarLista((prevKosar) => prevKosar.filter((termek) => termek.termek_id !== termek_id));
+    
+            setKosarLista(prevKosar => prevKosar.filter(termek => termek.id !== termekId));
         } catch (error) {
-            console.error('Hiba a kosárból való törlés során:', error);
+            console.error('Hiba a kosár törlése során:', error.response?.data || error);
+            alert('Hiba történt a kosár törlésénél!');
         }
     };
-
+    
     return (
-        <KosarContext.Provider value={{ kosarLISTA, kosarbaTesz, kosarbolTorol, setUser }}>
+        <KosarContext.Provider value={{ kosarLISTA, kosarbaTesz, kosarbolTorol }}>
             {children}
         </KosarContext.Provider>
     );
 };
+
+export const useKosarContext = () => useContext(KosarContext);
