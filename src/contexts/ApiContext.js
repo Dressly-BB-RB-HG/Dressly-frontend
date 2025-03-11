@@ -8,10 +8,10 @@ export const ApiProvider = ({ children }) => {
   const [kategoriak, setKategoriak] = useState([]) // összes
   const [legkedveltebb, setLegkedveltebb] = useState([]); //csak legkedveltebb
 
-  const getAdat = async (vegpont, callbackFv) => {
+  const getAdat = async (vegpont) => {
     try {
-      const response = await myAxios.get(vegpont, callbackFv);
-      callbackFv(response.data);
+      const response = await myAxios.get(vegpont);
+      setTermekLista(response.data);
       console.log("adat:", response.data);
     } catch (err) {
       console.log("Hiba történt az adat elküldésekor.", err);
@@ -112,7 +112,7 @@ export const ApiProvider = ({ children }) => {
   }, []);
 
   return (
-    <ApiContext.Provider value={{ termekLista, kategoriak, legkedveltebb, getAdat, setTermekLista, getMarkaRuhak, setKategoriak, setLegkedveltebb,  profilFrissit, uploadModel, uploadTermek, deleteModel, updateTermek, getLegkedveltebb, }}>
+    <ApiContext.Provider value={{ termekLista, kategoriak, legkedveltebb, getAdat, setTermekLista, getMarkaRuhak, setKategoriak, setLegkedveltebb,  profilFrissit, uploadModel, uploadTermek, deleteModel, updateTermek, getLegkedveltebb, getAdat }}>
       {children}
     </ApiContext.Provider>
   );
