@@ -76,13 +76,6 @@ export const KosarProvider = ({ children }) => {
                 },
             });
     
-            // Új kosárlista lekérése az API-ból törlés után
-            const response = await myAxios.get('/api/kosar-megjelen', {
-                headers: {
-                    Authorization: `Bearer ${user.token}`,
-                },
-            });
-    
             fetchKosar();
         } catch (error) {
             console.error('Hiba a kosár törlése során:', error.response?.data || error);
