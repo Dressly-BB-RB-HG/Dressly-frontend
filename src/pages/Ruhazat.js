@@ -7,7 +7,7 @@ import './pages-css/Ruhazat.css';
 function Ruhazat() {
 
     const { getLegkedveltebb,getAdat, getMarkaRuhak, getSzinRuhak, legkedveltebb } = useContext(ApiContext);
-
+    
   
   const handleLegkedveltebb = () => {
     getLegkedveltebb();  
@@ -22,6 +22,8 @@ function Ruhazat() {
       getMarkaRuhak(marka);
     }
   };
+
+  
 
     return (
         <div className="container-fluid">
@@ -49,26 +51,26 @@ function Ruhazat() {
                         title="Márka"
                         className="mb-3 custom-dropdown"
                         size="sm">
-                        <Dropdown.Item href="#/action-1" onClick={() => handleMarkaValtozas("Minden márka")}>Minden márka</Dropdown.Item>
-                        <Dropdown.Item href="#/action-2" onClick={() => handleMarkaValtozas("Nike")}>Nike</Dropdown.Item>
-                        <Dropdown.Item href="#/action-3"onClick={() => handleMarkaValtozas("The North Face")}>The North Face</Dropdown.Item>
-                        <Dropdown.Item href="#/action-4" onClick={() => handleMarkaValtozas("Adidas")}>Adidas</Dropdown.Item>
-                        <Dropdown.Item href="#/action-5" onClick={() => handleMarkaValtozas("Puma")}>Puma</Dropdown.Item>
-                        <Dropdown.Item href="#/action-5">Ralph Lauren</Dropdown.Item>
-                        <Dropdown.Item href="#/action-5">Tommy Hilfiger</Dropdown.Item>
-                        <Dropdown.Item href="#/action-5">Calvin Klein</Dropdown.Item>
-                        <Dropdown.Item href="#/action-5">Reebok</Dropdown.Item>
-                        <Dropdown.Item href="#/action-5">Under Armour</Dropdown.Item>
-                        <Dropdown.Item href="#/action-5">Armani</Dropdown.Item>
-                        <Dropdown.Item href="#/action-5">BOSS</Dropdown.Item>
-                        <Dropdown.Item href="#/action-5">Vans</Dropdown.Item>
-                        <Dropdown.Item href="#/action-5">Converse</Dropdown.Item>
-                        <Dropdown.Item href="#/action-5">Levi's</Dropdown.Item>
-                        <Dropdown.Item href="#/action-5">Michael Kors</Dropdown.Item>
-                        <Dropdown.Item href="#/action-5">Prada</Dropdown.Item>
-                        <Dropdown.Item href="#/action-5">Chanel</Dropdown.Item>
-                        <Dropdown.Item href="#/action-5">Gucci</Dropdown.Item>
-                        <Dropdown.Item href="#/action-5">Louis Vuitton</Dropdown.Item>
+                        <Dropdown.Item href="#/every-brand" onClick={() => getAdat("/api/termek-minden-adattal")}>Minden márka</Dropdown.Item>
+                        <Dropdown.Item href="#/nike-clothes" onClick={() => handleMarkaValtozas("Nike")}>Nike</Dropdown.Item>
+                        <Dropdown.Item href="#/the-north-face-clothes"onClick={() => handleMarkaValtozas("The North Face")}>The North Face</Dropdown.Item>
+                        <Dropdown.Item href="#/adidas-clothes" onClick={() => handleMarkaValtozas("Adidas")}>Adidas</Dropdown.Item>
+                        <Dropdown.Item href="#/puma-clothes" onClick={() => handleMarkaValtozas("Puma")}>Puma</Dropdown.Item>
+                        <Dropdown.Item href="#/ralph-lauren-clothes" onClick={() => handleMarkaValtozas("Ralph Lauren")}>Ralph Lauren</Dropdown.Item>
+                        <Dropdown.Item href="#/tommy-hilfiger-clothes" onClick={() => handleMarkaValtozas("Tommy Hilfiger")}>Tommy Hilfiger</Dropdown.Item>
+                        <Dropdown.Item href="#/calvin-klein-clothes" onClick={() => handleMarkaValtozas("Calvin Klein")}>Calvin Klein</Dropdown.Item>
+                        <Dropdown.Item href="#/rebook-clothes" onClick={() => handleMarkaValtozas("Reebok")}>Reebok</Dropdown.Item>
+                        <Dropdown.Item href="#/under-armour-clothes" onClick={() => handleMarkaValtozas("Under Armour")}>Under Armour</Dropdown.Item>
+                        <Dropdown.Item href="#/armani-clothes" onClick={() => handleMarkaValtozas("Armani")}>Armani</Dropdown.Item>
+                        <Dropdown.Item href="#/boss-clothes" onClick={() => handleMarkaValtozas("BOSS")}>BOSS</Dropdown.Item>
+                        <Dropdown.Item href="#/vans-clothes" onClick={() => handleMarkaValtozas("Vans")}>Vans</Dropdown.Item>
+                        <Dropdown.Item href="#/converse-clothes" onClick={() => handleMarkaValtozas("Converse")}>Converse</Dropdown.Item>
+                        <Dropdown.Item href="#/levis-clothes" onClick={() => handleMarkaValtozas("Levi's")}>Levi's</Dropdown.Item>
+                        <Dropdown.Item href="#/michael-kors-clothes" onClick={() => handleMarkaValtozas("Michael Kors")}>Michael Kors</Dropdown.Item>
+                        <Dropdown.Item href="#/prada-clothes" onClick={() => handleMarkaValtozas("Prada")}>Prada</Dropdown.Item>
+                        <Dropdown.Item href="#/chanel-clothes" onClick={() => handleMarkaValtozas("Chanel")}>Chanel</Dropdown.Item>
+                        <Dropdown.Item href="#/gucci-clothes" onClick={() => handleMarkaValtozas("Gucci")}>Gucci</Dropdown.Item>
+                        <Dropdown.Item href="#/louis-vuitton-clothes" onClick={() => handleMarkaValtozas("Louis Vuitton")}>Louis Vuitton</Dropdown.Item>
                     </DropdownButton>
                     <DropdownButton
                         id="dropdown-basic-button"
