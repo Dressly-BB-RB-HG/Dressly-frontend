@@ -81,3 +81,40 @@
     background-color: #c0a79c;
 }
 
+.szuresNelkulGomb {
+    background-color: #c0a79c;
+    font-size: medium;
+    color: white;
+    padding: 5px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out, transform 0.2s;
+    width: 100%;
+    max-width: 150px;
+    height: 30px;
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+
+.szuresNelkulGomb:hover {
+    background-color: #a89285;
+    transform: scale(1.05);
+    color: white;
+}
+
+.szuresNelkulGomb:active {
+    transform: scale(0.95);
+}
+
+
+.szuresNelkulGombContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}

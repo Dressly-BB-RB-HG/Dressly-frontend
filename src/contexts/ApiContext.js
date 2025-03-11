@@ -47,6 +47,36 @@ const getNemuRuhak = async (nem) => {
   }
 };
 
+const getMeretRuhak = async (meret) => {
+  try {
+      const response = await myAxios.get(`/api/meret-ruhak/${meret}`);
+      setTermekLista(response.data);
+  } catch (err) {
+      console.error("Hiba történt a márkás ruhák lekérése során:", err);
+  }
+};
+
+const getSzinuRuhak = async (szin) => {
+  try {
+      const response = await myAxios.get(`/api/szinu-minden/${szin}`);
+      setTermekLista(response.data);
+  } catch (err) {
+      console.error("Hiba történt a márkás ruhák lekérése során:", err);
+  }
+};
+
+const getRendezesArSzerint = async (irany) => {
+  try {
+    const response = await myAxios.get(`/api/termek-rendez-ar-szerint`, {
+      params: { irany }  // Az irany paraméter a query stringben
+  });
+      setTermekLista(response.data);
+      console.log("Rendezett adat:", response.data);
+  } catch (err) {
+      console.log("Hiba történt az adat rendezése során.", err);
+  }
+};
+
   //szűrések/rendezések vége
 
 
@@ -121,7 +151,7 @@ const getNemuRuhak = async (nem) => {
   }, []);
 
   return (
-    <ApiContext.Provider value={{ termekLista, kategoriak, legkedveltebb, getAdat, setTermekLista, getMarkaRuhak, getNemuRuhak ,setKategoriak, setLegkedveltebb,  profilFrissit, uploadModel, uploadTermek, deleteModel, updateTermek, getLegkedveltebb, getAdat }}>
+    <ApiContext.Provider value={{ termekLista, kategoriak, legkedveltebb, getAdat, setTermekLista, getMarkaRuhak, getNemuRuhak, getMeretRuhak, getSzinuRuhak, getRendezesArSzerint, setKategoriak, setLegkedveltebb,  profilFrissit, uploadModel, uploadTermek, deleteModel, updateTermek, getLegkedveltebb, getAdat }}>
       {children}
     </ApiContext.Provider>
   );

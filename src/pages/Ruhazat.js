@@ -1,17 +1,19 @@
 import React, { useContext } from 'react'
-import { Dropdown, DropdownButton } from 'react-bootstrap'
+import { Dropdown, DropdownButton, Button } from 'react-bootstrap'
 import { ApiContext } from '../contexts/ApiContext';
 import Termekek from '../components/Termekek'
 import './pages-css/Ruhazat.css';
 
+
 function Ruhazat() {
 
-    const { getLegkedveltebb, getAdat, getMarkaRuhak, getNemuRuhak } = useContext(ApiContext);
+    const { getLegkedveltebb, getAdat, getMarkaRuhak, getNemuRuhak, getMeretRuhak, getSzinuRuhak, getRendezesArSzerint } = useContext(ApiContext);
     
   
   const handleLegkedveltebb = () => {
     getLegkedveltebb();  
   };
+
 
   const handleMarkaValtozas = (marka) => {
     if (marka === "Minden márka") {
@@ -31,6 +33,26 @@ function Ruhazat() {
       getNemuRuhak(nem);
     }
   };
+
+  const handleMeretValtozas = (meret) => {
+    if (meret === "Összes méret") {
+      getAdat("/api/termek-minden-adattal");
+    } else {
+      getMeretRuhak(meret);
+    }
+  };
+
+  const handleSzinValtozas = (szin) => {
+    if (szin === "Összes szín") {
+      getAdat("/api/termek-minden-adattal");
+    } else {
+      getSzinuRuhak(szin);
+    }
+  };
+
+  const handleArRendezes = (irany) => {
+    getRendezesArSzerint(irany);
+};
   
 
     return (
@@ -42,8 +64,8 @@ function Ruhazat() {
                         title="Rendezési szempont"
                         className="mb-3 custom-dropdown"
                         size="sm">
-                        <Dropdown.Item href="#/action-1">Legalacsonyabb ár</Dropdown.Item>
-                        <Dropdown.Item href="#/action-2">Legmagasabb ár</Dropdown.Item>
+                        <Dropdown.Item href="#/action-1" onClick={() => handleArRendezes("novekv")} >Legalacsonyabb ár</Dropdown.Item>
+                        <Dropdown.Item href="#/action-2" onClick={() => handleArRendezes("csokkeno")} >Legmagasabb ár</Dropdown.Item>
                     </DropdownButton>
                     <DropdownButton
                         id="dropdown-basic-button"
@@ -85,41 +107,42 @@ function Ruhazat() {
                         title="Nem"
                         className="mb-3 custom-dropdown"
                         size="sm">
-                        <Dropdown.Item href="#/action-1" onClick={() => handleNemValtozas("N")} >Női</Dropdown.Item>
-                        <Dropdown.Item href="#/action-2" onClick={() => handleNemValtozas("F")} >Férfi</Dropdown.Item>
-                        <Dropdown.Item href="#/action-3" onClick={() => handleNemValtozas("U")} >Uniszex</Dropdown.Item>
+                        <Dropdown.Item href="#/women" onClick={() => handleNemValtozas("N")} >Női</Dropdown.Item>
+                        <Dropdown.Item href="#/men" onClick={() => handleNemValtozas("F")} >Férfi</Dropdown.Item>
+                        <Dropdown.Item href="#/unisex" onClick={() => handleNemValtozas("U")} >Uniszex</Dropdown.Item>
                     </DropdownButton>
                     <DropdownButton
                         id="dropdown-basic-button"
                         title="Méret"
                         className="mb-3 custom-dropdown"
                         size="sm">
-                        <Dropdown.Item href="#/action-1">Minden méret</Dropdown.Item>
-                        <Dropdown.Item href="#/action-2">S</Dropdown.Item>
-                        <Dropdown.Item href="#/action-3">M</Dropdown.Item>
-                        <Dropdown.Item href="#/action-4">L</Dropdown.Item>
-                        <Dropdown.Item href="#/action-5">XL</Dropdown.Item>
+                        <Dropdown.Item href="#/" onClick={() => getAdat("/api/termek-minden-adattal")} >Minden méret</Dropdown.Item>
+                        <Dropdown.Item href="#/size-s" onClick={() => handleMeretValtozas("S")} >S</Dropdown.Item>
+                        <Dropdown.Item href="#/size-m" onClick={() => handleMeretValtozas("M")} >M</Dropdown.Item>
+                        <Dropdown.Item href="#/size-l" onClick={() => handleMeretValtozas("L")} >L</Dropdown.Item>
+                        <Dropdown.Item href="#/size-xl" onClick={() => handleMeretValtozas("XL")} >XL</Dropdown.Item>
                     </DropdownButton>
                     <DropdownButton
                         id="dropdown-basic-button"
                         title="Szín"
                         className="mb-3 custom-dropdown"
                         size="sm">
-                        <Dropdown.Item href="#/action-1">Minden szín</Dropdown.Item>
-                        <Dropdown.Item href="#/action-2">Fekete</Dropdown.Item>
-                        <Dropdown.Item href="#/action-3">Fehér</Dropdown.Item>
-                        <Dropdown.Item href="#/action-4">Szürke</Dropdown.Item>
-                        <Dropdown.Item href="#/action-5">Barna</Dropdown.Item>
-                        <Dropdown.Item href="#/action-5">Rózsaszín</Dropdown.Item>
-                        <Dropdown.Item href="#/action-5">Piros</Dropdown.Item>
-                        <Dropdown.Item href="#/action-5">Kék</Dropdown.Item>
-                        <Dropdown.Item href="#/action-5">Zöld</Dropdown.Item>
-                        <Dropdown.Item href="#/action-5">Sárga</Dropdown.Item>
-                        <Dropdown.Item href="#/action-5">Narancssárga</Dropdown.Item>
-                        <Dropdown.Item href="#/action-5">Lila</Dropdown.Item>
-                        <Dropdown.Item href="#/action-5">Bézs</Dropdown.Item>
-                        <Dropdown.Item href="#/action-5">Türkiz</Dropdown.Item>
+                        <Dropdown.Item href="#/" onClick={() => handleSzinValtozas("Összes szín")} >Minden szín</Dropdown.Item>
+                        <Dropdown.Item href="#/black-clothes" onClick={() => handleSzinValtozas("Fekete")} >Fekete</Dropdown.Item>
+                        <Dropdown.Item href="#/white-clothes" onClick={() => handleSzinValtozas("Fehér")} >Fehér</Dropdown.Item>
+                        <Dropdown.Item href="#/grey-clothes" onClick={() => handleSzinValtozas("Szürke")} >Szürke</Dropdown.Item>
+                        <Dropdown.Item href="#/brown-clothes" onClick={() => handleSzinValtozas("Barna")} >Barna</Dropdown.Item>
+                        <Dropdown.Item href="#/pink-clothes" onClick={() => handleSzinValtozas("Rózsaszín")} >Rózsaszín</Dropdown.Item>
+                        <Dropdown.Item href="#/red-clothes" onClick={() => handleSzinValtozas("Piros")} >Piros</Dropdown.Item>
+                        <Dropdown.Item href="#/blue-clothes" onClick={() => handleSzinValtozas("Kék")} >Kék</Dropdown.Item>
+                        <Dropdown.Item href="#/green-clothes" onClick={() => handleSzinValtozas("Zöld")} >Zöld</Dropdown.Item>
+                        <Dropdown.Item href="#/yellow-clothes" onClick={() => handleSzinValtozas("Sárga")} >Sárga</Dropdown.Item>
+                        <Dropdown.Item href="#/orange-clothes" onClick={() => handleSzinValtozas("Narancssárga")} >Narancssárga</Dropdown.Item>
+                        <Dropdown.Item href="#/purple-clothes" onClick={() => handleSzinValtozas("Lila")} >Lila</Dropdown.Item>
+                        <Dropdown.Item href="#/beige-clothes" onClick={() => handleSzinValtozas("Bézs")} >Bézs</Dropdown.Item>
+                        <Dropdown.Item href="#/turquoise-clothes" onClick={() => handleSzinValtozas("Türkiz")} >Türkiz</Dropdown.Item>
                     </DropdownButton>
+                    <Button className="szuresNelkulGomb" variant="contained" href="#/" onClick={() => getAdat("/api/termek-minden-adattal")}>Szűrés nélkül</Button>
                 </div>
             </div>
 
