@@ -6,7 +6,8 @@ function KosarElem(props) {
 
 
   const handleDelete = () => {
-    kosarbolTorol(props.adat.termek_id);
+    console.log("Törlendő termék ID:", props.adat.termek.termek_id);
+    kosarbolTorol(props.adat.termek.termek_id);
   };
 
   return (
