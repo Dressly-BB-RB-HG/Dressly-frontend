@@ -1,19 +1,23 @@
-import React, { useContext } from 'react';
-import { KosarContext } from '../contexts/KosarContext';
+import React, { useContext } from "react";
+import { KosarContext } from "../contexts/KosarContext";
 
 function KosarElem(props) {
   const { kosarbolTorol } = useContext(KosarContext);
 
-
   const handleDelete = () => {
-    console.log("Törlendő termék ID:", props.adat.termek.termek_id);
     kosarbolTorol(props.adat.termek.termek_id);
   };
 
   return (
     <div>
-       Ár: {props.adat.ar}Ft
-       Méret: {props.adat.meret} Szín: {props.adat.szin}
+      
+      <img src={props.adat.termek.modell.kep} alt={props.adat.termek.modell.gyarto}/>
+      <p>Gyártó: {props.adat.termek.modell.gyarto}</p>
+      <p>Ár: {props.adat.ar}Ft</p>
+      <p>Méret: {props.adat.meret}</p>
+      <p>Szín: {props.adat.szin}</p>
+      <p>Mennyiség: {props.adat.mennyiseg}</p>
+      
       <button onClick={handleDelete}>🗑️</button>
     </div>
   );

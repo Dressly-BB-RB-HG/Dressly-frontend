@@ -5,10 +5,11 @@ import { myAxios } from "../contexts/MyAxios";
 export const KosarContext = createContext(null);
 
 export const KosarProvider = ({ children }) => {
-    const { user, checkAuth } = useAuthContext(); // Felhasználó lekérése
+    const { user, checkAuth } = useAuthContext();
     const [kosarLISTA, setKosarLista] = useState([]);
-    const [loading, setLoading] = useState(true); // Állapot a betöltéshez
+    const [loading, setLoading] = useState(true);
 
+    // Kosár frissítése
     const fetchKosar = async () => {
         if (user) {
             try {
@@ -17,13 +18,13 @@ export const KosarProvider = ({ children }) => {
                         Authorization: `Bearer ${user.token}`,
                     },
                 });
-
-                // Betöltjük a termékek adatokat a kosárban
+    
                 setKosarLista(response.data.map(item => ({
                     ...item,
-                    ar: item.termek.ar,  // Az ár hozzáadása
-                    meret: item.termek.meret,  // A méret hozzáadása
-                    szin: item.termek.szin
+                    ar: item.termek.ar,
+                    meret: item.termek.meret, 
+                    szin: item.termek.szin,  
+                    modell: item.termek.modell,
                 })));
             } catch (error) {
                 console.error('Hiba a kosár betöltése során:', error);
@@ -32,6 +33,8 @@ export const KosarProvider = ({ children }) => {
         }
         setLoading(false);
     };
+    
+    
 
     useEffect(() => {
     
@@ -54,8 +57,6 @@ export const KosarProvider = ({ children }) => {
                     Authorization: `Bearer ${user.token}`,
                 },
             });
-    
-            // A termékek adatainak mentése a kosárba
             fetchKosar();
         } catch (error) {
             console.error('Hiba a kosárba tétel során:', error.response?.data || error);

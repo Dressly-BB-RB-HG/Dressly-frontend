@@ -24,6 +24,10 @@ function Navigacio() {
         setIsKosarVisible(prevState => !prevState);
     };
 
+    const bezarKosar = () => {
+        setIsKosarVisible(false);
+    };
+
     return (
         <>
         <Navbar expand="lg" className={isScrolled ? "navbar navbar-scrolled" : "navbar"}>
@@ -70,7 +74,7 @@ function Navigacio() {
                 </Navbar.Collapse>
             </Container>
         </Navbar>
-        <Kosar isKosarVisible={isKosarVisible} />
+        <Kosar isKosarVisible={isKosarVisible} bezarKosar={bezarKosar}/>
         </>
     );
 }

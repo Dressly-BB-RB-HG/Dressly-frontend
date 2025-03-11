@@ -3,13 +3,14 @@ import { KosarContext } from '../contexts/KosarContext';
 import KosarElem from './KosarElem';
 import './Kosar.css';
 
-function Kosar({ isKosarVisible }) {
+function Kosar({ isKosarVisible, bezarKosar }) {
     const { kosarLISTA } = useContext(KosarContext);
 
     return (
         <div className={`kosar ${isKosarVisible ? 'visible' : ''}`}>
             <div className='row'>
-                <h2 className="kosar-title ">Kosár</h2>
+                <button className="kosar-exit col-lg-1" onClick={bezarKosar}>X</button>
+                <h2 className="kosar-title col-lg-10">Kosár</h2>
             </div>
             {kosarLISTA.length > 0 ? (
                 kosarLISTA.map((adat, index) => (
