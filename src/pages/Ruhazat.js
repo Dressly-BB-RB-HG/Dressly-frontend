@@ -6,7 +6,7 @@ import './pages-css/Ruhazat.css';
 
 function Ruhazat() {
 
-    const { getLegkedveltebb,getAdat, getMarkaRuhak, getSzinRuhak, legkedveltebb } = useContext(ApiContext);
+    const { getLegkedveltebb, getAdat, getMarkaRuhak, getNemuRuhak } = useContext(ApiContext);
     
   
   const handleLegkedveltebb = () => {
@@ -23,6 +23,14 @@ function Ruhazat() {
     }
   };
 
+
+  const handleNemValtozas = (nem) => {
+    if (nem === "Összes nemű") {
+      getAdat("/api/termek-minden-adattal");
+    } else {
+      getNemuRuhak(nem);
+    }
+  };
   
 
     return (
@@ -77,9 +85,9 @@ function Ruhazat() {
                         title="Nem"
                         className="mb-3 custom-dropdown"
                         size="sm">
-                        <Dropdown.Item href="#/action-1" >Női</Dropdown.Item>
-                        <Dropdown.Item href="#/action-2">Férfi</Dropdown.Item>
-                        <Dropdown.Item href="#/action-3">Uniszex</Dropdown.Item>
+                        <Dropdown.Item href="#/action-1" onClick={() => handleNemValtozas("N")} >Női</Dropdown.Item>
+                        <Dropdown.Item href="#/action-2" onClick={() => handleNemValtozas("F")} >Férfi</Dropdown.Item>
+                        <Dropdown.Item href="#/action-3" onClick={() => handleNemValtozas("U")} >Uniszex</Dropdown.Item>
                     </DropdownButton>
                     <DropdownButton
                         id="dropdown-basic-button"

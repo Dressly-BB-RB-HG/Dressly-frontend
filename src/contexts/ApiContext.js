@@ -38,6 +38,15 @@ export const ApiProvider = ({ children }) => {
     }
 };
 
+const getNemuRuhak = async (nem) => {
+  try {
+      const response = await myAxios.get(`/api/nemu-ruhak/${nem}`);
+      setTermekLista(response.data);
+  } catch (err) {
+      console.error("Hiba történt a márkás ruhák lekérése során:", err);
+  }
+};
+
   //szűrések/rendezések vége
 
 
@@ -112,7 +121,7 @@ export const ApiProvider = ({ children }) => {
   }, []);
 
   return (
-    <ApiContext.Provider value={{ termekLista, kategoriak, legkedveltebb, getAdat, setTermekLista, getMarkaRuhak, setKategoriak, setLegkedveltebb,  profilFrissit, uploadModel, uploadTermek, deleteModel, updateTermek, getLegkedveltebb, getAdat }}>
+    <ApiContext.Provider value={{ termekLista, kategoriak, legkedveltebb, getAdat, setTermekLista, getMarkaRuhak, getNemuRuhak ,setKategoriak, setLegkedveltebb,  profilFrissit, uploadModel, uploadTermek, deleteModel, updateTermek, getLegkedveltebb, getAdat }}>
       {children}
     </ApiContext.Provider>
   );
