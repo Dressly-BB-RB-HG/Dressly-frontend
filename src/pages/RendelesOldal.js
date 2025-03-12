@@ -24,12 +24,13 @@ function RendelésOldal() {
     // Az email küldés
     const sendEmail = async () => {
       try {
-        const response = await axios.post('/api/send-welcome-email', {
-          email: user?.email // Ha az emailt is elküldjük
+        const response = await axios.post('api/send-email', {
+          email: user?.email, // A felhasználó email címe
         });
         console.log('Email sikeresen elküldve:', response);
       } catch (error) {
         console.error('Email küldési hiba:', error);
+        alert('Hiba történt az e-mail küldése közben. Kérjük próbálja újra!');
       }
     };
 

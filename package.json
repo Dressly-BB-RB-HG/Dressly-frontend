@@ -7,7 +7,7 @@
     "bootstrap": "^5.3.3",
     "button": "^1.1.1",
     "cra-template": "1.2.0",
-    "framer-motion": "^12.4.4",
+    "framer-motion": "^12.5.0",
     "motion": "^12.4.7",
     "react": "^19.0.0",
     "react-bootstrap": "^2.10.7",
