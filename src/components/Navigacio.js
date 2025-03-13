@@ -1,14 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { Navbar, Nav, Container } from 'react-bootstrap';
 import useAuthContext from "../contexts/AuthContext";
 import './Navigacio.css';
 import Kosar from './Kosar';
+import { KosarContext } from '../contexts/KosarContext';
 
 function Navigacio() {
     const { user, logout } = useAuthContext();
     const [isScrolled, setIsScrolled] = useState(false);
     const [isKosarVisible, setIsKosarVisible] = useState(false);
+    const { kosarLISTA } = useContext(KosarContext);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -50,7 +52,9 @@ function Navigacio() {
                         </Nav>
                         <Nav className="d-flex">
                             <Nav.Link as={Link} onClick={toggleKosar}>
-                                <img className="ikon" src="/kosar.png" alt="kosar" />
+                                <div className='kosar-ikon' data-product-count={kosarLISTA.length}>
+                                    <img className="ikon" src="/kosar.png" alt="kosar" />
+                                </div>
                             </Nav.Link>
                             <Nav.Link as={Link} to="/kivansaglista">
                                 <img className="ikon" src="/sziv.png" alt="kedvencek" />
@@ -74,7 +78,7 @@ function Navigacio() {
                 </Navbar.Collapse>
             </Container>
         </Navbar>
-        <Kosar isKosarVisible={isKosarVisible} bezarKosar={bezarKosar}/>
+        <Kosar isKosarVisible={isKosarVisible} bezarKosar={bezarKosar} />
         </>
     );
 }
