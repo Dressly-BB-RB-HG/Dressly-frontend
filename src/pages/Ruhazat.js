@@ -11,7 +11,7 @@ function Ruhazat() {
     
   
   const handleLegkedveltebb = () => {
-    getLegkedveltebb();  
+    getLegkedveltebb("/api/legkedveltebb-modell");  
   };
 
 
@@ -53,7 +53,8 @@ function Ruhazat() {
   const handleArRendezes = (irany) => {
     getRendezesArSzerint(irany);
 };
-  
+
+
 
     return (
         <div className="container-fluid">
@@ -64,15 +65,15 @@ function Ruhazat() {
                         title="Rendezési szempont"
                         className="mb-3 custom-dropdown"
                         size="sm">
-                        <Dropdown.Item href="#/action-1" onClick={() => handleArRendezes("novekv")} >Legalacsonyabb ár</Dropdown.Item>
-                        <Dropdown.Item href="#/action-2" onClick={() => handleArRendezes("csokkeno")} >Legmagasabb ár</Dropdown.Item>
+                        <Dropdown.Item href="#/legolcsobb-elol" onClick={() => handleArRendezes("novekv")} >Legalacsonyabb ár</Dropdown.Item>
+                        <Dropdown.Item href="#/legdragabb-elol" onClick={() => handleArRendezes("csokkeno")} >Legmagasabb ár</Dropdown.Item>
                     </DropdownButton>
                     <DropdownButton
                         id="dropdown-basic-button"
                         title="Szürési szempont"
                         className="mb-3 custom-dropdown"
                         size="sm">
-                        <Dropdown.Item href="#/action-1" onClick={handleLegkedveltebb}
+                        <Dropdown.Item href="#/most-loved" onClick={handleLegkedveltebb}
                         >Legnépszerűbb</Dropdown.Item>
                         <Dropdown.Item href="#/action-2">Legújabb</Dropdown.Item>
                     </DropdownButton>

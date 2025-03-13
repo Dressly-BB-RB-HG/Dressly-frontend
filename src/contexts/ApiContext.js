@@ -19,10 +19,10 @@ export const ApiProvider = ({ children }) => {
   };
 
   // szűrések/rendezések
-  const getLegkedveltebb = async (callbackFv) => {
+  const getLegkedveltebb = async () => {
     try {
-      const response = await myAxios.get("/api/legkedveltebb-modell", callbackFv);
-      setLegkedveltebb(response.data);
+      const response = await myAxios.get("/api/legkedveltebb-modell");
+      setTermekLista(response.data);
       console.log("adat:", response.data);
     } catch (err) {
       console.log("Hiba történt az adat elküldésekor.", err);
