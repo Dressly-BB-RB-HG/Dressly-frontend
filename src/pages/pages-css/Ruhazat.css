@@ -82,7 +82,7 @@
 }
 
 .szuresNelkulGomb {
-    background-color: #7d4ffa;
+    background-color: rgb(128, 150, 126);
     font-size: medium;
     color: white;
     padding: 5px;
@@ -102,9 +102,11 @@
 
 
 .szuresNelkulGomb:hover {
-    background-color: #a89285;
-    transform: scale(1.05);
+    background-color: rgb(117, 133, 115);
+    transform: scale(1.10);
     color: white;
+    box-shadow: 0 4px 8px rgba(63, 99, 77, 0.3);
+    transition: 0.3s ease;
 }
 
 .szuresNelkulGomb:active {
