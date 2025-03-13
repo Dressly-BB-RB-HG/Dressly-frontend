@@ -42,4 +42,24 @@
     max-height: 25px;
 }
 
+.kosar-ikon {
+    position: relative;
+}
+
+.kosar-ikon::before {
+    content: attr(data-product-count);
+    position: absolute;
+    top: -10px; 
+    left: -12px; 
+    width: 1.5rem;
+    height: 1.5rem;
+    color: white;
+    background-color: rgb(130, 132, 255);
+    border-radius: 100%;
+    text-align: center;
+    line-height: 1.5rem;
+    font-size: 15px;
+}
+
+
 
