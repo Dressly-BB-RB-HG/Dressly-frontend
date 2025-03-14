@@ -7,6 +7,7 @@ import { Container, Row, Col, Card, ListGroup, Button, Form } from 'react-bootst
 import { KosarContext } from '../contexts/KosarContext'; // KosárContext importálása
 import { myAxios } from '../contexts/MyAxios';
 
+
 function RendelésOldal() {
   const { user } = useAuthContext(); // A felhasználói kontextus elérése
   const navigate = useNavigate(); // A navigálás kezelése

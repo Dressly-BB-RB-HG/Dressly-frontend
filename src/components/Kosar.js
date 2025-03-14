@@ -1,10 +1,16 @@
 import React, { useContext } from 'react';
+import { useNavigate } from 'react-router-dom'; // useNavigate importálása
 import { KosarContext } from '../contexts/KosarContext';
 import KosarElem from './KosarElem';
 import './Kosar.css';
 
 function Kosar({ isKosarVisible, bezarKosar }) {
     const { kosarLISTA } = useContext(KosarContext);
+    const navigate = useNavigate(); // useNavigate hook inicializálása
+
+    const handleMegrendeles = () => {
+        navigate('/rendelesoldal'); // Navigálás a rendelésoldal-ra
+    };
 
     return (
         <div className={`kosar ${isKosarVisible ? 'visible' : ''}`}>
@@ -16,13 +22,12 @@ function Kosar({ isKosarVisible, bezarKosar }) {
                 kosarLISTA.map((adat, index) => (
                     <div className="kosar-item" key={index}>
                         <KosarElem adat={adat} />
-                        
                     </div>
                 ))
             ) : (
                 <p className="kosar-item">A kosár üres.</p>
             )}
-            <button className="kosar-button">Megrendelés</button>
+            <button className="kosar-button" onClick={handleMegrendeles}>Megrendelés</button>
         </div>
     );
 }
