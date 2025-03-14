@@ -1,39 +1,27 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useAuthContext from '../contexts/AuthContext';
 import { motion } from 'framer-motion';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row, Col, Card, ListGroup, Button, Form } from 'react-bootstrap';
-import axios from 'axios'; // Axios importálása
+import { KosarContext } from '../contexts/KosarContext'; // KosárContext importálása
 import { myAxios } from '../contexts/MyAxios';
 
 function RendelésOldal() {
   const { user } = useAuthContext(); // A felhasználói kontextus elérése
   const navigate = useNavigate(); // A navigálás kezelése
+  const { kosarLISTA, kosarbolTorol } = useContext(KosarContext); // KosárContext és törlés elérése
 
-  const [kosar, setKosar] = useState([]); // Kosár adatainak kezelése
   const [szallitasMod, setSzallitasMod] = useState(''); // Szállítási mód
   const [phone, setPhone] = useState(''); // Telefonszám kezelése
 
-  const totalPrice = kosar.reduce((sum, item) => sum + item.ar * item.keszlet, 0); // Kosár összesített ára
+  // Kosár összesített ára
+  const totalPrice = kosarLISTA.reduce((sum, item) => sum + item.ar * item.mennyiseg, 0); 
 
   useEffect(() => {
     // Ha nincs bejelentkezve a felhasználó, navigálunk a bejelentkezési oldalra
     if (!user) {
       navigate('/bejelentkezes');
-    } else {
-      // Kosár adatok lekérése
-      const fetchKosar = async () => {
-        try {
-          const response = await myAxios.get('/api/kosar-megjelen'); // API hívás a kosár adatainak lekéréséhez
-          setKosar(response.data); // Kosár állapot beállítása
-        } catch (error) {
-          console.error('Hiba történt a kosár betöltésekor:', error);
-          alert('Hiba történt a kosár betöltése közben');
-        }
-      };
-
-      fetchKosar(); // Kosár adatainak lekérése
     }
   }, [user, navigate]);
 
@@ -51,9 +39,9 @@ function RendelésOldal() {
       if (user) {
         const emailData = {
           email: user.email,
-          kosar, // A kosár adatai
+          kosar: kosarLISTA, // A kosár adatai
           szallitasMod, // A szállítási mód
-          phone, // A telefonszám // A bejelentkezett felhasználó email címe
+          phone, // A telefonszám
         };
 
         const response = await myAxios.post('/api/email-kuldes', emailData); // API hívás a rendelés email küldésére
@@ -147,15 +135,19 @@ function RendelésOldal() {
           <Card className="shadow-lg p-4 rounded-3">
             <Card.Header as="h5" className="text-center">Kosár tartalma</Card.Header>
             <ListGroup variant="flush">
-              {kosar.length > 0 ? (
-                kosar.map((item) => (
-                  <ListGroup.Item key={item.termek_id} className="d-flex justify-content-between align-items-center">
+              {kosarLISTA.length > 0 ? (
+                kosarLISTA.map((adat) => (
+                  <ListGroup.Item key={adat.termek_id} className="d-flex justify-content-between align-items-center">
                     {/* Kosár termékek adatainak megjelenítése */}
-                    <span>{item.modell}</span>
-                    <span>{item.szin}</span>
-                    <span>{item.meret}</span>
-                    <span>{item.keszlet} db</span>
-                    <span>Ár: {item.ar * item.keszlet} Ft</span>
+                    <div className="d-flex align-items-center">
+                      <img src={adat.termek.modell.kep} alt={adat.termek.modell.gyarto} style={{ width: '50px', height: '50px', objectFit: 'cover' }} />
+                      <span className="ms-3">{adat.termek.modell.gyarto} - {adat.termek.modell.modell}</span>
+                    </div>
+                    <span>{adat.meret}</span>
+                    <span>{adat.szin}</span>
+                    <span>{adat.mennyiseg} db</span>
+                    <span>{adat.ar * adat.mennyiseg} Ft</span>
+                    <button className="btn btn-danger" onClick={() => kosarbolTorol(adat.termek.termek_id)}>🗑️</button>
                   </ListGroup.Item>
                 ))
               ) : (
