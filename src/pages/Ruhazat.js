@@ -7,7 +7,7 @@ import './pages-css/Ruhazat.css';
 
 function Ruhazat() {
 
-    const { getLegkedveltebb, getAdat, getMarkaRuhak, getNemuRuhak, getMeretRuhak, getSzinuRuhak, getRendezesArSzerint } = useContext(ApiContext);
+    const { getLegkedveltebb, getLegujabb, getAdat, getMarkaRuhak, getNemuRuhak, getMeretRuhak, getSzinuRuhak, getRendezesArSzerint } = useContext(ApiContext);
     
   
   const handleLegkedveltebb = () => {
@@ -23,6 +23,10 @@ function Ruhazat() {
       // Egy konkrét márka esetén meghívjuk a márkára vonatkozó lekérdezést
       getMarkaRuhak(marka);
     }
+  };
+
+  const handleLegujabb = () => {
+    getLegujabb("/api/legujabb-modell");  
   };
 
 
@@ -76,7 +80,7 @@ function Ruhazat() {
                         size="sm">
                         <Dropdown.Item href="#/most-loved" onClick={handleLegkedveltebb}
                         >Legnépszerűbb</Dropdown.Item>
-                        <Dropdown.Item href="#/action-2">Legújabb</Dropdown.Item>
+                        <Dropdown.Item href="#/newest" onClick={handleLegujabb}>Legújabb</Dropdown.Item>
                     </DropdownButton>
                     <DropdownButton
                         id="dropdown-basic-button"

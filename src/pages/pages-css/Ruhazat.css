@@ -114,7 +114,7 @@
 .szuresNelkulGomb {
     background-color: #FFFCFF;
     font-weight: bold;
-    color: #247BA0;
+    color: #C2A878;
     padding: 22px;
     border: 2px solid;
     border-radius: 8px;
@@ -133,9 +133,9 @@
 
 
 .szuresNelkulGomb:hover {
-    background-color: #247BA0;
+    background-color: #dbccb1;
     transform: scale(1.10);
-    color: white;
+    color:  white;
     box-shadow: 0 4px 8px rgba(63, 99, 77, 0.3);
     transition: 0.3s ease;
 }

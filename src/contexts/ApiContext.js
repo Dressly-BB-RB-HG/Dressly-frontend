@@ -19,9 +19,21 @@ export const ApiProvider = ({ children }) => {
   };
 
   // szűrések/rendezések
+
+  
   const getLegkedveltebb = async () => {
     try {
       const response = await myAxios.get("/api/legkedveltebb-modell");
+      setTermekLista(response.data);
+      console.log("adat:", response.data);
+    } catch (err) {
+      console.log("Hiba történt az adat elküldésekor.", err);
+    }
+  };
+
+  const getLegujabb = async () => {
+    try {
+      const response = await myAxios.get("/api/legujabb-modell");
       setTermekLista(response.data);
       console.log("adat:", response.data);
     } catch (err) {
@@ -151,7 +163,7 @@ const getRendezesArSzerint = async (irany) => {
   }, []);
 
   return (
-    <ApiContext.Provider value={{ termekLista, kategoriak, legkedveltebb, getAdat, setTermekLista, getMarkaRuhak, getNemuRuhak, getMeretRuhak, getSzinuRuhak, getRendezesArSzerint, setKategoriak, setLegkedveltebb,  profilFrissit, uploadModel, uploadTermek, deleteModel, updateTermek, getLegkedveltebb, getAdat }}>
+    <ApiContext.Provider value={{ termekLista, kategoriak, legkedveltebb, getAdat, setTermekLista, getLegujabb ,getMarkaRuhak, getNemuRuhak, getMeretRuhak, getSzinuRuhak, getRendezesArSzerint, setKategoriak, setLegkedveltebb,  profilFrissit, uploadModel, uploadTermek, deleteModel, updateTermek, getLegkedveltebb, getAdat }}>
       {children}
     </ApiContext.Provider>
   );
