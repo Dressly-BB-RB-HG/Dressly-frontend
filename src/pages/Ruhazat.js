@@ -64,7 +64,8 @@ function Ruhazat() {
                         id="dropdown-basic-button"
                         title="Rendezési szempont"
                         className="mb-3 custom-dropdown"
-                        size="sm">
+                        size="sm"
+                        >
                         <Dropdown.Item href="#/legolcsobb-elol" onClick={() => handleArRendezes("novekv")} >Legalacsonyabb ár</Dropdown.Item>
                         <Dropdown.Item href="#/legdragabb-elol" onClick={() => handleArRendezes("csokkeno")} >Legmagasabb ár</Dropdown.Item>
                     </DropdownButton>
