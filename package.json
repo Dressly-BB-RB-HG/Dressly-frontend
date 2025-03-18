@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@fontsource/bodoni-moda": "^5.2.5",
+    "@fontsource/playfair-display": "^5.2.5",
     "axios": "^1.7.9",
     "bootstrap": "^5.3.3",
     "button": "^1.1.1",

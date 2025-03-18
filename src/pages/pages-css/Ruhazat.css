@@ -13,6 +13,7 @@
     grid-template-columns: 1fr;
     gap: 15px;
     padding: 5px;
+    
 }
 
 .szuroFeltetelek h1 {
@@ -150,3 +151,4 @@
     align-items: center;
     margin-top: 10px;
 }
+

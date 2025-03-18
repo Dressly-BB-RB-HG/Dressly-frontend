@@ -16,9 +16,11 @@ import FelhasznaloRendeles from './pages/FelhasznaloRendeles';
 import RendelesOldal from './pages/RendelesOldal';
 
 
+
 function App() {
 
   return (
+    
     <BrowserRouter>
       <AuthProvider>
         <KosarProvider>
