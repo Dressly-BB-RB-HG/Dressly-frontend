@@ -18,18 +18,15 @@ function Termek(props) {
 
 
   return (
-    <div className="card kartya">
-      <div className="card-body">
+    <div>
         <img
-          className="kkep card-img-top"
+          className="kkep"
           alt={props.adat.modell.tipus}
           src={props.adat.modell.kep}
           onClick={handleImageClick}
           style={{ cursor: "pointer", width: '100%', height: 'auto' }}
         /> 
-        <h4 className="kgyarto card-text">{props.adat.modell.gyarto}</h4>
-        <p className="kar card-text">{props.adat.ar} Ft</p>
-      </div>
+        <p className="kar">{props.adat.ar} Ft</p>
       <Modal show={showModal} onHide={handleCloseModal}>
         <Modal.Header closeButton>
           <Modal.Title>{props.adat.tipus}</Modal.Title>
