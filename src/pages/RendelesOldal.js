@@ -3,15 +3,16 @@ import { useNavigate } from 'react-router-dom';
 import useAuthContext from '../contexts/AuthContext';
 import { motion } from 'framer-motion';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Container, Row, Col, Card, ListGroup, Button, Form } from 'react-bootstrap';
+import { Container, Row, Col, Card, ListGroup, Button, Form, Table } from 'react-bootstrap';
 import { KosarContext } from '../contexts/KosarContext'; // KosárContext importálása
 import { myAxios } from '../contexts/MyAxios';
+import { Link } from 'react-router-dom';
 
 
 function RendelésOldal() {
-  const { user } = useAuthContext(); // A felhasználói kontextus elérése
-  const navigate = useNavigate(); // A navigálás kezelése
-  const { kosarLISTA, kosarbolTorol } = useContext(KosarContext); // KosárContext és törlés elérése
+  const { user } = useAuthContext(); 
+  const navigate = useNavigate(); 
+  const { kosarLISTA, kosarbolTorol } = useContext(KosarContext); 
 
   const [szallitasMod, setSzallitasMod] = useState(''); // Szállítási mód
   const [phone, setPhone] = useState(''); // Telefonszám kezelése
@@ -20,32 +21,32 @@ function RendelésOldal() {
   const totalPrice = kosarLISTA.reduce((sum, item) => sum + item.ar * item.mennyiseg, 0); 
 
   useEffect(() => {
-    // Ha nincs bejelentkezve a felhasználó, navigálunk a bejelentkezési oldalra
+    
     if (!user) {
       navigate('/bejelentkezes');
     }
   }, [user, navigate]);
 
   const handleSzallitasModValtozas = (e) => {
-    setSzallitasMod(e.target.value); // Szállítási mód változása
+    setSzallitasMod(e.target.value); 
   };
 
   const handlePhoneValtozas = (e) => {
-    setPhone(e.target.value); // Telefonszám változása
+    setPhone(e.target.value); 
   };
 
   const handleRendeles = async () => {
     try {
-      // Ellenőrizzük, hogy a felhasználó be van jelentkezve
+      
       if (user) {
         const emailData = {
           email: user.email,
-          kosar: kosarLISTA, // A kosár adatai
-          szallitasMod, // A szállítási mód
-          phone, // A telefonszám
+          kosar: kosarLISTA, 
+          szallitasMod, 
+          phone, 
         };
 
-        const response = await myAxios.post('/api/email-kuldes', emailData); // API hívás a rendelés email küldésére
+        const response = await myAxios.post('/api/email-kuldes', emailData); 
         console.log('Email sikeresen elküldve:', response.data);
         alert('Rendelés elküldve!');
       }
@@ -56,10 +57,10 @@ function RendelésOldal() {
   };
 
   const udvozles = () => {
-    return 'Itt tudja véglegesíteni a rendelését'; // Üdvözlő szöveg
+    return 'Itt tudja véglegesíteni a rendelését'; 
   };
 
-  const today = new Date().toLocaleDateString(); // Mai dátum megjelenítése
+  const today = new Date().toLocaleDateString(); 
 
   return (
     <Container className="my-5">
@@ -136,21 +137,43 @@ function RendelésOldal() {
           <Card className="shadow-lg p-4 rounded-3">
             <Card.Header as="h5" className="text-center">Kosár tartalma</Card.Header>
             <ListGroup variant="flush">
-              {kosarLISTA.length > 0 ? (
-                kosarLISTA.map((adat) => (
-                  <ListGroup.Item key={adat.termek_id} className="d-flex justify-content-between align-items-center">
-                    {/* Kosár termékek adatainak megjelenítése */}
-                    <div className="d-flex align-items-center">
-                      <img src={adat.termek.modell.kep} alt={adat.termek.modell.gyarto} style={{ width: '50px', height: '50px', objectFit: 'cover' }} />
-                      <span className="ms-3">{adat.termek.modell.gyarto} - {adat.termek.modell.modell}</span>
-                    </div>
-                    <span>{adat.meret}</span>
-                    <span>{adat.szin}</span>
-                    <span>{adat.mennyiseg} db</span>
-                    <span>{adat.ar * adat.mennyiseg} Ft</span>
-                    <button className="btn btn-danger" onClick={() => kosarbolTorol(adat.termek.termek_id)}>🗑️</button>
-                  </ListGroup.Item>
-                ))
+            {kosarLISTA.length > 0 ? (
+                <Table striped bordered hover responsive>
+                  <thead>
+                    <tr>
+                      <th>Termék</th>
+                      <th>Szín</th>
+                      <th>Méret</th>
+                      <th>Mennyiség</th>
+                      <th>Ár</th>
+                      <th>Összeg</th>
+                      <th>Akció</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {kosarLISTA.map((adat) => (
+                      <tr key={adat.termek_id}>
+                        <td>
+                          <img 
+                            src={adat.termek.modell.kep} 
+                            alt={adat.termek.modell.gyarto} 
+                            style={{ width: '80px', height: '80px', objectFit: 'cover' }} 
+                          />
+                        </td>
+                        <td>{adat.szin}</td>
+                        <td>{adat.meret}</td>
+                        <td>{adat.mennyiseg} db</td>
+                        <td>{adat.ar} Ft</td>
+                        <td>{adat.ar * adat.mennyiseg} Ft</td>
+                        <td>
+                          <Button variant="danger" onClick={() => kosarbolTorol(adat.termek.termek_id)}>
+                            🗑️
+                          </Button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </Table>
               ) : (
                 <ListGroup.Item className="text-center">
                   A kosár üres.
@@ -164,11 +187,15 @@ function RendelésOldal() {
 
           {/* Szállítási cím részletek */}
           <Card className="shadow-lg mt-4 p-4 rounded-3">
-            <Card.Header as="h5" className="text-center">Szállítási cím</Card.Header>
-            <Card.Body>
-              <p className="text-muted mt-3 fs-6">
-                Amennyiben változtatni szeretne a szállítási címen, azt a profil módosításnál tudja megtenni!
-              </p>
+          <Card.Header as="h5" className="text-center">Szállítási cím</Card.Header>
+          <Card.Body>
+            <p className="text-muted mt-3 fs-6">
+            Amennyiben változtatni szeretne a szállítási címen, azt{' '}
+          <Link to="/profil" className="text-decoration-none text-success">
+            itt tudja megtenni.
+          </Link>
+
+            </p>
               <ListGroup>
                 <ListGroup.Item><strong>Város:</strong> {user?.varos || 'Nincs megadva'}</ListGroup.Item>
                 <ListGroup.Item><strong>Kerület:</strong> {user?.kerulet || 'Nincs megadva'}</ListGroup.Item>
