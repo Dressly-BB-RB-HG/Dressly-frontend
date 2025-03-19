@@ -1,0 +1,47 @@
+/* Kép stílusa */
+.kkep {
+    aspect-ratio: 3/4;
+    width: 100%;
+    height: auto;
+    max-height: 70%;
+    object-fit: cover;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.kkep:hover {
+    opacity: 0.9;
+}
+
+/* Ár stílusa */
+.kar {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+
+
+/* Modal finomítása */
+.modal-img {
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.modal-body p {
+    font-size: 16px;
+    color: #555;
+}
+
+.modal-footer .btn-primary {
+    background-color: #ff6b6b;
+    border: none;
+}
+
+.modal-footer .btn-primary:hover {
+    background-color: #e05252;
+}
+
+.modal-footer .btn-secondary {
+    background-color: #6c757d;
+}
