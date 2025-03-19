@@ -30,13 +30,14 @@ function Kezdolap() {
   ];
 
   const productTemplate = (product) => (
-    <div className="border-1 surface-border border-round m-2 text-center py-5 px-3 ">
-      <Termek className="termek" adat={product} />
+    <div className="termek-container">
+      <Termek adat={product} />
     </div>
   );
+  
 
   return (
-    <div className="card">
+
       <Carousel
         value={products}
         numVisible={3}
@@ -48,8 +49,9 @@ function Kezdolap() {
         autoplayInterval={8000}
         circular
       />
-    </div>
+
   );
+  
 }
 
 export default Kezdolap;
