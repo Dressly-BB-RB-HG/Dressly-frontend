@@ -156,222 +156,222 @@
                 /* TERMÉKEK FORMÁZÁS */
 
 
-.termekek-container {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 16px;
-    padding: 16px;
-  }
-  
-  
-  
-  .card {
-    display: grid;
-    height: 95%;
-    width: 100%;
-    grid-template-rows: auto auto auto 1fr;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    background-color: #fff;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-  }
-  
-  .card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-  }
-  
-  
-  .kep {
-    max-width: 100%;
-    /*height: 400px;*/
-    aspect-ratio: 16 / 24;
-    border-radius: 8px;
-    object-fit: cover;
-  
-  }
-  
-  
-  .gyarto {
-    font-size: 1.25rem;
-    font-weight: bold;
-    text-align: center;
-  }
-  
-  .ar {
-    font-size: 1.1rem;
-    color: #555;
-    text-align: center;
-  }
-  
-  
-  .gombok {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    align-items: center;
-    gap: 8px;
-    justify-content: space-between;
-  }
-  
-  
-  .kosarbagomb {
-    font-weight: bold  !important;
-    padding: 8px 16px !important;
-    font-size: 1rem !important;
-    border-radius: 8px !important;
-    background: linear-gradient(135deg, #c0a79c, #b29589) !important;
-    color: rgb(238, 233, 233) !important;
-    border: none !important;
-    cursor: pointer !important;
-    transition: all 0.3s ease-in-out !important;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
-  }
-  
-  .kosarbagomb:hover {
-    background: linear-gradient(135deg, #b29589, #a08072) !important;
-    transform: translateY(-2px) scale(1.05) !important;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25) !important;
-  }
-  
-  
-  .btn-primary {
-    --bs-btn-border-color: none !important;
-    --bs-btn-hover-border-color: #c0a79c !important;
-  }
-  
-  .btn-secondary {
-    --bs-btn-border-color: none !important;
-    --bs-btn-hover-border-color: #c0a79c !important;
-  }
-  
-  .kosarbagomb:hover {
-    --bs-btn-hover-border-color: #c0a79c !important;
-  }
-  
-  .kedvenc-gomb {
-    font-size: 45px;
-    padding-top: 20px;
-    color: #0e0000;
-    background: none;
-    border: none;
-    cursor: pointer;
-    transition: color 0.2s ease !important;
-  }
-  
-  .kedvenc-gomb.kedvenc-aktiv {
-    color: #e63946;
-  }
-  
-  .kedvenc-gomb:hover {
-    color: #e63946;
-  }
-  
-  
-  
-  
-  @media (max-width: 768px) {
-    .card {
-      gap: 16px;
-      grid-template-columns: repeat(2, 1fr);
-    }
-  
-    .gyarto {
-      font-size: 1.1rem;
-    }
-  
-    .ar {
-      font-size: 1rem;
-    }
-  
-    .kosarbagomb {
-      font-size: 0.9rem;
-      padding: 6px 12px;
-    }
-  
-    .kedvenc-gomb {
-      font-size: 1.2rem;
-    }
-  }
-  
-  
-  .modal-content {
-    background-color: #fff;
-    border-radius: 12px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-    animation: fadeIn 0.3s ease-in-out;
-  }
-  
-  
-  .modal-header, .modal-footer {
-    background-color: #EFD9CE !important;
-    border: none;
-  }
-  
-  
-  .modal-title {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #000;
-  }
-  
-  
-  .modal-img {
-    max-width: 100%;
-    border-radius: 10px;
-    display: block;
-    margin: 0 auto;
-    aspect-ratio: 19 / 23;
-    object-fit: cover;
-  }
-  
-  
-  .modal-body p {
-    font-size: 1.2rem;
-    color: #333;
-    text-align: center;
-  }
-  
-  
-  .modal-footer .btn {
-    font-size: 1.2rem;
-    padding: 12px 24px;
-    border-radius: 8px;
-    transition: all 0.3s ease-in-out;
-  }
-  
-  
-  .modal-footer .btn-primary {
-    background-color: #fff !important;
-    color: #000;
-    font-weight: bold;
-    border: 1px solid #000;
-  }
-  
-  .modal-footer .btn-primary:hover {
-    background-color: #D7C0B8 !important;
-  }
-  
-  
-  .modal-footer .btn-secondary {
-    background-color: #fff;
-    color: #000;
-    border: 1px solid #000;
-  }
-  
-  .modal-footer .btn-secondary:hover {
-    background-color: #D7C0B8;
-  }
-  
-  
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: scale(0.95);
-    }
-    to {
-      opacity: 1;
-      transform: scale(1);
-    }
-  }
+                .termekek-container {
+                    display: grid;
+                    grid-template-columns: repeat(5, 1fr);
+                    gap: 16px;
+                    padding: 16px;
+                  }
+                  
+                  
+                  
+                  .card {
+                    display: grid;
+                    height: 95%;
+                    width: 100%;
+                    grid-template-rows: auto auto auto 1fr;
+                    padding: 10px;
+                    border: 1px solid #ddd;
+                    border-radius: 8px;
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                    background-color: #fff;
+                    transition: transform 0.2s ease, box-shadow 0.2s ease;
+                  }
+                  
+                  .card:hover {
+                    transform: translateY(-5px);
+                    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+                  }
+                  
+                  
+                  .kep {
+                    max-width: 100%;
+                    /*height: 400px;*/
+                    aspect-ratio: 16 / 24;
+                    border-radius: 8px;
+                    object-fit: cover;
+                  
+                  }
+                  
+                  
+                  .gyarto {
+                    font-size: 1.25rem;
+                    font-weight: bold;
+                    text-align: center;
+                  }
+                  
+                  .ar {
+                    font-size: 1.1rem;
+                    color: #555;
+                    text-align: center;
+                  }
+                  
+                  
+                  .gombok {
+                    display: grid;
+                    grid-template-columns: 1fr auto;
+                    align-items: center;
+                    gap: 8px;
+                    justify-content: space-between;
+                  }
+                  
+                  
+                  .kosarbagomb {
+                    font-weight: bold  !important;
+                    padding: 8px 16px !important;
+                    font-size: 1rem !important;
+                    border-radius: 8px !important;
+                    background: linear-gradient(135deg, #c0a79c, #b29589) !important;
+                    color: rgb(238, 233, 233) !important;
+                    border: none !important;
+                    cursor: pointer !important;
+                    transition: all 0.3s ease-in-out !important;
+                    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+                  }
+                  
+                  .kosarbagomb:hover {
+                    background: linear-gradient(135deg, #b29589, #a08072) !important;
+                    transform: translateY(-2px) scale(1.05) !important;
+                    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25) !important;
+                  }
+                  
+                  
+                  .btn-primary {
+                    --bs-btn-border-color: none !important;
+                    --bs-btn-hover-border-color: #c0a79c !important;
+                  }
+                  
+                  .btn-secondary {
+                    --bs-btn-border-color: none !important;
+                    --bs-btn-hover-border-color: #c0a79c !important;
+                  }
+                  
+                  .kosarbagomb:hover {
+                    --bs-btn-hover-border-color: #c0a79c !important;
+                  }
+                  
+                  .kedvenc-gomb {
+                    font-size: 45px;
+                    padding-top: 20px;
+                    color: #0e0000;
+                    background: none;
+                    border: none;
+                    cursor: pointer;
+                    transition: color 0.2s ease !important;
+                  }
+                  
+                  .kedvenc-gomb.kedvenc-aktiv {
+                    color: #e63946;
+                  }
+                  
+                  .kedvenc-gomb:hover {
+                    color: #e63946;
+                  }
+                  
+                  
+                  
+                  
+                  @media (max-width: 768px) {
+                    .card {
+                      gap: 16px;
+                      grid-template-columns: repeat(2, 1fr);
+                    }
+                  
+                    .gyarto {
+                      font-size: 1.1rem;
+                    }
+                  
+                    .ar {
+                      font-size: 1rem;
+                    }
+                  
+                    .kosarbagomb {
+                      font-size: 0.9rem;
+                      padding: 6px 12px;
+                    }
+                  
+                    .kedvenc-gomb {
+                      font-size: 1.2rem;
+                    }
+                  }
+                  
+                  
+                  .modal-content {
+                    background-color: #fff;
+                    border-radius: 12px;
+                    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+                    animation: fadeIn 0.3s ease-in-out;
+                  }
+                  
+                  
+                  .modal-header, .modal-footer {
+                    background-color: #EFD9CE !important;
+                    border: none;
+                  }
+                  
+                  
+                  .modal-title {
+                    font-size: 1.5rem;
+                    font-weight: bold;
+                    color: #000;
+                  }
+                  
+                  
+                  .modal-img {
+                    max-width: 100%;
+                    border-radius: 10px;
+                    display: block;
+                    margin: 0 auto;
+                    aspect-ratio: 19 / 23;
+                    object-fit: cover;
+                  }
+                  
+                  
+                  .modal-body p {
+                    font-size: 1.2rem;
+                    color: #333;
+                    text-align: center;
+                  }
+                  
+                  
+                  .modal-footer .btn {
+                    font-size: 1.2rem;
+                    padding: 12px 24px;
+                    border-radius: 8px;
+                    transition: all 0.3s ease-in-out;
+                  }
+                  
+                  
+                  .modal-footer .btn-primary {
+                    background-color: #fff !important;
+                    color: #000;
+                    font-weight: bold;
+                    border: 1px solid #000;
+                  }
+                  
+                  .modal-footer .btn-primary:hover {
+                    background-color: #D7C0B8 !important;
+                  }
+                  
+                  
+                  .modal-footer .btn-secondary {
+                    background-color: #fff;
+                    color: #000;
+                    border: 1px solid #000;
+                  }
+                  
+                  .modal-footer .btn-secondary:hover {
+                    background-color: #D7C0B8;
+                  }
+                  
+                  
+                  @keyframes fadeIn {
+                    from {
+                      opacity: 0;
+                      transform: scale(0.95);
+                    }
+                    to {
+                      opacity: 1;
+                      transform: scale(1);
+                    }
+                  }
