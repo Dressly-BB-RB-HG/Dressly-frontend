@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Carousel } from "primereact/carousel";
-import Termek from "../components/Termek";
+import KezdoTermek from "../components/KezdoTermek";
 import { myAxios } from "../contexts/MyAxios";
 import "./Kezdolap.css";
 
@@ -31,7 +31,7 @@ function Kezdolap() {
 
   const productTemplate = (product) => (
     <div className="termek-container">
-      <Termek adat={product} />
+      <KezdoTermek adat={product} />
     </div>
   );
   

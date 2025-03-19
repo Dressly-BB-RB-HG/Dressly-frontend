@@ -1,18 +1,12 @@
 import React, { useContext, useState } from 'react'
 import { KosarContext } from '../contexts/KosarContext'
-import './Termek.css'
+import './KezdoTermek.css'
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Modal, Button } from 'react-bootstrap';
 
 function Termek(props) {
   const { kosarbaTesz } = useContext(KosarContext)
-  const [kedvenc, setKedvenc] = useState(false);
   const [showModal, setShowModal] = useState(false);
-
-  const kedvencKezelo = () => {
-    setKedvenc(!kedvenc);
-  };
-
 
   const handleImageClick = () => { 
     setShowModal(true);
@@ -28,12 +22,12 @@ function Termek(props) {
       <div className="card-body">
         <img
           className="kkep card-img-top"
-          alt={props.adat.modell.tipus + props.adat.modell.kategoria.ruhazat_kat}
+          alt={props.adat.modell.tipus}
           src={props.adat.modell.kep}
           onClick={handleImageClick}
           style={{ cursor: "pointer", width: '100%', height: 'auto' }}
         /> 
-        <h4 className="kgyarto card-text">{props.adat.modell.gyarto} {props.adat.modell.kategoria.ruhazat_kat}</h4>
+        <h4 className="kgyarto card-text">{props.adat.modell.gyarto}</h4>
         <p className="kar card-text">{props.adat.ar} Ft</p>
       </div>
       <Modal show={showModal} onHide={handleCloseModal}>
