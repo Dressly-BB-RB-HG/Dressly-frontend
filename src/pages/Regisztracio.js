@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import useAuthContext from "../contexts/AuthContext";
-import axios from 'axios';  // Ha az email küldést API hívással szeretnéd megoldani
+import useAuthContext from '../contexts/AuthContext';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { myAxios } from '../contexts/MyAxios';
+import { Link } from 'react-router-dom';
 
 function Regisztracio() {
   const [name, setName] = useState("");
@@ -56,9 +57,9 @@ function Regisztracio() {
   const sendEmail = async (userEmail) => {
     try {
       // API hívás az email küldésére (ehhez Axios kell)
-      await axios.post('/regisztracio-email-kuldes', { email: userEmail });
+      await myAxios.post('/api/regisztracio-email-kuldes', { email: userEmail });
     } catch (error) {
-      console.error("Hiba történt az email küldése során:", error);
+      console.error("Hiba történt az email küldése során:", error.response?.data?.message || error.message);
       alert("Hiba történt az email küldése során.");
     }
   };
