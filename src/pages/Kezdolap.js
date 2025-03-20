@@ -3,6 +3,8 @@ import { Carousel } from "primereact/carousel";
 import KezdoTermek from "../components/KezdoTermek";
 import { myAxios } from "../contexts/MyAxios";
 import "./Kezdolap.css";
+import besetal from "../components/videok/besetal.mp4";
+import { div } from "framer-motion/client";
 
 function Kezdolap() {
   const [products, setProducts] = useState([]);
@@ -34,24 +36,28 @@ function Kezdolap() {
       <KezdoTermek adat={product} />
     </div>
   );
-  
 
   return (
+    <div>
+      <div >
+        <video className="video" src={besetal} autoPlay loop muted/>
+      </div>
 
-      <Carousel
-        value={products}
-        numVisible={3}
-        numScroll={1}
-        responsiveOptions={responsiveOptions}
-        itemTemplate={productTemplate}
-        className="kezdolap-carousel"
-        autoplay
-        autoplayInterval={8000}
-        circular
-      />
-
+      <div>
+        <Carousel
+          value={products}
+          numVisible={3}
+          numScroll={1}
+          responsiveOptions={responsiveOptions}
+          itemTemplate={productTemplate}
+          className="kezdolap-carousel"
+          autoplay
+          autoplayInterval={8000}
+          circular
+        />
+      </div>
+    </div>
   );
-  
 }
 
 export default Kezdolap;
