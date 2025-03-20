@@ -40,9 +40,9 @@
     box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
 }
 
-.video{
-    margin: 0;
-    padding: 0;
+.video {
     width: 100%;
-    height: 75h;
+    height: 93vh; 
+    object-fit: cover; 
+    display: block;
 }

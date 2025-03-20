@@ -1,22 +1,35 @@
-import React, { useContext } from 'react'
-import { Dropdown, DropdownButton, Button } from 'react-bootstrap'
-import { ApiContext } from '../contexts/ApiContext';
+import React, { useContext, useEffect } from 'react'
 import Termekek from '../components/Termekek'
-import './pages-css/Ruhazat.css';
-import { div } from 'framer-motion/client';
-
+import './KivansagLista.css'
+import useAuthContext from '../contexts/AuthContext';
+import { useNavigate } from 'react-router-dom';
+import { ApiContext } from '../contexts/ApiContext';
+import KedvencTermekek from '../components/KedvencTermekek';
+import "@fontsource/playfair-display";
 
 function KivansagLista() {
+  const { user } = useAuthContext();
+  const navigate = useNavigate();
+  const { kedvencek, getKedvencTermek } = useContext(ApiContext);
 
-    return (
-        <div>
-            <div className="row">
-                <article className="col-lg-12 py-3">
-                    <Termekek />
-                </article>
-            </div>
-        </div>
-    );
+  useEffect(() => {
+    if (!user) {
+      navigate('/bejelentkezes');
+    } else {
+      getKedvencTermek();
+    }
+  }, [user, navigate]);
+
+  return (
+    <div className='kedvenc-oldal'>
+      <h1>kedvenc termékeid</h1>
+      <div className="row">
+        <article className="kedvenc">
+          <KedvencTermekek termekLista={kedvencek} />
+        </article>
+      </div>
+    </div>
+  );
 }
 
 export default KivansagLista;

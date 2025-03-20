@@ -7,6 +7,7 @@ export const ApiProvider = ({ children }) => {
   const [termekLista, setTermekLista] = useState([]);
   const [kategoriak, setKategoriak] = useState([]) // összes
   const [legkedveltebb, setLegkedveltebb] = useState([]); //csak legkedveltebb
+  const [kedvencek, setKedvencek] = useState([]);
 
   const getAdat = async (vegpont) => {
     try {
@@ -91,6 +92,17 @@ const getRendezesArSzerint = async (irany) => {
 
   //szűrések/rendezések vége
 
+  //kedvenc termékek 
+  const getKedvencTermek = async () => {
+    try {
+      const response = await myAxios.get("/api/kedvenc-termek");
+      setKedvencek(response.data);
+      console.log("Kedvenc termékek:", response.data);
+    } catch (err) {
+      console.log("Hiba történt a kedvencek lekérésekor.", err);
+    }
+  };
+  //kedvenc termékek vége
 
   const profilFrissit = async (vegpont, callbackFv) => {
     try {
@@ -163,7 +175,7 @@ const getRendezesArSzerint = async (irany) => {
   }, []);
 
   return (
-    <ApiContext.Provider value={{ termekLista, kategoriak, legkedveltebb, getAdat, setTermekLista, getLegujabb ,getMarkaRuhak, getNemuRuhak, getMeretRuhak, getSzinuRuhak, getRendezesArSzerint, setKategoriak, setLegkedveltebb,  profilFrissit, uploadModel, uploadTermek, deleteModel, updateTermek, getLegkedveltebb, getAdat }}>
+    <ApiContext.Provider value={{ termekLista, kategoriak, kedvencek ,legkedveltebb, getKedvencTermek ,getAdat, setTermekLista, getLegujabb ,getMarkaRuhak, getNemuRuhak, getMeretRuhak, getSzinuRuhak, getRendezesArSzerint, setKategoriak, setLegkedveltebb,  profilFrissit, uploadModel, uploadTermek, deleteModel, updateTermek, getLegkedveltebb, getAdat }}>
       {children}
     </ApiContext.Provider>
   );

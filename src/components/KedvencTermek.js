@@ -1,52 +1,27 @@
-import React, { useContext, useState } from 'react';
-import { KosarContext } from '../contexts/KosarContext';
-import './Termek.css';
+import React, { useContext, useState } from 'react'
+import { KosarContext } from '../contexts/KosarContext'
+import './Termek.css'
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Modal, Button } from 'react-bootstrap';
-import { myAxios } from '../contexts/MyAxios';
-import useAuthContext from '../contexts/AuthContext'; // Importáljuk a useAuthContext hookot
 
-function Termek(props) {
-  const { kosarbaTesz } = useContext(KosarContext);
-  const { user } = useAuthContext(); // Lekérjük a bejelentkezett felhasználót
+function KedvencTermek(props) {
+  const { kosarbaTesz } = useContext(KosarContext)
   const [kedvenc, setKedvenc] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [message, setMessage] = useState('');
 
-  const kedvencKezelo = async (modellId) => {
-    try {
-      let response;
-      if (kedvenc) {
-        // Ha a termék már kedvenc, eltávolítjuk
-        response = await myAxios.delete(`/api/kedvencek-torol/${modellId}`, {
-          felhasznalo: user.id, // A felhasználó ID-ját az AuthContext-ből vesszük
-          modell: props.adat.modell.modell_id,
-        
-        })
-        ;
-        setKedvenc(false);
-         // Ha sikerült törölni, deaktiváljuk a kedvenc státuszt
-      } else {
-        // Ha nem kedvenc, hozzáadjuk
-        response = await myAxios.post('/api/kedvencekhez-ad', {
-          felhasznalo: user.id, // A felhasználó ID-ját az AuthContext-ből vesszük
-        modell: props.adat.modell.modell_id,
-        });
-        setKedvenc(true); // Ha sikerült hozzáadni, aktiváljuk a kedvenc státuszt
-      }
-  
-      setMessage(response.data.message); // Üzenet a válasz alapján
-    } catch (error) {
-      setMessage('Hiba történt a kedvenc hozzáadása/eltávolítása közben.');
-    }
+  const kedvencKezelo = () => {
+    setKedvenc(!kedvenc);
   };
-  const handleImageClick = () => {
+
+
+  const handleImageClick = () => { 
     setShowModal(true);
   };
 
   const handleCloseModal = () => {
     setShowModal(false);
   };
+
 
   return (
     <div className="card">
@@ -57,7 +32,7 @@ function Termek(props) {
           src={props.adat.modell.kep}
           onClick={handleImageClick}
           style={{ cursor: "pointer", width: '100%', height: 'auto' }}
-        />
+        /> 
         <h4 className="gyarto card-text">{props.adat.modell.gyarto} {props.adat.modell.kategoria.ruhazat_kat}</h4>
         <p className="ar card-text">{props.adat.ar} Ft</p>
         <div className="gombok">
@@ -66,7 +41,6 @@ function Termek(props) {
             {kedvenc ? '♥' : '♡'}
           </button>
         </div>
-        {message && <p className="message">{message}</p>}
       </div>
       <Modal show={showModal} onHide={handleCloseModal}>
         <Modal.Header closeButton>
@@ -87,7 +61,10 @@ function Termek(props) {
         </Modal.Footer>
       </Modal>
     </div>
-  );
+
+
+  )
 }
 
-export default Termek;
+
+export default KedvencTermek;
