@@ -5,6 +5,7 @@ import { myAxios } from "../contexts/MyAxios";
 import "./Kezdolap.css";
 import besetal from "../components/videok/besetal.mp4";
 import { div } from "framer-motion/client";
+import "@fontsource/playfair-display";
 
 function Kezdolap() {
   const [products, setProducts] = useState([]);
@@ -39,11 +40,12 @@ function Kezdolap() {
 
   return (
     <div>
-      <div >
-        <video className="video" src={besetal} autoPlay loop muted/>
+      <video className="video" src={besetal} autoPlay loop muted />
+      <div className="content">
+        <h1 className="motto">DRESS WITH LOVE</h1>
       </div>
-
       <div>
+        <h2 className="cim">Legnépszerűbb termékeink</h2>
         <Carousel
           value={products}
           numVisible={3}
@@ -55,6 +57,17 @@ function Kezdolap() {
           autoplayInterval={8000}
           circular
         />
+      </div>
+      <div className="logo-container">
+        <img className="logo" src="/pipa.png"></img>
+        <img className="logo" src="/north.png"></img>
+        <img className="logo" src="/adidas.png"></img>
+        <img className="logo" src="/puma.png"></img>
+        <img className="logo" src="/ralph.png"></img>
+        <img className="logo" src="/boss.png"></img>
+      </div>
+      <div>
+        
       </div>
     </div>
   );
