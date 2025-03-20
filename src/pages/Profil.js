@@ -100,7 +100,7 @@ function Profil() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="fw-bold" style={{ color: "#4CAF50" }}>{udvozles()}, {user?.name}!</h2>
+          <h2 className="fw-bold" style={{ color: "#4CAF50", marginTop: '15px' }}>{udvozles()}, {user?.name}!</h2>
           <p className="text-muted">Dátum: {today}</p>
         </motion.div>
 

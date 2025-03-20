@@ -10,10 +10,10 @@ function Lablec() {
 
     useEffect(() => {
         if (user) {
-            // Ellenőrizzük a felhasználó feliratkozási státuszát, ha be van jelentkezve
+            
             const checkSubscriptionStatus = async () => {
                 try {
-                    const response = await myAxios.get('/api/feliratkozas-status'); // Lekérdezzük a státuszt
+                    const response = await myAxios.get('/api/feliratkozas-status'); 
                     if (response.data.subscribed) {
                         setIsSubscribed(true);
                     } else {
@@ -31,6 +31,9 @@ function Lablec() {
         try {
             const response = await myAxios.patch('/api/feliratkozas-hirlevelre'); // Feliratkozás hívás
 
+            // Email küldése a backend végponton keresztül
+            await myAxios.post('/api/send-subscription-email'); // Feliratkozás email küldés
+
             alert(response.data.message);
             setIsSubscribed(true); // Feliratkozás sikeres
         } catch (err) {
@@ -42,6 +45,9 @@ function Lablec() {
     const handleUnsubscribe = async () => {
         try {
             const response = await myAxios.patch('/api/leiratkozas-hirlevelrol'); // Leiratkozás hívás
+
+            // Email küldése a backend végponton keresztül
+            await myAxios.post('/api/send-unsubscription-email'); // Leiratkozás email küldés
 
             alert(response.data.message);
             setIsSubscribed(false); // Leiratkozás sikeres

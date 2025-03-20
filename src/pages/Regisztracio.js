@@ -48,6 +48,7 @@ function Regisztracio() {
 
       // Navigálás a bejelentkezési oldalra
       navigate("/");
+
     } catch (error) {
       console.error("Hiba történt a regisztráció során:", error);
       alert("Hiba történt a regisztráció során.");
@@ -65,9 +66,9 @@ function Regisztracio() {
   };
 
   return (
-    <div className="d-flex justify-content-center align-items-center vh-100" style={{ maxWidth: "400px", margin: "0 auto" }}>
-      <div>
-        <h1 className="text-center">Regisztráció</h1>
+    <div className="d-flex justify-content-center align-items-center min-vh-100" style={{ maxWidth: "600px", margin: "0 auto" }}>
+      <div className="p-4 border shadow-sm w-100">
+        <h1 className="text-center mb-4">Regisztráció</h1>
         <form onSubmit={handleSubmit}>
 
           <div className="mb-3">
