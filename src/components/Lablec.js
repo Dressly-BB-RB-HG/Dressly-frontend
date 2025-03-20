@@ -72,7 +72,7 @@ function Lablec() {
                             <i className="fa fa-instagram fa-lg"></i>
                         </button>
                         <button className="btn btn-link me-3" aria-label="YouTube" style={{ color: 'black' }}>
-                            <i className="fa fa-youtube fa-lg"></i>
+                            <i className="fa fa-youtube fa-lg" ></i>
                         </button>
                     </div>
                     {/* Csak akkor jelenjen meg a hírlevél rész, ha a felhasználó be van jelentkezve */}

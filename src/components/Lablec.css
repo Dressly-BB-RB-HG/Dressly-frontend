@@ -28,15 +28,20 @@ footer {
   
   .fa-facebook:hover{
     color: #3B5998;
-    transition: 0.7s;
+    transition: 0.4s;
 }
 
 .fa-instagram:hover{
     color: #c23484;
-    transition: 0.7s;
+    transition: 0.4s;
 }
 
 .fa-youtube:hover{
     color:  #bb0000;
-    transition: 0.7s;
+    transition: 0.4s;
+}
+
+
+.fa-lg{
+  font-size: 1.7rem !important;
 }

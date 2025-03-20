@@ -66,7 +66,7 @@ function Kezdolap() {
       </div>
       <div className="profil-container">
           <div className="profil-card">
-            <img src="" alt="Bence" className="profilkep"/>
+            <img src="/baksa.jpg" alt="Bence" className="profilkep"/>
             <h1>Baksa Bence</h1>
             <p className="profil-title">CEO &amp; Fejlesztő</p>
             <p className="profil-email">baksabence@hotmél.com</p>
