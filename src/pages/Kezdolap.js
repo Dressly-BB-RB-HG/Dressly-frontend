@@ -4,7 +4,6 @@ import KezdoTermek from "../components/KezdoTermek";
 import { myAxios } from "../contexts/MyAxios";
 import "./Kezdolap.css";
 import besetal from "../components/videok/besetal.mp4";
-import { div } from "framer-motion/client";
 
 function Kezdolap() {
   const [products, setProducts] = useState([]);
@@ -39,11 +38,12 @@ function Kezdolap() {
 
   return (
     <div>
-      <div >
-        <video className="video" src={besetal} autoPlay loop muted/>
+      <video className="video" src={besetal} autoPlay loop muted />
+      <div className="content">
+        <h1 className="motto">DRESS WITH LOVE</h1>
       </div>
-
       <div>
+        <h2 className="cim">Legnépszerűbb termékeink</h2>
         <Carousel
           value={products}
           numVisible={3}
@@ -55,6 +55,34 @@ function Kezdolap() {
           autoplayInterval={8000}
           circular
         />
+      </div>
+      <div className="logo-container">
+        <img className="logo" src="/pipa.png" alt="Nike"></img>
+        <img className="logo" src="/north.png" alt="The North Face"></img>
+        <img className="logo" src="/adidas.png" alt="Adidas"></img>
+        <img className="logo" src="/puma.png" alt="Puma"></img>
+        <img className="logo" src="/ralph.png" alt="Ralph Lauren"></img>
+        <img className="logo" src="/boss.png" alt="Boss"></img>
+      </div>
+      <div className="profil-container">
+          <div className="profil-card">
+            <img src="" alt="Bence" className="profilkep"/>
+            <h1>Baksa Bence</h1>
+            <p className="profil-title">CEO &amp; Fejlesztő</p>
+            <p className="profil-email">baksabence@hotmél.com</p>
+          </div>
+          <div className="profil-card">
+            <img src="/gergo.jfif" alt="Gergő" className="profilkep"/>
+            <h1>Halász Gergő</h1>
+            <p className="profil-title">CEO &amp; Fejlesztő</p>
+            <p className="profil-email">halaszgergo22@gmail.com</p>
+          </div>
+          <div className="profil-card">
+            <img src="/bazsi_legjobb.jpg" alt="Balázs" className="profilkep"/>
+            <h1>Richter Balázs</h1>
+            <p className="profil-title">CEO &amp; Fejlesztő</p>
+            <p className="profil-email">richter.balazs.krisztian@gmail.com</p>
+          </div>
       </div>
     </div>
   );

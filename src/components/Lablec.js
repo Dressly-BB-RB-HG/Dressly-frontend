@@ -1,29 +1,59 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Lablec.css';
-import { myAxios } from '../contexts/MyAxios';  
-import { useNavigate } from 'react-router-dom';
+import { myAxios } from '../contexts/MyAxios';
+import useAuthContext from '../contexts/AuthContext';  // Az AuthContext importálása
 
 function Lablec() {
-    const [isSubscribed, setIsSubscribed] = useState(false);  
-    const navigate = useNavigate();
+    const { user } = useAuthContext();  // A felhasználó lekérése az AuthContextből
+    const [isSubscribed, setIsSubscribed] = useState(false);
+    const [message, setMessage] = useState('');  // Üzenet tárolása
 
-    const handleCheckboxChange = (event) => {
-        setIsSubscribed(event.target.checked);
+    useEffect(() => {
+        if (user) {
+            
+            const checkSubscriptionStatus = async () => {
+                try {
+                    const response = await myAxios.get('/api/feliratkozas-status'); 
+                    if (response.data.subscribed) {
+                        setIsSubscribed(true);
+                    } else {
+                        setIsSubscribed(false);
+                    }
+                } catch (err) {
+                    console.error('Hiba történt a státusz lekérdezésekor:', err);
+                }
+            };
+            checkSubscriptionStatus();
+        }
+    }, [user]);
+
+    const handleSubscribe = async () => {
+        try {
+            const response = await myAxios.patch('/api/feliratkozas-hirlevelre'); // Feliratkozás hívás
+
+            // Email küldése a backend végponton keresztül
+            await myAxios.post('/api/send-subscription-email'); // Feliratkozás email küldés
+
+            alert(response.data.message);
+            setIsSubscribed(true); // Feliratkozás sikeres
+        } catch (err) {
+            alert('Hiba történt a feliratkozás során. Kérlek próbáld újra!');
+            console.error('Hiba:', err);
+        }
     };
 
-    const handleSubmit = async () => {
-        if (isSubscribed) {
-            try {
-                
-                await myAxios.patch('/api/feliratkozas-hirlevelre', { subscribed: false });
-                alert('Sikeresen feliratkoztál a hírlevélre!');
-                navigate('/');
-            } catch (err) {
-                alert('Hiba történt a feliratkozás során. Ellenőrizd, hogy bevagy-e jelentkezve!');
-                console.error('Hiba történt:', err);
-            }
-        } else {
-            alert('A hírlevélre való feliratkozás nem történt meg.');
+    const handleUnsubscribe = async () => {
+        try {
+            const response = await myAxios.patch('/api/leiratkozas-hirlevelrol'); // Leiratkozás hívás
+
+            // Email küldése a backend végponton keresztül
+            await myAxios.post('/api/send-unsubscription-email'); // Leiratkozás email küldés
+
+            alert(response.data.message);
+            setIsSubscribed(false); // Leiratkozás sikeres
+        } catch (err) {
+            alert('Hiba történt a leiratkozás során. Kérlek próbáld újra!');
+            console.error('Hiba:', err);
         }
     };
 
@@ -35,37 +65,42 @@ function Lablec() {
                         <p style={{ color: 'black' }}>&copy; {new Date().getFullYear()} Dressly. Minden jog fenntartva.</p>
                     </div>
                     <div className="col-md-6 text-end">
-                    <button className="btn btn-link me-3" aria-label="Facebook" style={{ color: 'black' }}>
-                        <i className="fa fa-facebook fa-lg"></i>
-                    </button>
-                    <button className="btn btn-link me-3" aria-label="Instagram" style={{ color: 'black' }}>
-                        <i className="fa fa-instagram fa-lg"></i>
-                    </button>
-                    <button className="btn btn-link me-3" aria-label="YouTube" style={{ color: 'black' }}>
-                        <i className="fa fa-youtube fa-lg"></i>
-                    </button>
+                        <button className="btn btn-link me-3" aria-label="Facebook" style={{ color: 'black' }}>
+                            <i className="fa fa-facebook fa-lg"></i>
+                        </button>
+                        <button className="btn btn-link me-3" aria-label="Instagram" style={{ color: 'black' }}>
+                            <i className="fa fa-instagram fa-lg"></i>
+                        </button>
+                        <button className="btn btn-link me-3" aria-label="YouTube" style={{ color: 'black' }}>
+                            <i className="fa fa-youtube fa-lg"></i>
+                        </button>
                     </div>
-                    <div className="col-md-12 text-center mt-4">
-                        <div className="newsletter-subscription">
-                            <small className="text-muted">Feliratkozás a hírlevélre</small>
-                            <div className="d-flex justify-content-center align-items-center mt-2">
-                                <input
-                                    type="checkbox"
-                                    id="newsletter"
-                                    checked={isSubscribed}
-                                    onChange={handleCheckboxChange}
-                                    className="newsletter-checkbox me-2"
-                                />
-                                <button 
-                                    onClick={handleSubmit} 
-                                    className="btn btn-primary subscribe-btn ms-3"
-                                    disabled={!isSubscribed}
-                                >
-                                    Feliratkozom
-                                </button>
+                    {/* Csak akkor jelenjen meg a hírlevél rész, ha a felhasználó be van jelentkezve */}
+                    {user && (
+                        <div className="col-md-12 text-center mt-4">
+                            <div className="newsletter-subscription">
+                                <small className="text-muted">Hírlevél kezelése</small>
+                                <div className="d-flex justify-content-center align-items-center mt-2">
+                                    <button 
+                                        onClick={handleSubscribe} 
+                                        className="btn btn-primary subscribe-btn ms-3"
+                                        disabled={isSubscribed} // Ha fel van iratkozva, ne lehessen kattintani
+                                        style={{ opacity: isSubscribed ? 0.5 : 1 }} // Ha feliratkozott, halványodjon
+                                    >
+                                        Feliratkozom
+                                    </button>
+                                    <button 
+                                        onClick={handleUnsubscribe} 
+                                        className="btn btn-danger ms-3"
+                                        disabled={!isSubscribed} // Ha nincs feliratkozva, ne lehessen kattintani
+                                        style={{ opacity: !isSubscribed ? 0.5 : 1 }} // Ha nincs feliratkozva, halványodjon
+                                    >
+                                        Leiratkozom
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    )}
                 </div>
             </div>
         </footer>

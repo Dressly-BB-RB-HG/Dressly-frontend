@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import useAuthContext from "../contexts/AuthContext";
-import axios from 'axios';  // Ha az email küldést API hívással szeretnéd megoldani
+import useAuthContext from '../contexts/AuthContext';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { myAxios } from '../contexts/MyAxios';
+import { Link } from 'react-router-dom';
 
 function Regisztracio() {
   const [name, setName] = useState("");
@@ -47,6 +48,7 @@ function Regisztracio() {
 
       // Navigálás a bejelentkezési oldalra
       navigate("/");
+
     } catch (error) {
       console.error("Hiba történt a regisztráció során:", error);
       alert("Hiba történt a regisztráció során.");
@@ -56,17 +58,17 @@ function Regisztracio() {
   const sendEmail = async (userEmail) => {
     try {
       // API hívás az email küldésére (ehhez Axios kell)
-      await axios.post('/regisztracio-email-kuldes', { email: userEmail });
+      await myAxios.post('/api/regisztracio-email-kuldes', { email: userEmail });
     } catch (error) {
-      console.error("Hiba történt az email küldése során:", error);
+      console.error("Hiba történt az email küldése során:", error.response?.data?.message || error.message);
       alert("Hiba történt az email küldése során.");
     }
   };
 
   return (
-    <div className="d-flex justify-content-center align-items-center vh-100" style={{ maxWidth: "400px", margin: "0 auto" }}>
-      <div>
-        <h1 className="text-center">Regisztráció</h1>
+    <div className="d-flex justify-content-center align-items-center min-vh-100" style={{ maxWidth: "600px", margin: "0 auto" }}>
+      <div className="p-4 border shadow-sm w-100">
+        <h1 className="text-center mb-4">Regisztráció</h1>
         <form onSubmit={handleSubmit}>
 
           <div className="mb-3">

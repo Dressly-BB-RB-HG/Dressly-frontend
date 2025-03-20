@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import "bootstrap/dist/css/bootstrap.min.css";
 import { ApiProvider } from './contexts/ApiContext';
+import "@fontsource/playfair-display";
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
