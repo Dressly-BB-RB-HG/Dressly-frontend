@@ -91,7 +91,18 @@ const Modell = () => {
     }
   };
 
-  
+  // Típus szövegek lekérése
+  const getTypeText = (tipus) => {
+    switch (tipus) {
+      case "F":
+        return "Férfi";
+      case "N":
+        return "Női";
+      default:
+        return "";
+    }
+  };
+
   const handleOpenModal = (model) => {
     setSelectedModel(model);
     setIsModalOpen(true);
@@ -117,6 +128,9 @@ const Modell = () => {
               placeholder="Add meg a kategóriát"
               required
             />
+            <p className="form-text">
+              1 - Rövid újjú póló, 2 - Hosszú újjú póló, 3 - Pulóver, 4 - Zokni, 5 - Kabát, 6 - Dzseki, 7 - Galléros póló, 8 - Mezek
+            </p>
           </div>
           <div className="mb-3">
             <label htmlFor="tipus" className="form-label font-weight-bold">
@@ -134,6 +148,9 @@ const Modell = () => {
               maxLength={1}
               required
             />
+            <p className="form-text">
+              F - Férfi, N - Női
+            </p>
           </div>
           <div className="mb-3">
             <label htmlFor="gyarto" className="form-label font-weight-bold">
@@ -199,7 +216,7 @@ const Modell = () => {
                   <td>
                     {model.kategoria} ({getCategoryText(model.kategoria)})
                   </td>
-                  <td>{model.tipus}</td>
+                  <td>{model.tipus} ({getTypeText(model.tipus)})</td>
                   <td>{model.gyarto}</td>
                   <td>
                     <img
