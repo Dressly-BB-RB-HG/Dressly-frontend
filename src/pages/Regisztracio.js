@@ -14,7 +14,7 @@ function Regisztracio() {
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
   
   const [varos, setVaros] = useState("");
-  const [kerulet, setKerulet] = useState("");  // Kerület
+  const [iranyitoszam, setIranyitoszam] = useState("");  // Kerület
   const [utca, setUtca] = useState("");
   const [hazszam, setHazszam] = useState("");
 
@@ -33,7 +33,7 @@ function Regisztracio() {
       password,
       password_confirmation: passwordConfirmation,
       varos,
-      kerulet,
+      iranyitoszam,
       utca,
       hazszam
     };
@@ -159,14 +159,14 @@ function Regisztracio() {
             </div>
 
             <div className="mb-3">
-              <label htmlFor="kerulet" className="form-label">Kerület:</label>
+              <label htmlFor="kerulet" className="form-label">Irányítószám:</label>
               <input
                 type="text"
                 className="form-control"
-                value={kerulet}
-                onChange={(e) => setKerulet(e.target.value)}
+                value={iranyitoszam}
+                onChange={(e) => setIranyitoszam(e.target.value)}
                 id="kerulet"
-                placeholder="Írja be a kerületet"
+                placeholder="Írja be az irányítószámot"
               />
             </div>
 
