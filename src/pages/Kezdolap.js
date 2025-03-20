@@ -69,7 +69,7 @@ function Kezdolap() {
             <img src="" alt="Bence" className="profilkep"/>
             <h1>Baksa Bence</h1>
             <p className="profil-title">CEO &amp; Fejlesztő</p>
-            <p className="profil-email">aerobikszeksz@hotmél.com</p>
+            <p className="profil-email">baksabence@hotmél.com</p>
           </div>
           <div className="profil-card">
             <img src="/gergo.jfif" alt="Gergő" className="profilkep"/>
