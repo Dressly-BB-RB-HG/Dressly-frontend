@@ -1,4 +1,4 @@
-/* Kép stílusa */
+
 .kkep {
     aspect-ratio: 3/4;
     width: 100%;
@@ -6,19 +6,19 @@
     max-height: 70%;
     object-fit: cover;
     transition: opacity 0.3s ease-in-out;
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
 }
 
 .kkep:hover {
     opacity: 0.9;
 }
 
-/* Ár stílusa */
+
 .kar {
     text-align: center;
     font-size: 18px;
     font-weight: bold;
     color: #333;
 }
-
-
 
