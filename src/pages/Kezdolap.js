@@ -3,7 +3,7 @@ import { Carousel } from "primereact/carousel";
 import KezdoTermek from "../components/KezdoTermek";
 import { myAxios } from "../contexts/MyAxios";
 import "./Kezdolap.css";
-import besetal from "../components/videok/besetal.mp4";
+import Dressly_max from "../components/videok/Dressly_max.mp4";
 
 function Kezdolap() {
   const [products, setProducts] = useState([]);
@@ -38,7 +38,7 @@ function Kezdolap() {
 
   return (
     <div>
-      <video className="video" src={besetal} autoPlay loop muted />
+      <video className="video" src={Dressly_max} autoPlay loop muted />
       <div className="content">
         <h1 className="motto">DRESS WITH LOVE</h1>
       </div>
