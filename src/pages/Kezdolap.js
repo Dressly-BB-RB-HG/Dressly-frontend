@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Carousel } from "primereact/carousel";
+import { Carousel } from 'primereact/carousel';
 import KezdoTermek from "../components/KezdoTermek";
 import { myAxios } from "../contexts/MyAxios";
 import "./Kezdolap.css";
