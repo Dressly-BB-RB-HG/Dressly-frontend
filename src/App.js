@@ -16,6 +16,7 @@ import FelhasznaloRendeles from './pages/FelhasznaloRendeles';
 import RendelesOldal from './pages/RendelesOldal';
 import { ApiProvider } from './contexts/ApiContext';
 import KivansagLista from './pages/KivansagLista';
+import Csomagok from './pages/AdminOldalak/Csomagok'
 
 
 
@@ -41,6 +42,7 @@ function App() {
                 <Route path="felhasznalorendelesek" element={<FelhasznaloRendeles />} />
                 <Route path="rendelesoldal" element={<RendelesOldal />} />
                 <Route path="kivansaglista" element={<KivansagLista />} />
+                <Route path="csomagok" element={<Csomagok />} />
               </Route>
             </Routes>
           </ApiProvider>
