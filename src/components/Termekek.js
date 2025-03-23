@@ -1,19 +1,20 @@
-import React, { useContext } from 'react'
-import Termek from './Termek'
-import { ApiContext } from '../contexts/ApiContext'
+import React, { useContext } from 'react';
+import Termek from './Termek';
+import { ApiContext } from '../contexts/ApiContext';
 
-function Termekek() {
+function Termekek({ visibleProducts }) {
+  const { termekLista } = useContext(ApiContext);
 
-    const {termekLista} = useContext(ApiContext)
-
+  // Slice the product list to show only the visible ones
+  const productsToDisplay = termekLista.slice(0, visibleProducts);
 
   return (
     <div className="termekek-container">
-        {termekLista.map((adat, index) => (
-                <Termek adat={adat} key={index} />
-            ))}
+      {productsToDisplay.map((adat, index) => (
+        <Termek adat={adat} key={index} />
+      ))}
     </div>
-  )
+  );
 }
 
-export default Termekek
+export default Termekek;

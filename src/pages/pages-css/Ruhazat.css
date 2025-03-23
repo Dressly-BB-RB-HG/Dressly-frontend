@@ -31,6 +31,32 @@
     gap: 15px;
 }
 
+.mutass{
+    background-color: #FFFCFF;
+    font-weight: bold;
+    color: #C2A878;
+    border: 2px solid;
+    border-radius: 8px;
+    transition: background-color 0.3s ease-in-out, transform 0.2s;
+    width: 100%;
+    max-width: 250px;
+    height: 100%;
+    font-size: 20px;
+}
+
+.mutass-container{
+  margin-bottom: 50px;
+  text-align: center;
+}
+
+.mutass:hover {
+  background-color: #dbccb1;
+  transform: scale(1.10);
+  color:  white;
+  box-shadow: 0 4px 8px rgba(63, 99, 77, 0.3);
+  transition: 0.3s ease;
+}
+
 
 @media (min-width: 1200px) {
     .szuroReszp {
