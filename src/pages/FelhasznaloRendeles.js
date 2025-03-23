@@ -10,7 +10,6 @@ const FelhasznaloRendeles = () => {
   const { user } = useAuthContext();
   const [rendeles, setRendeles] = useState([]);
   const [selectedRendeles, setSelectedRendeles] = useState(null);
-  const [rendelesTetel, setRendelesTetel] = useState([]);
   
   useEffect(() => {
     if (!user) {
@@ -30,32 +29,25 @@ const FelhasznaloRendeles = () => {
     }
   };
 
-  // ÚGY NÉZ KI NEM KELL DE MÉG NE TÖRÖLD
- /*  const fetchRendelesTetel = async (rendelesSzam) => {
-    try {
-      const response = await myAxios.get(`/api/rendeles/${rendelesSzam}/tetel`);
-      const termekek = await Promise.all(
-        response.data.map(async (rendeles_tetel) => {
-          const termekResponse = await myAxios.get(`/api/termek/${rendeles_tetel.termek}`);
-          return { ...rendeles_tetel, ...termekResponse.data };
-        })
-      );
-      setRendelesTetel(termekek);
-    } catch (error) {
-      console.error("Hiba történt a rendelés tételeinek lekérése során:", error);
-      alert("Hiba történt a rendelés tételeinek lekérése során.");
-    }
-  }; */
-
   const handleRendelesClick = (rendelesSzam) => {
     setSelectedRendeles(rendelesSzam);
-    // ÚGY NÉZ KI NEM KELL DE MÉG NE TÖRÖLD
-    /* fetchRendelesTetel(rendelesSzam); */
   };
 
   const closePopup = () => {
     setSelectedRendeles(null);
-    setRendelesTetel([]);
+  };
+
+  const handleAtvettemRendelest = async (rendelesSzam) => {
+    try {
+      const response = await myAxios.put(`/api/rendeles/${rendelesSzam}/atvettem`);
+      if (response.status === 200) {
+        alert("A rendelést sikeresen átvetted!");
+        fetchRendeles(user.id); // Frissítjük a rendeléseket
+      }
+    } catch (error) {
+      console.error("Hiba történt a rendelés átvételekor:", error);
+      alert("Hiba történt a rendelés átvételekor.");
+    }
   };
 
   return (
@@ -89,6 +81,7 @@ const FelhasznaloRendeles = () => {
                 <th>Rendelés Dátum</th>
                 <th>Fizetve</th>
                 <th>Részletek</th>
+                <th>Átvettem</th> {/* Új oszlop a gombnak */}
               </tr>
             </thead>
             <tbody>
@@ -104,11 +97,18 @@ const FelhasznaloRendeles = () => {
                         Részletek
                       </button>
                     </td>
+                    <td>
+                      {!rendeles.fizetve_e && ( // Ha még nincs átvéve
+                        <button className="btn btn-success" onClick={() => handleAtvettemRendelest(rendeles.rendeles_szam)}>
+                          Átvettem a rendelést
+                        </button>
+                      )}
+                    </td>
                   </tr>
                 ))
               ) : (
                 <tr>
-                  <td colSpan="5" className="text-center">
+                  <td colSpan="6" className="text-center">
                     Nincsenek rendelések.
                   </td>
                 </tr>
@@ -121,7 +121,6 @@ const FelhasznaloRendeles = () => {
       {/* Popup ablak, ha van kijelölt rendelés */}
       {selectedRendeles && (
         <RendelesPopup rendelesSzam={selectedRendeles} closePopup={closePopup} />
-
       )}
     </div>
   );
