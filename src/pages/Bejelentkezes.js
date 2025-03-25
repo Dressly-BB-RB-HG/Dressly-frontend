@@ -28,12 +28,12 @@ export default function Bejelentkezes() {
         <h1 className="bejel-cim text-center">Bejelentkezés</h1>
         <form onSubmit={handleSubmit}>
           <div className="mb-3 mt-3">
-            <label htmlFor="name" className="form-label">
+            <label htmlFor="name" className="bejel-form-label">
               E-mail:
             </label>
             <input
               type="email"
-              className="form-control"
+              className="bejel-form-control"
               value={email}
               onChange={(e) => {
                 setEmail(e.target.value);
@@ -45,7 +45,7 @@ export default function Bejelentkezes() {
           </div>
           <div>
           {errors.email && (
-              <span className="text-danger">{errors.email[0]}</span>
+              <span className="bejel-text-danger">{errors.email[0]}</span>
             )}
           </div>
           <div className="mb-3">
@@ -58,7 +58,7 @@ export default function Bejelentkezes() {
               onChange={(e) => {
                 setPassword(e.target.value);
               }}
-              className="form-control"
+              className="bejel-form-control"
               id="password"
               placeholder="Ide írja a felhasználóhoz tartozó jelszavát!"
               name="password"

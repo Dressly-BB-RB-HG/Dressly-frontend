@@ -21,7 +21,7 @@
   text-align: center;
 }
 
-input.form-control {
+input.bejel-form-control {
   border: 1px solid #c0a79c;
   background-color: #f7f7f7;
   border-radius: 6px;
@@ -29,14 +29,15 @@ input.form-control {
   margin-bottom: 15px;
   font-size: 1rem;
   transition: border-color 0.3s;
+  width: 100%;
 }
 
-input.form-control:focus {
+input.bejel-form-control:focus {
   border-color: #c0a79c;
   box-shadow: 0 0 0 0.2rem rgba(192, 167, 156, 0.25);
 }
 
-.text-danger {
+.bejel-text-danger {
   color: #ff4d4d;
   font-size: 0.875rem;
 }
@@ -62,11 +63,11 @@ input.form-control:focus {
     padding: 15px;
   }
 
-  h1 {
+  .bejel-h1 {
     font-size: 1.5rem;
   }
 
-  button.btn {
+  .bejel-gomb {
     font-size: 1rem;
   }
 }

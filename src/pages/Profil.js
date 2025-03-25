@@ -20,7 +20,7 @@ function Profil() {
 
   // Új állapotok a szállítási adatokhoz
   const [varos, setVaros] = useState(user?.varos || '');
-  const [kerulet, setKerulet] = useState(user?.kerulet || '');
+  const [iranyitoszam, setIranyitoszam] = useState(user?.iranyitoszam || '');
   const [utca, setUtca] = useState(user?.utca || '');
   const [hazszam, setHazszam] = useState(user?.hazszam || '');
 
@@ -32,7 +32,7 @@ function Profil() {
       setName(user.name);
       setEmail(user.email);
       setVaros(user.varos);
-      setKerulet(user.kerulet);
+      setIranyitoszam(user.iranyitoszam);
       setUtca(user.utca);
       setHazszam(user.hazszam);
     }
@@ -47,7 +47,7 @@ function Profil() {
       new_password: newPassword,
       new_password_confirmation: newPasswordConfirmation,
       varos,  // Új város
-      kerulet,  // Új kerület
+      iranyitoszam,  // Új kerület
       utca,  // Új utca
       hazszam,  // Új házszám
     };
@@ -93,7 +93,7 @@ function Profil() {
       </div>
 
       {/* Profil frissítés szekció */}
-      <div className="flex-grow-1 d-flex flex-column align-items-center justify-content-center bg-light" style={{ padding: '20px' }}>
+      <div className="flex-grow-1 d-flex flex-column align-items-center justify-content-center" style={{ padding: '20px' }}>
         <motion.div 
           className="text-center mb-4"
           initial={{ opacity: 0, y: -10 }}
@@ -134,8 +134,8 @@ function Profil() {
               <input type="text" className="form-control" value={varos} onChange={(e) => setVaros(e.target.value)} id="varos" name="varos" />
             </div>
             <div className="mb-3">
-              <label htmlFor="kerulet" className="form-label">Kerület:</label>
-              <input type="number" className="form-control" value={kerulet} onChange={(e) => setKerulet(e.target.value)} id="kerulet" name="kerulet" />
+              <label htmlFor="iranyitoszam" className="form-label">Irányítószám:</label>
+              <input type="number" className="form-control" value={iranyitoszam} onChange={(e) => setIranyitoszam(e.target.value)} id="iranyitoszam" name="iranyitoszam" />
             </div>
             <div className="mb-3">
               <label htmlFor="utca" className="form-label">Utca/Út:</label>
