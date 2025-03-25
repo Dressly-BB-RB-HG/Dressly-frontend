@@ -20,21 +20,23 @@ function Kosar({ isKosarVisible, bezarKosar }) {
                 <button className="kosar-exit col-lg-1" onClick={bezarKosar}>X</button>
                 <h2 className="kosar-title col-lg-10">Kosár</h2>
             </div>
-            {kosarLISTA.length > 0 ? (
-                <>
-                    {
-                        kosarLISTA.map((adat, index) => (
-                            <div className="kosar-item" key={index}>
-                                <KosarElem adat={adat} />
-                            </div>
-                    ))}
-                    <h2 className='kosar-title'>Összeg: {vegosszeg} Ft</h2>
-                    <button className="kosar-button" onClick={handleMegrendeles}>Megrendelés</button>
-                </>
-            ) : (
-                <p className="kosar-item">A kosár üres.</p>
-            )}
-            
+            <div className='kosar-item-container'>
+                {kosarLISTA.length > 0 ? (
+                    <>
+                        {
+                            kosarLISTA.map((adat, index) => (
+                                <div className="kosar-item" key={index}>
+                                    <KosarElem adat={adat} />
+                                </div>
+                        ))}
+                        
+                    </>
+                ) : (
+                    <p className="kosar-item">A kosár üres.</p>
+                )}
+            </div>
+            <h2 className='kosar-title'>Összeg: {vegosszeg} Ft</h2>
+            <button className="kosar-button" onClick={handleMegrendeles}>Megrendelés</button>
         </div>
     );
 }

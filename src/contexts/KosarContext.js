@@ -56,31 +56,31 @@ export const KosarProvider = ({ children }) => {
   }
 
   // Kosárba tétel
-  const kosarbaTesz = async (termek) => {
+  const kosarbaTesz = async (modell) => {
+    // Kiválasztjuk a megfelelő terméket a méret alapján
+    const kivalasztottTermek = modell.termekek.find(t => t.meret === modell.meret);
+
     try {
-      const response = await myAxios.post(
-        "/api/kosar",
-        {
-          termek_id: termek.termek_id,
-          mennyiseg: 1,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${user.token}`,
-          },
-        }
-      );
-      fetchKosar();
+        const response = await myAxios.post(
+            "/api/kosar",
+            {
+                termek_id: kivalasztottTermek.termek_id, // küldjük a konkrét termék ID-t
+                mennyiseg: 1,
+            },
+            {
+                headers: {
+                    Authorization: `Bearer ${user.token}`,
+                },
+            }
+        );
+        fetchKosar(); // Frissítjük a kosarat
     } catch (error) {
-      console.error(
-        "Hiba a kosárba tétel során:",
-        error.response?.data || error
-      );
-      if (!user) {
-        alert("Vásárláshoz jelentkezz be!");
-      }
+        console.error("Hiba a kosárba tétel során:", error.response?.data || error);
+        if (!user) {
+            alert("Vásárláshoz jelentkezz be!");
+        }
     }
-  };
+};
 
   // Kosárból törlés
   const kosarbolTorol = async (termekId) => {
