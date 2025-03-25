@@ -57,6 +57,10 @@
   transition: 0.3s ease;
 }
 
+.mutass:active {
+  transform: scale(1.20);
+}
+
 
 @media (min-width: 1200px) {
     .szuroReszp {

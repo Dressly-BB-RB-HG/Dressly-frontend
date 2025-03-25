@@ -161,7 +161,7 @@ const handleShowMore = () => {
                   <Termekek visibleProducts={visibleProducts} />
                 </article>
                 <div className="mutass-container">
-                  <button className="btn btn-primary mutass" onClick={handleShowMore}>Mutass többet</button>
+                  <Button className="btn btn-primary mutass" onClick={handleShowMore}>Mutass többet</Button>
                 </div>
             </div>   
         </div>
