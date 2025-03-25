@@ -25,14 +25,13 @@ function Termek(props) {
         console.error("Hiba a méretek lekérésekor:", error);
       }
     };
-  
-    // Ha van modell_id, akkor kérjük le a méreteket
+
     if (props.adat?.modell_id) {
       fetchMeretek();
     } else {
       console.log("A modell_id nem található!");
     }
-  }, [props.adat]);  // Eltérő adatok esetén újra lekérjük a méreteket
+  }, [props.adat]);
   
 
   const kedvencKezelo = async () => {
