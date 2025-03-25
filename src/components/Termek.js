@@ -5,41 +5,28 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Modal, Button } from 'react-bootstrap';
 import { myAxios } from '../contexts/MyAxios';
 import useAuthContext from '../contexts/AuthContext'; // Importáljuk a useAuthContext hookot
+import { useKedvencek } from '../contexts/KedvencekContext';
+import { ApiContext } from '../contexts/ApiContext';
 
 function Termek(props) {
   const { kosarbaTesz } = useContext(KosarContext);
   const { user } = useAuthContext(); // Lekérjük a bejelentkezett felhasználót
-  const [kedvenc, setKedvenc] = useState(false);
+  const { kedvencek, kedvenchezAd, kedvencTorol } = useKedvencek();
   const [showModal, setShowModal] = useState(false);
-  const [message, setMessage] = useState('');
+const {getKedvencTermek } = useContext(ApiContext);
 
-  const kedvencKezelo = async (modellId) => {
-    try {
-      let response;
-      if (kedvenc) {
-        // Ha a termék már kedvenc, eltávolítjuk
-        response = await myAxios.delete(`/api/kedvencek-torol/${modellId}`, {
-          felhasznalo: user.id, // A felhasználó ID-ját az AuthContext-ből vesszük
-          modell: props.adat.modell.modell_id,
-        
-        })
-        ;
-        setKedvenc(false);
-         // Ha sikerült törölni, deaktiváljuk a kedvenc státuszt
-      } else {
-        // Ha nem kedvenc, hozzáadjuk
-        response = await myAxios.post('/api/kedvencekhez-ad', {
-          felhasznalo: user.id, // A felhasználó ID-ját az AuthContext-ből vesszük
-        modell: props.adat.modell.modell_id,
-        });
-        setKedvenc(true); // Ha sikerült hozzáadni, aktiváljuk a kedvenc státuszt
-      }
-  
-      setMessage(response.data.message); // Üzenet a válasz alapján
-    } catch (error) {
-      setMessage('Hiba történt a kedvenc hozzáadása/eltávolítása közben.');
+  const isKedvenc = kedvencek.includes(props.adat.modell_id);
+
+  const kedvencKezelo = () => {
+    if (isKedvenc) {
+      kedvencTorol(props.adat.modell_id);
+      getKedvencTermek();
+    } else {
+      kedvenchezAd(props.adat.modell_id);
+      getKedvencTermek();
     }
   };
+
   const handleImageClick = () => {
     setShowModal(true);
   };
@@ -70,21 +57,17 @@ function Termek(props) {
             .join(', ')} Ft</p>
         <div className="gombok">
           <button className="kosarbagomb btn btn-primary mt-4" onClick={() => kosarbaTesz(props.adat)}>Kosárba tesz</button>
-          <button className={`kedvenc-gomb ${kedvenc ? 'kedvenc-aktiv' : ''}`} onClick={kedvencKezelo}>
-            {kedvenc ? '♥' : '♡'}
-          </button>
+          <button className={`kedvenc-gomb ${isKedvenc ? 'kedvenc-aktiv' : ''}`} onClick={kedvencKezelo}> {isKedvenc ? '♥' : '♡'} </button>
         </div>
-        {message && <p className="message">{message}</p>}
       </div>
       <Modal show={showModal} onHide={handleCloseModal}>
         <Modal.Header closeButton>
-          <Modal.Title>{props.adat.tipus}</Modal.Title>
+          <Modal.Title></Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <img src={props.adat.kep} alt={props.adat.tipus} className="modal-img" style={{ aspectRatio: 19 / 23, objectFit: 'cover' }} />
-          <p>Kategória: {props.adat.kategoria.ruhazat_kat}</p>
-          <p>Gyártó: {props.adat.gyarto}</p>
-          <p>Ár: {props.adat.termekek
+          <p>{props.adat.gyarto} {props.adat.kategoria.ruhazat_kat}</p>
+          <p>{props.adat.termekek
             .slice(0, 1)  // Csak az első terméket választjuk ki
             .map(termek => 
                 // Ha van új ár, akkor azt jelenítjük meg, különben az alap árát
@@ -104,6 +87,6 @@ function Termek(props) {
       </Modal>
     </div>
   );
-}
 
+}
 export default Termek;

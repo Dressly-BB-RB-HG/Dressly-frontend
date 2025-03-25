@@ -17,6 +17,7 @@ import RendelesOldal from './pages/RendelesOldal';
 import { ApiProvider } from './contexts/ApiContext';
 import KivansagLista from './pages/KivansagLista';
 import Csomagok from './pages/AdminOldalak/Csomagok'
+import { KedvencekProvider } from './contexts/KedvencekContext';
 
 
 
@@ -28,6 +29,7 @@ function App() {
       <AuthProvider>
         <KosarProvider>
         <ApiProvider>
+          <KedvencekProvider>
           <Routes>
               <Route path="/" element={<Layout />}>
                 <Route index element={<Kezdolap />} />
@@ -45,6 +47,7 @@ function App() {
                 <Route path="csomagok" element={<Csomagok />} />
               </Route>
             </Routes>
+            </KedvencekProvider>
           </ApiProvider>
         </KosarProvider>
        </AuthProvider>
