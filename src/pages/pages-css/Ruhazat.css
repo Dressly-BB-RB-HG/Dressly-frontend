@@ -187,20 +187,15 @@
 
 
                 .termekek-container {
-                    display: grid;
-                    grid-template-columns: repeat(5, 1fr);
-                    gap: 16px;
-                    padding: 16px;
-                  }
-                  
-                  
+                  gap: 16px;
+                  padding: 16px;
+                }
+
                   
                   .card {
-                    display: grid;
-                    height: 95%;
+                    height: 100%;
                     width: 100%;
-                    grid-template-rows: auto auto auto 1fr;
-                    padding: 10px;
+
                     border: 1px solid #ddd;
                     border-radius: 8px;
                     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);

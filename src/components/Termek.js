@@ -102,7 +102,7 @@ function Termek(props) {
               }
             }}
           >
-            Kosárba tesz
+            Kosárba
           </button>
           <button className={`kedvenc-gomb ${kedvenc ? 'kedvenc-aktiv' : ''}`} onClick={kedvencKezelo}>
             {kedvenc ? '♥' : '♡'}
@@ -143,7 +143,7 @@ function Termek(props) {
               setMessage('Válassz méretet a vásárláshoz!');
             }
           }}>
-            Kosárba tesz
+            Kosárba
           </Button>
         </Modal.Footer>
       </Modal>

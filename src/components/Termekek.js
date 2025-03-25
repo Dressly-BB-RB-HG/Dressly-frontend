@@ -1,6 +1,6 @@
-import React, { useContext } from 'react';
-import Termek from './Termek';
-import { ApiContext } from '../contexts/ApiContext';
+import React, { useContext } from "react";
+import Termek from "./Termek";
+import { ApiContext } from "../contexts/ApiContext";
 
 function Termekek({ visibleProducts }) {
   const { termekLista } = useContext(ApiContext);
@@ -9,9 +9,11 @@ function Termekek({ visibleProducts }) {
   const productsToDisplay = termekLista.slice(0, visibleProducts);
 
   return (
-    <div className="termekek-container">
+    <div className="row">
       {productsToDisplay.map((adat, index) => (
-        <Termek adat={adat} key={index} />
+        <div className="col-lg-3 col-md-4 col-sm-6 mb-4" key={index}>
+          <Termek adat={adat} />
+        </div>
       ))}
     </div>
   );
