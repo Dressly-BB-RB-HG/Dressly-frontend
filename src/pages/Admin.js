@@ -83,6 +83,14 @@ function Admin({ user }) {
         >
           Rendelések kezelése
         </button>
+
+        <button
+          className="btn btn-secondary px-4 py-3"
+          style={{ minWidth: "250px", fontSize: "1.1rem" }}
+          onClick={() => handleNavigation("csomagok")}
+        >
+          Szállítási Csomagok
+        </button>
       </div>
 
       {/* Fő tartalom */}
