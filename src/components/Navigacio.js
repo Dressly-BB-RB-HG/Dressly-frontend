@@ -52,7 +52,7 @@ function Navigacio() {
                         </Nav>
                         <Nav className="d-flex">
                             <Nav.Link as={Link} onClick={toggleKosar}>
-                                <div className='kosar-ikon' data-product-count={kosarLISTA.length}>
+                                <div className='kosar-ikon' data-product-count={kosarLISTA.reduce((osszeg, termek) => osszeg + termek.mennyiseg, 0)}>
                                     <img className="ikon" src="/kosar.png" alt="kosar" />
                                 </div>
                             </Nav.Link>

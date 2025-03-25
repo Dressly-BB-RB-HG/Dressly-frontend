@@ -42,16 +42,16 @@ function Kezdolap() {
       <div className="content">
         <h1 className="motto">DRESS WITH LOVE</h1>
       </div>
-      <div>
+      <div className="gomb">
         <h2 className="cim">Legnépszerűbb termékeink</h2>
         <Carousel
-          value={products}
+          value={products.slice(0, 8)}
           numVisible={3}
           numScroll={1}
           responsiveOptions={responsiveOptions}
           itemTemplate={productTemplate}
           className="kezdolap-carousel"
-          autoplay
+          autoPlay
           autoplayInterval={8000}
           circular
         />

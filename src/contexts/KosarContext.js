@@ -38,11 +38,21 @@ export const KosarProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    fetchKosar();
+    if (user) {
+      fetchKosar();
+    } else {
+      setKosarLista([]);
+      setLoading(false);
+    }
   }, [user]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="loading-container">
+        <div className="spinner"></div>
+        <p>Betöltés...</p>
+      </div>
+    );
   }
 
   // Kosárba tétel
