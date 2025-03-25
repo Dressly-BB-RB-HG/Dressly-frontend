@@ -53,13 +53,21 @@ function Termek(props) {
       <div className="card-body">
         <img
           className="kep card-img-top"
-          alt={props.adat.modell.tipus + props.adat.modell.kategoria.ruhazat_kat}
-          src={props.adat.modell.kep}
+          alt={props.adat.tipus + props.adat.kategoria.ruhazat_kat}
+          src={props.adat.kep}
           onClick={handleImageClick}
           style={{ cursor: "pointer", width: '100%', height: 'auto' }}
         />
-        <h4 className="gyarto card-text">{props.adat.modell.gyarto} {props.adat.modell.kategoria.ruhazat_kat}</h4>
-        <p className="ar card-text">{props.adat.ar} Ft</p>
+        <h4 className="gyarto card-text">{props.adat.gyarto} {props.adat.kategoria.ruhazat_kat}</h4>
+        <p className="ar card-text">{props.adat.termekek
+            .slice(0, 1)  // az első terméket választjuk ki
+            .map(termek => 
+                // Ha van új ár, akkor azt jelenítjük meg, különben az alap árát
+                termek.arak_megjelenit?.length > 0 
+                    ? termek.arak_megjelenit[0].uj_ar 
+                    : termek.ar
+            )
+            .join(', ')} Ft</p>
         <div className="gombok">
           <button className="kosarbagomb btn btn-primary mt-4" onClick={() => kosarbaTesz(props.adat)}>Kosárba tesz</button>
           <button className={`kedvenc-gomb ${kedvenc ? 'kedvenc-aktiv' : ''}`} onClick={kedvencKezelo}>
@@ -73,10 +81,18 @@ function Termek(props) {
           <Modal.Title>{props.adat.tipus}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <img src={props.adat.modell.kep} alt={props.adat.modell.tipus} className="modal-img" style={{ aspectRatio: 19 / 23, objectFit: 'cover' }} />
-          <p>Kategória: {props.adat.modell.kategoria.ruhazat_kat}</p>
-          <p>Gyártó: {props.adat.modell.gyarto}</p>
-          <p>Ár: {props.adat.ar} Ft</p>
+          <img src={props.adat.kep} alt={props.adat.tipus} className="modal-img" style={{ aspectRatio: 19 / 23, objectFit: 'cover' }} />
+          <p>Kategória: {props.adat.kategoria.ruhazat_kat}</p>
+          <p>Gyártó: {props.adat.gyarto}</p>
+          <p>Ár: {props.adat.termekek
+            .slice(0, 1)  // Csak az első terméket választjuk ki
+            .map(termek => 
+                // Ha van új ár, akkor azt jelenítjük meg, különben az alap árát
+                termek.arak_megjelenit?.length > 0 
+                    ? termek.arak_megjelenit[0].uj_ar 
+                    : termek.ar
+            )
+            .join(', ')} Ft</p>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleCloseModal}>Bezárás</Button>

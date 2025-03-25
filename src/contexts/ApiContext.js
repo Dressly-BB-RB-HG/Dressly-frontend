@@ -171,7 +171,7 @@ const getRendezesArSzerint = async (irany) => {
 
 
   useEffect(() => {
-    getAdat("/api/termek-minden-adattal", setTermekLista);
+    getAdat("/api/modell-minden-adattal", setTermekLista);
   }, []);
 
   return (

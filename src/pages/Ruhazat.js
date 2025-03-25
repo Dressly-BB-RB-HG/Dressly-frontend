@@ -20,7 +20,7 @@ function Ruhazat() {
   const handleMarkaValtozas = (marka) => {
     if (marka === "Minden márka") {
       // Ha "Minden márka" van kiválasztva, az összes terméket lekérjük
-      getAdat("/api/termek-minden-adattal");
+      getAdat("/api/modell-minden-adattal");
     } else {
       // Egy konkrét márka esetén meghívjuk a márkára vonatkozó lekérdezést
       getMarkaRuhak(marka);
@@ -34,7 +34,7 @@ function Ruhazat() {
 
   const handleNemValtozas = (nem) => {
     if (nem === "Összes nemű") {
-      getAdat("/api/termek-minden-adattal");
+      getAdat("/api/modell-minden-adattal");
     } else {
       getNemuRuhak(nem);
     }
@@ -42,7 +42,7 @@ function Ruhazat() {
 
   const handleMeretValtozas = (meret) => {
     if (meret === "Összes méret") {
-      getAdat("/api/termek-minden-adattal");
+      getAdat("/api/modell-minden-adattal");
     } else {
       getMeretRuhak(meret);
     }
@@ -50,7 +50,7 @@ function Ruhazat() {
 
   const handleSzinValtozas = (szin) => {
     if (szin === "Összes szín") {
-      getAdat("/api/termek-minden-adattal");
+      getAdat("/api/modell-minden-adattal");
     } else {
       getSzinuRuhak(szin);
     }
@@ -91,7 +91,7 @@ const handleShowMore = () => {
                         title="Márka"
                         className="mb-3 custom-dropdown"
                         size="sm">
-                        <Dropdown.Item href="#/every-brand" onClick={() => getAdat("/api/termek-minden-adattal")}>Minden márka</Dropdown.Item>
+                        <Dropdown.Item href="#/every-brand" onClick={() => getAdat("/api/modell-minden-adattal")}>Minden márka</Dropdown.Item>
                         <Dropdown.Item href="#/nike-clothes" onClick={() => handleMarkaValtozas("Nike")}>Nike</Dropdown.Item>
                         <Dropdown.Item href="#/the-north-face-clothes"onClick={() => handleMarkaValtozas("The North Face")}>The North Face</Dropdown.Item>
                         <Dropdown.Item href="#/adidas-clothes" onClick={() => handleMarkaValtozas("Adidas")}>Adidas</Dropdown.Item>
@@ -126,7 +126,7 @@ const handleShowMore = () => {
                         title="Méret"
                         className="mb-3 custom-dropdown"
                         size="sm">
-                        <Dropdown.Item href="#/" onClick={() => getAdat("/api/termek-minden-adattal")} >Minden méret</Dropdown.Item>
+                        <Dropdown.Item href="#/" onClick={() => getAdat("/api/modell-minden-adattal")} >Minden méret</Dropdown.Item>
                         <Dropdown.Item href="#/size-s" onClick={() => handleMeretValtozas("S")} >S</Dropdown.Item>
                         <Dropdown.Item href="#/size-m" onClick={() => handleMeretValtozas("M")} >M</Dropdown.Item>
                         <Dropdown.Item href="#/size-l" onClick={() => handleMeretValtozas("L")} >L</Dropdown.Item>
@@ -152,7 +152,7 @@ const handleShowMore = () => {
                         <Dropdown.Item href="#/beige-clothes" onClick={() => handleSzinValtozas("Bézs")} >Bézs</Dropdown.Item>
                         <Dropdown.Item href="#/turquoise-clothes" onClick={() => handleSzinValtozas("Türkiz")} >Türkiz</Dropdown.Item>
                     </DropdownButton>
-                    <Button className="szuresNelkulGomb" variant="contained" href="#/" onClick={() => getAdat("/api/termek-minden-adattal")}>Szűrés nélkül</Button>
+                    <Button className="szuresNelkulGomb" variant="contained" href="#/" onClick={() => getAdat("/api/modell-minden-adattal")}>Szűrés nélkül</Button>
                 </div>
             </div>
 
