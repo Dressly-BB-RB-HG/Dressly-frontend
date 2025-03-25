@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import useAuthContext from "../contexts/AuthContext";
+import './Bejelentkezes.css';
 
 export default function Bejelentkezes() {
 
@@ -11,7 +12,6 @@ export default function Bejelentkezes() {
   const navigate = useNavigate();
   const { loginReg, errors } = useAuthContext();
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     const adat = {
@@ -20,16 +20,12 @@ export default function Bejelentkezes() {
     };       
 
     loginReg(adat, "/login");
-};
+  };
 
   return (
-    
-    <div 
-      className="d-flex justify-content-center align-items-center vh-100" 
-      style={{ maxWidth: "400px", margin: "0 auto" }}
-    >
-      <div>
-        <h1 className="text-center">Bejelentkezés</h1>
+    <div className="bejelentkezes-container">
+      <div className="bejelentkezes-form">
+        <h1 className="bejel-cim text-center">Bejelentkezés</h1>
         <form onSubmit={handleSubmit}>
           <div className="mb-3 mt-3">
             <label htmlFor="name" className="form-label">
@@ -72,8 +68,9 @@ export default function Bejelentkezes() {
             )}
           </div>
               
+            
           <div className="text-center">
-            <button type="submit" className="btn btn-success w-100">
+            <button type="submit" className="bejel-gomb btn-success w-100">
               Bejelentkezés
             </button>
             <br />

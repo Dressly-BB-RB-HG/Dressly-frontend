@@ -1,16 +1,18 @@
 import React, { useContext } from 'react';
-import { useNavigate } from 'react-router-dom'; // useNavigate importálása
+import { useNavigate } from 'react-router-dom';
 import { KosarContext } from '../contexts/KosarContext';
 import KosarElem from './KosarElem';
 import './Kosar.css';
 
 function Kosar({ isKosarVisible, bezarKosar }) {
     const { kosarLISTA } = useContext(KosarContext);
-    const navigate = useNavigate(); // useNavigate hook inicializálása
+    const navigate = useNavigate();
 
     const handleMegrendeles = () => {
-        navigate('/rendelesoldal'); // Navigálás a rendelésoldal-ra
+        navigate('/rendelesoldal');
     };
+
+    const vegosszeg = kosarLISTA.reduce((osszeg, termek) => osszeg + termek.ar * termek.mennyiseg, 0);
 
     return (
         <div className={`kosar ${isKosarVisible ? 'visible' : ''}`}>
@@ -19,15 +21,20 @@ function Kosar({ isKosarVisible, bezarKosar }) {
                 <h2 className="kosar-title col-lg-10">Kosár</h2>
             </div>
             {kosarLISTA.length > 0 ? (
-                kosarLISTA.map((adat, index) => (
-                    <div className="kosar-item" key={index}>
-                        <KosarElem adat={adat} />
-                    </div>
-                ))
+                <>
+                    {
+                        kosarLISTA.map((adat, index) => (
+                            <div className="kosar-item" key={index}>
+                                <KosarElem adat={adat} />
+                            </div>
+                    ))}
+                    <h2 className='kosar-title'>Összeg: {vegosszeg} Ft</h2>
+                    <button className="kosar-button" onClick={handleMegrendeles}>Megrendelés</button>
+                </>
             ) : (
                 <p className="kosar-item">A kosár üres.</p>
             )}
-            <button className="kosar-button" onClick={handleMegrendeles}>Megrendelés</button>
+            
         </div>
     );
 }

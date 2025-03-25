@@ -3,7 +3,7 @@
     right: 20px;
     top: 160px;
      width: 500px; 
-    max-height: 550px; 
+    max-height: 600px; 
     background-color: #EFD9CE;
     border: 1px solid #5C3D2E;
     border-radius: 24px;
@@ -18,6 +18,29 @@
     pointer-events: none;
 }
 
+.loading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+  
+  .spinner {
+    width: 250px;
+    height: 250px;
+    border: 5px solid rgba(0, 0, 0, 0.1);
+    border-top-color: #572f21;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  
 .kosar.visible {
     opacity: 1;
     transform: translateY(0);
