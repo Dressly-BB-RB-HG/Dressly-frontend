@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { Dropdown, DropdownButton, Button } from 'react-bootstrap'
 import { ApiContext } from '../contexts/ApiContext';
 import Termekek from '../components/Termekek'
@@ -9,7 +9,9 @@ function Ruhazat() {
 
     const { getLegkedveltebb, getLegujabb, getAdat, getMarkaRuhak, getNemuRuhak, getMeretRuhak, getSzinuRuhak, getRendezesArSzerint } = useContext(ApiContext);
     
-  
+
+  const [visibleProducts, setVisibleProducts] = useState(10);
+
   const handleLegkedveltebb = () => {
     getLegkedveltebb("/api/legkedveltebb-modell");  
   };
@@ -58,7 +60,9 @@ function Ruhazat() {
     getRendezesArSzerint(irany);
 };
 
-
+const handleShowMore = () => {
+  setVisibleProducts(visibleProducts + 8);
+};
 
     return (
         <div className="container-fluid">
@@ -154,9 +158,12 @@ function Ruhazat() {
 
             <div className="row">
                 <article className="col-lg-12 py-3">
-                    <Termekek />
+                  <Termekek visibleProducts={visibleProducts} />
                 </article>
-            </div>
+                <div className="mutass-container">
+                  <button className="btn btn-primary mutass" onClick={handleShowMore}>Mutass többet</button>
+                </div>
+            </div>   
         </div>
     );
 }

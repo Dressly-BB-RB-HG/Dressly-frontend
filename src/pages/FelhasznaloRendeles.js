@@ -41,7 +41,7 @@ const FelhasznaloRendeles = () => {
     try {
       const response = await myAxios.put(`/api/rendeles/${rendelesSzam}/atvettem`);
       if (response.status === 200) {
-        alert("A rendelést sikeresen átvetted!");
+        alert("A rendelést sikeresen !");
         fetchRendeles(user.id); // Frissítjük a rendeléseket
       }
     } catch (error) {
