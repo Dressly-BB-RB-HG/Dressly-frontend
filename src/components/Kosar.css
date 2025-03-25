@@ -2,8 +2,9 @@
     position: fixed;
     right: 20px;
     top: 160px;
-     width: 500px; 
-    max-height: 600px; 
+    width: 90%;
+    max-width: 500px;
+    max-height: 600px;
     background-color: #EFD9CE;
     border: 1px solid #5C3D2E;
     border-radius: 24px;
@@ -12,10 +13,16 @@
     text-align: center;
     transition: transform 0.3s ease-out, opacity 0.3s ease-out;
     z-index: 1000;
-    overflow-y: auto;
     opacity: 0;
     transform: translateY(-20px);
     pointer-events: none;
+}
+
+.kosar-item-container{
+     max-height: 400px;  /* Beállíthatod a maximális magasságot, ha kell */
+    overflow-y: auto;   /* Görgetés engedélyezése, ha a tartalom nagyobb mint a max-height */
+    padding-right: 10px; /* Kis margó a görgetősávnak */
+    margin-bottom: 12px;
 }
 
 .loading-container {
@@ -57,6 +64,7 @@
     align-items: center;
     justify-content: space-between;
     letter-spacing: 1px;
+    overflow-y: auto;
     font-weight: bold;
 }
 
@@ -103,3 +111,55 @@
     border: none;
     background-color: transparent;
 }
+
+
+@media (max-width: 768px) {
+    .kosar {
+        width: 100%;
+        max-width: 100%;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        top: auto;
+        max-height: 85vh;
+        border-radius: 24px 24px 0 0;
+        transform: translateY(100%);
+    }
+
+    .kosar.visible {
+        transform: translateY(0);
+    }
+
+    .kosar-item img {
+        width: 80px;
+        height: 90px;
+    }
+
+    .kosar-button {
+        width: 100%;
+        padding: 12px;
+        font-size: 14px;
+    }
+
+    .kosar-exit {
+        font-size: 24px;
+    }
+}
+
+
+@media (max-width: 480px) {
+    .kosar-title {
+        font-size: 18px;
+    }
+
+    .kosar-button {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    .kosar-item {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
