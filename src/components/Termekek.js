@@ -5,7 +5,6 @@ import { ApiContext } from "../contexts/ApiContext";
 function Termekek({ visibleProducts }) {
   const { termekLista } = useContext(ApiContext);
 
-  // Slice the product list to show only the visible ones
   const productsToDisplay = termekLista.slice(0, visibleProducts);
 
   return (
