@@ -4,7 +4,7 @@ import './KezdoTermek.css'
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Modal, Button } from 'react-bootstrap';
 
-function Termek(props) {
+function KezdoTermek(props) {
   const { kosarbaTesz } = useContext(KosarContext)
   const [showModal, setShowModal] = useState(false);
 
@@ -62,4 +62,4 @@ function Termek(props) {
 }
 
 
-export default Termek
+export default KezdoTermek
