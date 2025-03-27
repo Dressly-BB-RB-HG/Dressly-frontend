@@ -23,7 +23,7 @@ function Kosar({ isKosarVisible, bezarKosar }) {
             <div className='kosar-item-container'>
                 {kosarLISTA.length > 0 ? (
                     <>
-                        {
+                        { 
                             kosarLISTA.map((adat, index) => (
                                 <div className="kosar-item" key={index}>
                                     <KosarElem adat={adat} />
