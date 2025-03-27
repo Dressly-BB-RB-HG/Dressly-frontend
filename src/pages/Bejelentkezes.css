@@ -1,10 +1,15 @@
+/* Container beállítások */
 .bejelentkezes-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: calc(100vh - 50px); /* Kitölti a képernyőt, de a footer helyet is hagy */
+  flex-direction: column; /* A form és footer egy helyen legyen */
+  padding-bottom: 50px; /* Hely a footer számára */
+  overflow: hidden; /* Ne legyen görgetés */
 }
 
+/* Form beállítások */
 .bejelentkezes-form {
   background-color: white;
   border-radius: 8px;
@@ -12,8 +17,10 @@
   padding: 20px;
   width: 100%;
   max-width: 400px;
+  box-sizing: border-box;
 }
 
+/* Form cím */
 .bejel-cim {
   font-size: 2rem;
   color: #c0a79c;
@@ -21,6 +28,7 @@
   text-align: center;
 }
 
+/* Input mezők */
 input.bejel-form-control {
   border: 1px solid #c0a79c;
   background-color: #f7f7f7;
@@ -32,16 +40,19 @@ input.bejel-form-control {
   width: 100%;
 }
 
+/* Input fókuszálás */
 input.bejel-form-control:focus {
   border-color: #c0a79c;
   box-shadow: 0 0 0 0.2rem rgba(192, 167, 156, 0.25);
 }
 
+/* Hiba üzenet */
 .bejel-text-danger {
   color: #ff4d4d;
   font-size: 0.875rem;
 }
 
+/* Gombok */
 .bejel-gomb {
   background-color: #c0a79c;
   color: white;
@@ -51,19 +62,21 @@ input.bejel-form-control:focus {
   font-size: 1.1rem;
   cursor: pointer;
   transition: background-color 0.3s;
+  width: 100%;
 }
 
 .bejel-gomb:hover {
   background-color: #b0947c;
 }
 
+/* Média lekérdezés kisebb képernyőkhöz */
 @media (max-width: 768px) {
   .bejelentkezes-form {
     width: 90%;
     padding: 15px;
   }
 
-  .bejel-h1 {
+  .bejel-cim {
     font-size: 1.5rem;
   }
 
