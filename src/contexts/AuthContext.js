@@ -31,7 +31,6 @@ export const AuthProvider = ({ children }) => {
             throw new Error("Nincs felhasználói adat.");
         }
     } catch (error) {
-        console.error("Felhasználó lekérdezése sikertelen:", error);
         setUser(null);
         localStorage.removeItem("user");
     }
