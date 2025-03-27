@@ -63,7 +63,7 @@ const Rendelesek = () => {
               <th>Rendelés száma</th>
               <th>Felhasználó</th>
               <th>Dátum</th>
-              <th>Fizetve van?</th>
+              <th>Teljesített-e?</th>
               <th>Műveletek</th>
             </tr>
           </thead>

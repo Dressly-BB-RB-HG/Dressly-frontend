@@ -22,6 +22,8 @@ function Admin({ user }) {
       navigate("/modell");
     } else if (page === "rendelesek") {
       navigate("/rendelesek");
+    } else if (page === "csomagok") {
+      navigate("/csomagok")
     }
   };
 

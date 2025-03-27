@@ -6,14 +6,14 @@ const Csomagok = () => {
   const [selectedAllapot, setSelectedAllapot] = useState({});  // Tároljuk a kiválasztott állapotokat
 
   useEffect(() => {
-    fetchCsomagok();  // Adatok lekérése a csomagokból
+    fetchCsomagok();  
   }, []);
 
   // Csak a csomagok lekérése
   const fetchCsomagok = async () => {
     try {
       const response = await myAxios.get("/api/szall-csomags");
-      setCsomagok(response.data);  // Állapot frissítése
+      setCsomagok(response.data);  
     } catch (error) {
       console.error("Hiba történt a csomagok lekérése során:", error);
       alert("Hiba történt a csomagok lekérése során.");

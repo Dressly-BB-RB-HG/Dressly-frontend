@@ -3,14 +3,15 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import useAuthContext from "../contexts/AuthContext";
 import { myAxios } from "../contexts/MyAxios";
-import RendelesPopup from "./FelhasznaloRendelesPopup";  // Importáljuk a popup komponenst
+import RendelesPopup from "./FelhasznaloRendelesPopup"; 
 
 const FelhasznaloRendeles = () => {
   const navigate = useNavigate();
   const { user } = useAuthContext();
   const [rendeles, setRendeles] = useState([]);
   const [selectedRendeles, setSelectedRendeles] = useState(null);
-  
+  const [errorMessage, setErrorMessage] = useState('');  
+
   useEffect(() => {
     if (!user) {
       navigate("/bejelentkezes");
@@ -41,8 +42,12 @@ const FelhasznaloRendeles = () => {
     try {
       const response = await myAxios.put(`/api/rendeles/${rendelesSzam}/atvettem`);
       if (response.status === 200) {
-        alert("A rendelést sikeresen !");
-        fetchRendeles(user.id); // Frissítjük a rendeléseket
+        alert("Sikeresen átvetted a rendelést!");
+        fetchRendeles(user.id); 
+      } else {
+        
+        setErrorMessage(response.data.message);
+        alert(response.data.message);  
       }
     } catch (error) {
       console.error("Hiba történt a rendelés átvételekor:", error);
@@ -81,7 +86,8 @@ const FelhasznaloRendeles = () => {
                 <th>Rendelés Dátum</th>
                 <th>Fizetve</th>
                 <th>Részletek</th>
-                <th>Átvettem</th> {/* Új oszlop a gombnak */}
+                <th>Rendelés átvétele</th>
+                <th>Csomag Állapota</th> {/* Új oszlop a csomag állapotának */}
               </tr>
             </thead>
             <tbody>
@@ -98,17 +104,26 @@ const FelhasznaloRendeles = () => {
                       </button>
                     </td>
                     <td>
-                      {!rendeles.fizetve_e && ( // Ha még nincs átvéve
-                        <button className="btn btn-success" onClick={() => handleAtvettemRendelest(rendeles.rendeles_szam)}>
-                          Átvettem a rendelést
-                        </button>
+                      {rendeles.fizetve_e ? (
+                        <span className="text-success">A rendelés teljesítve.</span>
+                      ) : (
+                        <>
+                          <button className="btn btn-success" onClick={() => handleAtvettemRendelest(rendeles.rendeles_szam)}>
+                            Átvettem a rendelést
+                          </button>
+                          {errorMessage && <p className="text-danger mt-2">{errorMessage}</p>} {/* Hibaüzenet */}
+                        </>
                       )}
                     </td>
+                    <td>
+  {/* Ellenőrizzük, hogy van-e kapcsolódó szall_csomag és abban csomag_allapot */}
+  {rendeles.szall_csomag ? rendeles.szall_csomag.csomag_allapot : "Nincs információ"}
+</td>
                   </tr>
                 ))
               ) : (
                 <tr>
-                  <td colSpan="6" className="text-center">
+                  <td colSpan="7" className="text-center">
                     Nincsenek rendelések.
                   </td>
                 </tr>
@@ -118,7 +133,6 @@ const FelhasznaloRendeles = () => {
         </div>
       </div>
 
-      {/* Popup ablak, ha van kijelölt rendelés */}
       {selectedRendeles && (
         <RendelesPopup rendelesSzam={selectedRendeles} closePopup={closePopup} />
       )}
@@ -127,3 +141,5 @@ const FelhasznaloRendeles = () => {
 };
 
 export default FelhasznaloRendeles;
+
+

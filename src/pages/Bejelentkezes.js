@@ -15,9 +15,9 @@ export default function Bejelentkezes() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const adat = {
-        email: email,
-        password: password,
-    };       
+      email: email,
+      password: password,
+    };
 
     loginReg(adat, "/login");
   };
@@ -44,7 +44,7 @@ export default function Bejelentkezes() {
             />
           </div>
           <div>
-          {errors.email && (
+            {errors.email && (
               <span className="bejel-text-danger">{errors.email[0]}</span>
             )}
           </div>
@@ -63,12 +63,11 @@ export default function Bejelentkezes() {
               placeholder="Ide írja a felhasználóhoz tartozó jelszavát!"
               name="password"
             />
-           {errors.password && (
+            {errors.password && (
               <span className="text-danger">{errors.password[0]}</span>
             )}
           </div>
-              
-            
+
           <div className="text-center">
             <button type="submit" className="bejel-gomb btn-success w-100">
               Bejelentkezés
