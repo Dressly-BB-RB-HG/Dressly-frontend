@@ -10,7 +10,7 @@ function Ruhazat() {
     const { getLegkedveltebb, getLegujabb, getAdat, getMarkaRuhak, getNemuRuhak, getMeretRuhak, getSzinuRuhak, getRendezesArSzerint } = useContext(ApiContext);
     
 
-  const [visibleProducts, setVisibleProducts] = useState(10);
+  const [visibleProducts, setVisibleProducts] = useState(8);
 
   const handleLegkedveltebb = () => {
     getLegkedveltebb("/api/legkedveltebb-modell");  

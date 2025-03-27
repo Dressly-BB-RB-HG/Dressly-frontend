@@ -135,3 +135,9 @@
 .gomb button{
     color: black;
 }
+
+@media(max-width: 1201px){
+    .motto{
+        font-size: 70px;
+    }
+}

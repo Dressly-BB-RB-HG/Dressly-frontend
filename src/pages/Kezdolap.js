@@ -23,18 +23,16 @@ function Kezdolap() {
     fetchLegkedveltebb();
   }, []);
 
-  const responsiveOptions = [
-    { breakpoint: "1400px", numVisible: 2, numScroll: 1 },
-    { breakpoint: "1199px", numVisible: 2, numScroll: 1 },
-    { breakpoint: "767px", numVisible: 1, numScroll: 1 },
-    { breakpoint: "575px", numVisible: 1, numScroll: 1 },
-  ];
-
   const productTemplate = (product) => (
     <div className="termek-container">
       <KezdoTermek adat={product} />
     </div>
   );
+
+  const responsiveOptions = [
+    { breakpoint: "1199px", numVisible: 2, numScroll: 1 },
+    { breakpoint: "767px", numVisible: 1, numScroll: 1 },
+  ];
 
   return (
     <div>
@@ -52,7 +50,7 @@ function Kezdolap() {
           itemTemplate={productTemplate}
           className="kezdolap-carousel"
           autoPlay
-          autoplayInterval={8000}
+          autoplayInterval={5000}
           circular
         />
       </div>
