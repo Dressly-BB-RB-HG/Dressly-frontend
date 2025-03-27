@@ -10,7 +10,7 @@ export const KedvencekProvider = ({ children, felhasznaloId }) => {
 
     useEffect(() => {
         myAxios.get('/api/kedvenc-termek')
-            .then(response => setKedvencek(response.data.map(termek => termek.modell_id))) // Modell ID-kat mentünk
+            .then(response => setKedvencek(response.data.map(termek => termek.modell_id)))
             .catch(error => console.error("Hiba a kedvencek lekérdezésekor:", error));
     }, [felhasznaloId]);
 
@@ -20,7 +20,7 @@ export const KedvencekProvider = ({ children, felhasznaloId }) => {
                 felhasznalo: user.id,
                 modell: modellId
             });
-            setKedvencek(prev => [...prev, modellId]); // Új kedvenc hozzáadása
+            setKedvencek(prev => [...prev, modellId]);
         } catch (error) {
             console.error("Hiba a kedvencek hozzáadásakor:", error);
         }
@@ -29,9 +29,9 @@ export const KedvencekProvider = ({ children, felhasznaloId }) => {
     const kedvencTorol = async (modellId) => {
         try {
             await myAxios.delete(`/api/kedvencek-torol/${modellId}`, {
-                data: { felhasznalo: felhasznaloId, modell: modellId } // DELETE kérésnél így kell adatot küldeni
+                data: { felhasznalo: felhasznaloId, modell: modellId }
             });
-            setKedvencek(prev => prev.filter(id => id !== modellId)); // Törölt kedvenc eltávolítása
+            setKedvencek(prev => prev.filter(id => id !== modellId));
         } catch (error) {
             console.error("Hiba a kedvencek eltávolításakor:", error);
         }

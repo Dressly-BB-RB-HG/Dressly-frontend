@@ -116,7 +116,8 @@
     border-radius: 12px;
     border: none;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    animation: fadeIn 0.35s ease-in-out;
+    animation: fadeIn 0.27s ease-in-out;
+    
 }
 
 .custom-dropdown .dropdown-item {
@@ -129,16 +130,15 @@
     color: white;
     border-radius: 8px;
 }
-
 @keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(+35px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(1);
-    }
+  from {
+      opacity: 0;
+      transform: translateY(10px);
+  }
+  to {
+      opacity: 1;
+      transform: translateY(0);
+  }
 }
 
 .szuresNelkulGomb {

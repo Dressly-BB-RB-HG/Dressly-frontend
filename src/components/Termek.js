@@ -1,6 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { KosarContext } from '../contexts/KosarContext';
-import './Termek.css';
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Modal, Button, Form } from 'react-bootstrap';
 import { myAxios } from '../contexts/MyAxios';
@@ -90,9 +89,9 @@ function Termek(props) {
             onClick={() => {
               if (kivalasztottMeret) {
                 kosarbaTesz({ ...props.adat, meret: kivalasztottMeret });
-              } else {
-                setMessage('Válassz méretet a vásárláshoz!');
-              }
+              } //else {
+                //setMessage('Válassz méretet a vásárláshoz!');
+             // }
             }}
           >
             Kosárba
