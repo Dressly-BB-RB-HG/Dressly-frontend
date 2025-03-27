@@ -73,7 +73,7 @@ export const KosarProvider = ({ children }) => {
                 },
             }
         );
-        fetchKosar(); // Frissítjük a kosarat
+        fetchKosar();
     } catch (error) {
         console.error("Hiba a kosárba tétel során:", error.response?.data || error);
         if (!user) {
