@@ -93,8 +93,9 @@ function Termek(props) {
                 //setMessage('Válassz méretet a vásárláshoz!');
              // }
             }}
-          >
+          ><p>
             Kosárba
+            </p>
           </button>
           <button className={`kedvenc-gomb ${isKedvenc ? 'kedvenc-aktiv' : ''}`} onClick={kedvencKezelo}> {isKedvenc ? '♥' : '♡'} </button>
         </div>
@@ -138,9 +139,9 @@ function Termek(props) {
             if (kivalasztottMeret) {
               kosarbaTesz({ ...props.adat, meret: kivalasztottMeret });
               setShowModal(false);
-            } else {
-              setMessage('Válassz méretet a vásárláshoz!');
-            }
+            }// else {
+            //  setMessage('Válassz méretet a vásárláshoz!');
+            //}
           }}>
             Kosárba
           </Button>

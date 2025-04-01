@@ -12,6 +12,7 @@ function Ruhazat() {
 
   const [visibleProducts, setVisibleProducts] = useState(8);
 
+
   const handleLegkedveltebb = () => {
     getLegkedveltebb("/api/legkedveltebb-modell");  
   };
@@ -69,7 +70,6 @@ const handleShowMore = () => {
             <div className="szuroFeltetelek">
                 <div className="szuroReszp d-flex flex-wrap justify-content-center">
                     <DropdownButton
-                        id="dropdown-basic-button"
                         title="Rendezési szempont"
                         className="mb-3 custom-dropdown"
                         size="sm"
@@ -78,7 +78,6 @@ const handleShowMore = () => {
                         <Dropdown.Item href="#/legdragabb-elol" onClick={() => handleArRendezes("csokkeno")} >Legmagasabb ár</Dropdown.Item>
                     </DropdownButton>
                     <DropdownButton
-                        id="dropdown-basic-button"
                         title="Szürési szempont"
                         className="mb-3 custom-dropdown"
                         size="sm">
@@ -87,7 +86,6 @@ const handleShowMore = () => {
                         <Dropdown.Item href="#/newest" onClick={handleLegujabb}>Legújabb</Dropdown.Item>
                     </DropdownButton>
                     <DropdownButton
-                        id="dropdown-basic-button"
                         title="Márka"
                         className="mb-3 custom-dropdown"
                         size="sm">
@@ -113,7 +111,6 @@ const handleShowMore = () => {
                         <Dropdown.Item href="#/louis-vuitton-clothes" onClick={() => handleMarkaValtozas("Louis Vuitton")}>Louis Vuitton</Dropdown.Item>
                     </DropdownButton>
                     <DropdownButton
-                        id="dropdown-basic-button"
                         title="Nem"
                         className="mb-3 custom-dropdown"
                         size="sm">
@@ -122,7 +119,6 @@ const handleShowMore = () => {
                         <Dropdown.Item href="#/unisex" onClick={() => handleNemValtozas("U")} >Uniszex</Dropdown.Item>
                     </DropdownButton>
                     <DropdownButton
-                        id="dropdown-basic-button"
                         title="Méret"
                         className="mb-3 custom-dropdown"
                         size="sm">
@@ -133,7 +129,6 @@ const handleShowMore = () => {
                         <Dropdown.Item href="#/size-xl" onClick={() => handleMeretValtozas("XL")} >XL</Dropdown.Item>
                     </DropdownButton>
                     <DropdownButton
-                        id="dropdown-basic-button"
                         title="Szín"
                         className="mb-3 custom-dropdown"
                         size="sm">

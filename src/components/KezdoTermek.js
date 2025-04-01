@@ -1,13 +1,32 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { KosarContext } from '../contexts/KosarContext'
 import './KezdoTermek.css'
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Modal, Button } from 'react-bootstrap';
+import { Form, Modal, Button } from 'react-bootstrap';
+import { myAxios } from '../contexts/MyAxios';
 
 function KezdoTermek(props) {
   const { kosarbaTesz } = useContext(KosarContext)
   const [showModal, setShowModal] = useState(false);
-
+ const [kivalasztottMeret, setKivalasztottMeret] = useState('');
+ const [meretek, setMeretek] = useState([]);
+ useEffect(() => {
+     const fetchMeretek = async () => {
+       try {
+         // Lekérjük az összes elérhető méretet a modell_id alapján
+         const response = await myAxios.get(`/api/elerhetoMeretek/${props.adat.modell_id}`);
+         setMeretek(response.data);  // Elérhető méretek beállítása
+       } catch (error) {
+         console.error("Hiba a méretek lekérésekor:", error);
+       }
+     };
+ 
+     if (props.adat?.modell_id) {
+       fetchMeretek();
+     } else {
+       console.log("A modell_id nem található!");
+     }
+   }, [props.adat]);
   const handleImageClick = () => { 
     setShowModal(true);
   };
@@ -46,15 +65,27 @@ function KezdoTermek(props) {
               : termek.ar
           ).join(', ')} Ft
         </p>
+        <Form.Select value={kivalasztottMeret} onChange={(e) => setKivalasztottMeret(e.target.value)} className="mb-3">
+          <option value="">Válassz méretet</option>
+          {meretek.map((meret, index) => (
+            <option key={index} value={meret}>{meret}</option>
+          ))}
+        </Form.Select>
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseModal}>Bezárás</Button>
-          <Button variant="primary" onClick={() => {
-            setShowModal(false); 
-            kosarbaTesz(props.adat);
-          }}>Kosárba tesz</Button>
-        </Modal.Footer>
-      </Modal>
+                <Modal.Footer>
+                  <Button variant="secondary" onClick={handleCloseModal}>Bezárás</Button>
+                  <Button variant="primary" onClick={() => {
+                    if (kivalasztottMeret) {
+                      kosarbaTesz({ ...props.adat, meret: kivalasztottMeret });
+                      setShowModal(false);
+                    }// else {
+                    //  setMessage('Válassz méretet a vásárláshoz!');
+                    //}
+                  }}>
+                    Kosárba
+                  </Button>
+                </Modal.Footer>
+              </Modal>
     </div>
 
 
