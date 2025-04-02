@@ -19,7 +19,7 @@ function KivansagLista() {
     } else {
       getKedvencTermek();
     }
-  }, [user, navigate]);
+  }, [user, navigate, getKedvencTermek]);
 
   return (
     <div className='kedvenc-oldal'>

@@ -3,13 +3,13 @@ import { KosarContext } from '../contexts/KosarContext';
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Modal, Button, Form } from 'react-bootstrap';
 import { myAxios } from '../contexts/MyAxios';
-import useAuthContext from '../contexts/AuthContext'; // Importáljuk a useAuthContext hookot
+import useAuthContext from '../contexts/AuthContext';
 import { useKedvencek } from '../contexts/KedvencekContext';
 import { ApiContext } from '../contexts/ApiContext';
 
 function Termek(props) {
   const { kosarbaTesz } = useContext(KosarContext);
-  const { user } = useAuthContext(); // Lekérjük a bejelentkezett felhasználót
+  const { user } = useAuthContext(); 
   const { kedvencek, kedvenchezAd, kedvencTorol } = useKedvencek();
   const [showModal, setShowModal] = useState(false);
   const {getKedvencTermek } = useContext(ApiContext);
@@ -34,9 +34,8 @@ function Termek(props) {
   useEffect(() => {
     const fetchMeretek = async () => {
       try {
-        // Lekérjük az összes elérhető méretet a modell_id alapján
         const response = await myAxios.get(`/api/elerhetoMeretek/${props.adat.modell_id}`);
-        setMeretek(response.data);  // Elérhető méretek beállítása
+        setMeretek(response.data);
       } catch (error) {
         console.error("Hiba a méretek lekérésekor:", error);
       }
