@@ -12,7 +12,7 @@ const Csomagok = () => {
   // Csak a csomagok lekérése
   const fetchCsomagok = async () => {
     try {
-      const response = await myAxios.get("/api/szall-csomags");
+      const response = await myAxios.get("/api/admin/szall-csomags");
       setCsomagok(response.data);  
     } catch (error) {
       console.error("Hiba történt a csomagok lekérése során:", error);
@@ -29,7 +29,7 @@ const Csomagok = () => {
     }
 
     try {
-      const response = await myAxios.put(`/api/szall-csomags/${csomagId}/allapot`, {
+      const response = await myAxios.put(`/api/admin/szall-csomags/${csomagId}/allapot`, {
         csomag_allapot: newAllapot,  // Az új állapot beállítása
       });
 
