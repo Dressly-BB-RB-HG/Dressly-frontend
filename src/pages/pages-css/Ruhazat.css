@@ -1,12 +1,4 @@
-.szuro {
-    padding: 20px;
-    background-color: #ff7d7d; 
-    border-right: 1px solid #ddd;
-    height: 100vh;
-    top: 0;
-    left: 0;
-    overflow-y: auto;
-}
+
 
 .szuroFeltetelek {
     display: grid;
@@ -35,7 +27,7 @@
     background-color: #FFFCFF;
     font-weight: bold;
     color: #C2A878;
-    border: 2px solid;
+    border: 2px solid #C2A878;
     border-radius: 8px;
     transition: background-color 0.3s ease-in-out, transform 0.2s;
     width: 100%;
@@ -50,11 +42,12 @@
 }
 
 .mutass:hover {
-  background-color: #dbccb1;
+  background-color: #d6c3a0;
   transform: scale(1.10);
   color:  white;
   box-shadow: 0 4px 8px rgba(63, 99, 77, 0.3);
   transition: 0.3s ease;
+  border: 2px solid #d6c3a0; 
 }
 
 .mutass:active {
@@ -333,7 +326,7 @@
                   
                   
                   .modal-header, .modal-footer {
-                    background-color: #EFD9CE !important;
+                    background-color: #f5dacd !important;
                     border: none;
                   }
                   
@@ -341,7 +334,7 @@
                   .modal-title {
                     font-size: 1.5rem;
                     font-weight: bold;
-                    color: #000;
+                    color: #634538;
                   }
                   
                   
@@ -359,6 +352,8 @@
                     font-size: 1.2rem;
                     color: #333;
                     text-align: center;
+                    font-weight: bold;
+                    letter-spacing: 0.2px;
                   }
                   
                   
@@ -371,29 +366,26 @@
                   
                   
                   .modal-footer .btn-primary {
-                    background-color: #fff !important;
-                    color: #000;
+                    color: #ffffff;
                     font-weight: bold;
-                    border: 1px solid #000;
-                    border-style: none;
+                    background-color: #926b58;
                   }
                   
                   .modal-footer .btn-primary:hover {
                     color: white;
-                    background-color: #D7C0B8 !important;
+                    background-color: #745242 !important;
                   }
                   
                   
                   .modal-footer .btn-secondary {
-                    background-color: #fff;
-                    color: #000;
-                    border: 1px solid #000;
-                    border-style: none;
+                    color: #ffffff;
+                    background-color: #926b58;
+                    font-weight: bold;
                   }
                   
                   .modal-footer .btn-secondary:hover {
                     color: white;
-                    background-color: #D7C0B8;
+                    background-color: #745242 !important;
                   }
                   
                   

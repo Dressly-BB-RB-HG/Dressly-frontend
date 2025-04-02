@@ -52,19 +52,17 @@ function KezdoTermek(props) {
           ).join(', ')} Ft</p>
       <Modal show={showModal} onHide={handleCloseModal}>
         <Modal.Header closeButton>
-          <Modal.Title>{props.adat.tipus}</Modal.Title>
+          <Modal.Title>{props.adat.gyarto} {props.adat.kategoria.ruhazat_kat}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <img src={props.adat.kep} alt={props.adat.tipus} className="modal-img" style={{ aspectRatio: 19 / 23, objectFit: 'cover' }} />
-          <p>Kategória: {props.adat.kategoria.ruhazat_kat}</p>
-          <p>Gyártó: {props.adat.gyarto}</p>
-          <p className="ar card-text">
-          {props.adat.termekek.slice(0, 1).map(termek => 
-            termek.arak_megjelenit?.length > 0 
+        <img src={props.adat.kep} alt={props.adat.tipus} className="modal-img" style={{ aspectRatio: 19 / 23, objectFit: 'cover' }} />
+          
+          <p>Ár: {props.adat.termekek.slice(0, 1).map(termek =>  // Csak az első terméket választjuk ki
+            termek.arak_megjelenit?.length > 0  // Ha van új ár, akkor azt jelenítjük meg, különben az alap árát
               ? termek.arak_megjelenit[0].uj_ar 
               : termek.ar
-          ).join(', ')} Ft
-        </p>
+          ).join(', ')} Ft</p>
+
         <Form.Select value={kivalasztottMeret} onChange={(e) => setKivalasztottMeret(e.target.value)} className="mb-3">
           <option value="">Válassz méretet</option>
           {meretek.map((meret, index) => (

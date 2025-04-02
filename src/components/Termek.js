@@ -103,24 +103,12 @@ function Termek(props) {
 
       <Modal show={showModal} onHide={handleCloseModal}>
         <Modal.Header closeButton>
-          <Modal.Title></Modal.Title>
+          <Modal.Title>{props.adat.gyarto} {props.adat.kategoria.ruhazat_kat}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <img src={props.adat.kep} alt={props.adat.tipus} className="modal-img" style={{ aspectRatio: 19 / 23, objectFit: 'cover' }} />
-          <p>{props.adat.gyarto} {props.adat.kategoria.ruhazat_kat}</p>
-          <p>{props.adat.termekek
-            .slice(0, 1)  // Csak az első terméket választjuk ki
-            .map(termek => 
-                // Ha van új ár, akkor azt jelenítjük meg, különben az alap árát
-                termek.arak_megjelenit?.length > 0 
-                    ? termek.arak_megjelenit[0].uj_ar 
-                    : termek.ar
-            )
-            .join(', ')} Ft</p>
-          <p>Kategória: {props.adat.kategoria.ruhazat_kat}</p>
-          <p>Gyártó: {props.adat.gyarto}</p>
-          <p>Ár: {props.adat.termekek.slice(0, 1).map(termek => 
-            termek.arak_megjelenit?.length > 0 
+          <p>Ár: {props.adat.termekek.slice(0, 1).map(termek =>  // Csak az első terméket választjuk ki
+            termek.arak_megjelenit?.length > 0  // Ha van új ár, akkor azt jelenítjük meg, különben az alap árát
               ? termek.arak_megjelenit[0].uj_ar 
               : termek.ar
           ).join(', ')} Ft</p>
