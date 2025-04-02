@@ -13,8 +13,8 @@ function RendelésOldal() {
   const navigate = useNavigate(); // A navigálás kezelése
   const { kosarLISTA, kosarbolTorol } = useContext(KosarContext); // KosárContext és törlés elérése
 
-  const [szallitasMod, setSzallitasMod] = useState(''); // Szállítási mód
-  const [phone, setPhone] = useState(''); // Telefonszám kezelése
+  const [szallitasMod, setSzallitasMod] = useState('');
+  const [fizetesMod, setFizetesMod] = useState(''); // Szállítási mód
 
   // Kosár összesített ára
   const totalPrice = kosarLISTA.reduce((sum, item) => sum + item.ar * item.mennyiseg, 0);
@@ -30,30 +30,76 @@ function RendelésOldal() {
     setSzallitasMod(e.target.value); // Szállítási mód változása
   };
 
-  const handlePhoneValtozas = (e) => {
-    setPhone(e.target.value); // Telefonszám változása
+  const handleFizetesModValtozas = (e) => {
+    setFizetesMod(e.target.value); // Szállítási mód változása
   };
+
+
 
   const handleRendeles = async () => {
     try {
-      // Ellenőrizzük, hogy a felhasználó be van jelentkezve
-      if (user) {
-        const emailData = {
-          email: user.email,
-          kosar: kosarLISTA, // A kosár adatai
-          szallitasMod, // A szállítási mód
-          phone, // A telefonszám
-        };
-
-        const response = await myAxios.post('/api/email-kuldes', emailData); // API hívás a rendelés email küldésére
-        console.log('Email sikeresen elküldve:', response.data);
-        alert('Rendelés elküldve!');
+      if (!user) {
+        alert('Be kell jelentkezned a rendelés leadásához!');
+        return;
       }
+  
+      if (kosarLISTA.length === 0) {
+        alert('A kosár üres!');
+        return;
+      }
+  
+      console.log("Kosár tartalma:", kosarLISTA);
+  
+      // Ellenőrzés: Minden terméknek legyen ID-ja!
+      const missingIDs = kosarLISTA.filter(item => !item.termek || !item.termek.termek_id);
+      if (missingIDs.length > 0) {
+        console.error("Hiányzó termék ID-k:", missingIDs);
+        alert("Egy vagy több termék nem rendelkezik azonosítóval!");
+        return;
+      }
+  
+      // Helyes struktúra az API-hoz
+      const rendelesTetels = kosarLISTA.map(item => ({
+        termek_id: item.termek.termek_id, 
+        mennyiseg: item.mennyiseg,
+      }));
+  
+      const rendelesData = {
+        felhasznalo_id: user.id,
+        szallitas_mod: szallitasMod,
+        fizetesmod: fizetesMod,
+        rendeles_tetels: rendelesTetels,
+      };
+  
+      // 1. Rendelés mentése az adatbázisba
+      const rendelesResponse = await myAxios.post('/api/rendeles-leadas', rendelesData);
+      
+      // 2. A szerver válaszából kiolvassuk a rendelés ID-ját
+      const rendeles_id = rendelesResponse.data.rendeles_id; 
+  
+      console.log('Rendelés sikeresen mentve:', rendelesResponse.data);
+  
+      // 3. Csomag létrehozása a rendelés ID-val
+      const csomagData = {
+        rendeles: rendeles_id, // **Itt átírtam `rendeles_id`-ról `rendeles`-re**
+        szallito: szallitasMod,
+        csomag_allapot: "Feldolgozás alatt",
+        szall_datum: new Date().toISOString().split("T")[0],
+      };
+  
+      await myAxios.post('/api/csomag-leadas', csomagData);
+  
+      alert('Rendelés sikeresen leadva!');
+  
     } catch (error) {
-      console.error('Hiba történt az email küldésekor:', error);
-      alert('Hiba történt az email küldése közben');
+      console.error('Hiba történt a rendelés feldolgozása közben:', error.response?.data || error);
+      alert('Hiba történt a rendelés során. Kérlek próbáld újra!');
     }
   };
+  
+  
+  
+  
 
   const udvozles = () => {
     return 'Itt tudja véglegesíteni a rendelését';
@@ -81,19 +127,7 @@ function RendelésOldal() {
                   <p className="text-muted">Dátum: {today}</p>
                 </motion.div>
 
-                {/* Telefonszám */}
                 <Form>
-                  <Form.Group controlId="formPhone">
-                    <Form.Label>Telefonszám</Form.Label>
-                    <Form.Control
-                      type="text"
-                      name="phone"
-                      value={phone}
-                      onChange={handlePhoneValtozas}
-                      placeholder="Írd be a telefonszámod"
-                      className="shadow-sm"
-                    />
-                  </Form.Group>
 
                   {/* Szállítási mód választás */}
                   <Form.Group controlId="formSzallitasMod" className="mt-3">
@@ -103,19 +137,19 @@ function RendelésOldal() {
                         type="radio"
                         id="radioUtanvet"
                         label="Utánvét"
-                        name="szallitasMod"
+                        name="fizetesMod"
                         value="utanvet"
-                        checked={szallitasMod === 'utanvet'}
-                        onChange={handleSzallitasModValtozas}
+                        checked={fizetesMod === 'utanvet'}
+                        onChange={handleFizetesModValtozas}
                         custom
                       />
                       <Form.Check
                         type="radio"
                         id="radioBankkartya"
                         label="Bankkártyás fizetés"
-                        name="szallitasMod"
+                        name="fizetesMod"
                         value="bankkartya"
-                        checked={szallitasMod === 'bankkartya'}
+                        checked={fizetesMod === 'bankkartya'}
                         disabled
                         custom
                         className="ms-3"
@@ -123,6 +157,27 @@ function RendelésOldal() {
                       />
                     </div>
                   </Form.Group>
+                  <Form.Group controlId="formSzallitasMod">
+              <Form.Label>Szállítási mód</Form.Label>
+              <Form.Check
+                type="radio"
+                id="radioMPL"
+                label="MPL"
+                name="szallitasMod"
+                value="MPL"
+                checked={szallitasMod === 'MPL'}
+                onChange={handleSzallitasModValtozas}
+              />
+              <Form.Check
+                type="radio"
+                id="radioGLS"
+                label="GLS"
+                name="szallitasMod"
+                value="GLS"
+                checked={szallitasMod === 'GLS'}
+                onChange={handleSzallitasModValtozas}
+              />
+            </Form.Group>
 
                   <Button
                     variant="success"
