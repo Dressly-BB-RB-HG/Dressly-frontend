@@ -50,7 +50,6 @@ function RendelésOldal() {
   
       console.log("Kosár tartalma:", kosarLISTA);
   
-      // Ellenőrzés: Minden terméknek legyen ID-ja!
       const missingIDs = kosarLISTA.filter(item => !item.termek || !item.termek.termek_id);
       if (missingIDs.length > 0) {
         console.error("Hiányzó termék ID-k:", missingIDs);
@@ -58,7 +57,6 @@ function RendelésOldal() {
         return;
       }
   
-      // Helyes struktúra az API-hoz
       const rendelesTetels = kosarLISTA.map(item => ({
         termek_id: item.termek.termek_id, 
         mennyiseg: item.mennyiseg,
@@ -73,21 +71,21 @@ function RendelésOldal() {
   
       // 1. Rendelés mentése az adatbázisba
       const rendelesResponse = await myAxios.post('/api/rendeles-leadas', rendelesData);
-      
-      // 2. A szerver válaszából kiolvassuk a rendelés ID-ját
-      const rendeles_id = rendelesResponse.data.rendeles_id; 
+  
+      // 2. Rendelés száma lekérése
+      const rendeles_szam = rendelesResponse.data.rendeles_szam;  // FONTOS! 
   
       console.log('Rendelés sikeresen mentve:', rendelesResponse.data);
   
-      // 3. Csomag létrehozása a rendelés ID-val
+      // 3. Csomag létrehozása
       const csomagData = {
-        rendeles: rendeles_id, // **Itt átírtam `rendeles_id`-ról `rendeles`-re**
+        rendeles: rendeles_szam, // ITT CSERÉLVE
         szallito: szallitasMod,
-        csomag_allapot: "Feldolgozás alatt",
+        csomag_allapot: "Csomagolás alatt", // Egységesítés
         szall_datum: new Date().toISOString().split("T")[0],
       };
   
-      await myAxios.post('/api/csomag-leadas', csomagData);
+      /* await myAxios.post('/api/csomag-leadas', csomagData); */
   
       alert('Rendelés sikeresen leadva!');
   
