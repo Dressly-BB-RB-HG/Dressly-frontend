@@ -206,9 +206,10 @@
                   }
                   
                   .ar {
-                    font-size: 1.1rem;
+                    font-size: 1.2rem;
                     color: #555;
                     text-align: center;
+                    font-weight: 600;
                   }
                   
                   
@@ -233,7 +234,7 @@
                     color: rgb(238, 233, 233) !important;
                     border: none !important;
                     cursor: pointer !important;
-                    transition: all 0.3s ease-in-out !important;
+                    transition: all 0.3s ease !important;
                     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
                     display: flex;
                     justify-content: center;
@@ -246,6 +247,7 @@
                   }
                   
                   .kosarbagomb:hover {
+                    transform: scale(1.2);
                     background: linear-gradient(135deg, #b29589, #a08072) !important;
                     transform: translateY(-1px) scale(1.02) !important;
                     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25) !important;
@@ -319,8 +321,8 @@
                   
                   .modal-content {
                     background-color: #fff;
-                    border-radius: 12px;
-                    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+                    border-radius: 16px;
+                    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
                     animation: fadeIn 0.3s ease-in-out;
                   }
                   
