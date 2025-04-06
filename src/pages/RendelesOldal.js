@@ -4,37 +4,34 @@ import useAuthContext from '../contexts/AuthContext';
 import { motion } from 'framer-motion';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row, Col, Card, ListGroup, Button, Form, Table } from 'react-bootstrap';
-import { KosarContext } from '../contexts/KosarContext'; // KosárContext importálása
+import { KosarContext } from '../contexts/KosarContext'; 
 import { myAxios } from '../contexts/MyAxios';
 import { Link } from 'react-router-dom';
 
 function RendelésOldal() {
-  const { user } = useAuthContext(); // A felhasználói kontextus elérése
-  const navigate = useNavigate(); // A navigálás kezelése
-  const { kosarLISTA, kosarbolTorol } = useContext(KosarContext); // KosárContext és törlés elérése
+  const { user } = useAuthContext(); 
+  const navigate = useNavigate(); 
+  const { kosarLISTA, kosarbolTorol } = useContext(KosarContext);
 
   const [szallitasMod, setSzallitasMod] = useState('');
-  const [fizetesMod, setFizetesMod] = useState(''); // Szállítási mód
+  const [fizetesMod, setFizetesMod] = useState('');
 
   // Kosár összesített ára
   const totalPrice = kosarLISTA.reduce((sum, item) => sum + item.ar * item.mennyiseg, 0);
 
   useEffect(() => {
-    // Ha nincs bejelentkezve a felhasználó, navigálunk a bejelentkezési oldalra
     if (!user) {
       navigate('/bejelentkezes');
     }
   }, [user, navigate]);
 
   const handleSzallitasModValtozas = (e) => {
-    setSzallitasMod(e.target.value); // Szállítási mód változása
+    setSzallitasMod(e.target.value); 
   };
 
   const handleFizetesModValtozas = (e) => {
-    setFizetesMod(e.target.value); // Szállítási mód változása
+    setFizetesMod(e.target.value); 
   };
-
-
 
   const handleRendeles = async () => {
     try {
@@ -69,35 +66,46 @@ function RendelésOldal() {
         rendeles_tetels: rendelesTetels,
       };
   
-      // 1. Rendelés mentése az adatbázisba
       const rendelesResponse = await myAxios.post('/api/rendeles-leadas', rendelesData);
   
-      // 2. Rendelés száma lekérése
-      const rendeles_szam = rendelesResponse.data.rendeles_szam;  // FONTOS! 
-  
+      
+      const rendeles_szam = rendelesResponse.data.rendeles_szam;  
       console.log('Rendelés sikeresen mentve:', rendelesResponse.data);
   
-      // 3. Csomag létrehozása
+      
       const csomagData = {
-        rendeles: rendeles_szam, // ITT CSERÉLVE
+        rendeles: rendeles_szam, 
         szallito: szallitasMod,
-        csomag_allapot: "Csomagolás alatt", // Egységesítés
+        csomag_allapot: "Csomagolás alatt",
         szall_datum: new Date().toISOString().split("T")[0],
       };
   
-      /* await myAxios.post('/api/csomag-leadas', csomagData); */
+      
   
       alert('Rendelés sikeresen leadva!');
   
+      // Email küldés a rendelésről
+      const emailData = {
+        email: user.email,
+        rendeles_szam: rendeles_szam,
+        termekek: kosarLISTA.map(item => ({
+          nev: item.termek.nev,
+          mennyiseg: item.mennyiseg,
+          ar: item.ar,
+        })),
+        szallitasMod: szallitasMod,
+        fizetesMod: fizetesMod,
+        osszeg: totalPrice,
+      };
+
+      
+      await myAxios.post('/api/email-kuldes', emailData);
+
     } catch (error) {
       console.error('Hiba történt a rendelés feldolgozása közben:', error.response?.data || error);
       alert('Hiba történt a rendelés során. Kérlek próbáld újra!');
     }
   };
-  
-  
-  
-  
 
   const udvozles = () => {
     return 'Itt tudja véglegesíteni a rendelését';
@@ -155,27 +163,28 @@ function RendelésOldal() {
                       />
                     </div>
                   </Form.Group>
+
                   <Form.Group controlId="formSzallitasMod">
-              <Form.Label>Szállítási mód</Form.Label>
-              <Form.Check
-                type="radio"
-                id="radioMPL"
-                label="MPL"
-                name="szallitasMod"
-                value="MPL"
-                checked={szallitasMod === 'MPL'}
-                onChange={handleSzallitasModValtozas}
-              />
-              <Form.Check
-                type="radio"
-                id="radioGLS"
-                label="GLS"
-                name="szallitasMod"
-                value="GLS"
-                checked={szallitasMod === 'GLS'}
-                onChange={handleSzallitasModValtozas}
-              />
-            </Form.Group>
+                    <Form.Label>Szállítási mód</Form.Label>
+                    <Form.Check
+                      type="radio"
+                      id="radioMPL"
+                      label="MPL"
+                      name="szallitasMod"
+                      value="MPL"
+                      checked={szallitasMod === 'MPL'}
+                      onChange={handleSzallitasModValtozas}
+                    />
+                    <Form.Check
+                      type="radio"
+                      id="radioGLS"
+                      label="GLS"
+                      name="szallitasMod"
+                      value="GLS"
+                      checked={szallitasMod === 'GLS'}
+                      onChange={handleSzallitasModValtozas}
+                    />
+                  </Form.Group>
 
                   <Button
                     variant="success"
@@ -267,7 +276,7 @@ function RendelésOldal() {
                     <strong>Város:</strong> {user?.varos || 'Nincs megadva'}
                   </ListGroup.Item>
                   <ListGroup.Item>
-                    <strong>Kerület:</strong> {user?.kerulet || 'Nincs megadva'}
+                    <strong>Irányítószám:</strong> {user?.iranyitoszam || 'Nincs megadva'}
                   </ListGroup.Item>
                   <ListGroup.Item>
                     <strong>Utca:</strong> {user?.utca || 'Nincs megadva'}
