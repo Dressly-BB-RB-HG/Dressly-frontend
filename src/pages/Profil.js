@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
+import './Profil.css';
 import { useNavigate } from 'react-router-dom';
 import useAuthContext from '../contexts/AuthContext';
 import { ApiContext } from '../contexts/ApiContext';
@@ -11,14 +12,14 @@ function Profil() {
   const { user, errors } = useAuthContext();
   const navigate = useNavigate();
 
-  // Állapotok a felhasználói adatokhoz
+
   const [name, setName] = useState(user?.name || '');
   const [email, setEmail] = useState(user?.email || '');
   const [oldPassword, setOldPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [newPasswordConfirmation, setNewPasswordConfirmation] = useState('');
 
-  // Új állapotok a szállítási adatokhoz
+ 
   const [varos, setVaros] = useState(user?.varos || '');
   const [iranyitoszam, setIranyitoszam] = useState(user?.iranyitoszam || '');
   const [utca, setUtca] = useState(user?.utca || '');
@@ -28,7 +29,7 @@ function Profil() {
     if (!user) {
       navigate('/bejelentkezes');
     } else {
-      // Beállítjuk a felhasználói adatokat, beleértve a cím adatokat is
+      
       setName(user.name);
       setEmail(user.email);
       setVaros(user.varos);
@@ -46,10 +47,10 @@ function Profil() {
       old_password: oldPassword,
       new_password: newPassword,
       new_password_confirmation: newPasswordConfirmation,
-      varos,  // Új város
-      iranyitoszam,  // Új kerület
-      utca,  // Új utca
-      hazszam,  // Új házszám
+      varos,
+      iranyitoszam, 
+      utca,  
+      hazszam, 
     };
 
     try {
@@ -72,9 +73,9 @@ function Profil() {
   const today = new Date().toLocaleDateString();
 
   return (
-    <div className="d-flex vh-100">
+    <div className="d-flex min-vh-100">
       {/* Bal oldali menü */}
-      <div className="bg-light border-end p-4 d-flex flex-column align-items-start" style={{ width: '250px', height: '100vh' }}>
+      <div className="bg-light border-end p-4 d-flex flex-column align-items-start" style={{ width: '250px', height: '100%' }}>
         <h4 className="mb-4">Menü</h4>
         <ul className="nav flex-column w-100">
           <li className="nav-item mb-2">
@@ -93,7 +94,7 @@ function Profil() {
       </div>
 
       {/* Profil frissítés szekció */}
-      <div className="flex-grow-1 d-flex flex-column align-items-center justify-content-center" style={{ padding: '20px' }}>
+      <div className="flex-grow-1 d-flex flex-column align-items-center justify-content-start px-3 py-4">
         <motion.div 
           className="text-center mb-4"
           initial={{ opacity: 0, y: -10 }}
@@ -104,7 +105,7 @@ function Profil() {
           <p className="text-muted">Dátum: {today}</p>
         </motion.div>
 
-        <div className="card shadow p-4" style={{ maxWidth: '450px', width: '100%' }}>
+        <div className="card shadow p-4 w-100" style={{ maxWidth: '450px' }}>
           <h2 className="text-center mb-4">Profil Frissítése</h2>
           <form onSubmit={handleSubmit}>
             <div className="mb-3">
@@ -127,7 +128,7 @@ function Profil() {
               <label htmlFor="newPasswordConfirmation" className="form-label">Új jelszó megerősítése:</label>
               <input type="password" className="form-control" value={newPasswordConfirmation} onChange={(e) => setNewPasswordConfirmation(e.target.value)} id="newPasswordConfirmation" name="newPasswordConfirmation" />
             </div>
-            
+
             {/* Szállítási adatok mezők hozzáadása */}
             <div className="mb-3">
               <label htmlFor="varos" className="form-label">Város:</label>
