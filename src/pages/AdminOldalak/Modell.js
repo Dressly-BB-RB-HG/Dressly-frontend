@@ -28,7 +28,18 @@ const Modell = () => {
   // Modell adatainak lekérése
   const fetchModels = async () => {
     try {
-      const response = await myAxios.get("/api/admin/modellek");
+      let endpoint = "";
+  
+      if (user?.role === 1) {
+        endpoint = "/api/admin/modellek";
+      } else if (user?.role === 2) {
+        endpoint = "/api/raktaros/modellek";
+      } else {
+        alert("Ismeretlen jogosultsági szint.");
+        return;
+      }
+  
+      const response = await myAxios.get(endpoint);
       setModels(response.data); 
     } catch (error) {
       console.error("Hiba történt a modellek lekérése során:", error);
@@ -41,10 +52,21 @@ const Modell = () => {
     e.preventDefault();
     try {
       setLoading(true);
-      await myAxios.post("/api/admin/modell", modelData);
+      let endpoint = "";
+  
+      if (user?.role === 1) {
+        endpoint = "/api/admin/modell";
+      } else if (user?.role === 2) {
+        endpoint = "/api/raktaros/modell";
+      } else {
+        alert("Ismeretlen jogosultsági szint. Modell feltöltése nem engedélyezett.");
+        return;
+      }
+  
+      await myAxios.post(endpoint, modelData);
       alert("Új modell sikeresen feltöltve!");
       setModelData({ kategoria: "", tipus: "", gyarto: "", kep: "" });
-      fetchModels(); 
+      fetchModels();
     } catch (error) {
       console.error("Hiba történt a modell feltöltése során:", error);
       alert("Hiba történt a modell feltöltése során.");
@@ -57,9 +79,20 @@ const Modell = () => {
   const handleDeleteModel = async (modelId) => {
     if (window.confirm("Biztosan törölni szeretnéd ezt a modellt?")) {
       try {
-        await myAxios.delete(`/api/admin/modell-torles/${modelId}`);
+        let endpoint = "";
+  
+        if (user?.role === 1) {
+          endpoint = `/api/admin/modell-torles/${modelId}`;
+        } else if (user?.role === 2) {
+          endpoint = `/api/raktaros/modell-torles/${modelId}`;
+        } else {
+          alert("Ismeretlen jogosultsági szint. Törlés nem engedélyezett.");
+          return;
+        }
+  
+        await myAxios.delete(endpoint);
         alert("Modell sikeresen törölve!");
-        fetchModels();  // Frissítjük a modellek listáját a törlés után
+        fetchModels(); 
       } catch (error) {
         console.error("Hiba történt a modell törlése során:", error);
         alert("Hiba történt a modell törlése során.");

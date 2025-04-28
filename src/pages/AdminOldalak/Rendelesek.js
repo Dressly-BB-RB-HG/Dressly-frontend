@@ -18,7 +18,18 @@ const Rendelesek = () => {
   // Rendelések lekérése
   const fetchRendeles = async () => {
     try {
-      const response = await myAxios.get("/api/admin/rendelesek-osszes");
+      let endpoint = "";
+  
+      if (user?.role === 1) {
+        endpoint = "/api/admin/rendelesek-osszes";
+      } else if (user?.role === 2) {
+        endpoint = "/api/raktaros/rendelesek-osszes";
+      } else {
+        alert("Ismeretlen jogosultsági szint.");
+        return;
+      }
+  
+      const response = await myAxios.get(endpoint);
       setRendeles(response.data);
     } catch (error) {
       console.error("Hiba történt a rendelések lekérése során:", error);
@@ -29,8 +40,7 @@ const Rendelesek = () => {
    // Rendelés törlése
    const handleDelete = async (rendelesSzam) => {
     console.log(`Törléshez használt rendelés szám: ${rendelesSzam}`);  
-    
-    
+  
     if (!rendelesSzam) {
       console.error("A rendelés szám nem elérhető.");
       alert("A rendelés törléséhez szükséges rendelés szám nem elérhető.");
@@ -39,9 +49,19 @@ const Rendelesek = () => {
   
     if (window.confirm("Biztosan törlöd ezt a rendelést?")) {
       try {
-        
-        await myAxios.delete(`/api/admin/adott-rendeles-torlese/${rendelesSzam}`);
-        
+        let deleteEndpoint = "";
+  
+        if (user?.role === 1) {
+          deleteEndpoint = `/api/admin/adott-rendeles-torlese/${rendelesSzam}`;
+        } else if (user?.role === 2) {
+          deleteEndpoint = `/api/raktaros/adott-rendeles-torlese/${rendelesSzam}`;
+        } else {
+          alert("Ismeretlen jogosultsági szint, törlés nem engedélyezett.");
+          return;
+        }
+  
+        await myAxios.delete(deleteEndpoint);
+  
         setRendeles(rendeles.filter((r) => r.rendeles_szam !== rendelesSzam));  
         alert("Rendelés sikeresen törölve.");
       } catch (error) {
@@ -50,6 +70,7 @@ const Rendelesek = () => {
       }
     }
   };
+  
   
 
   return (

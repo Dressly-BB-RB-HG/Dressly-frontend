@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { myAxios } from "../../contexts/MyAxios";
-import { Modal, Button, Form } from "react-bootstrap"; 
+import { Modal, Button, Form } from "react-bootstrap";
+import useAuthContext from "../../contexts/AuthContext"; 
 
 const Termekmodel = ({ model, closeModal, fetchModels }) => {
+  const { user } = useAuthContext(); 
   const [termekData, setTermekData] = useState({
     szin: "",
     meret: "",
@@ -10,11 +12,24 @@ const Termekmodel = ({ model, closeModal, fetchModels }) => {
     ar: 0,
   });
 
+  
+
   // A szerkesztés gombra kattintva hívjuk meg a terméket
   const handleEdit = async () => {
     if (model && model.modell_id) {
       try {
-        const response = await myAxios.get(`/api/admin/termekek/${model.modell_id}`);
+        let endpoint = "";
+  
+        if (user?.role === 1) {
+          endpoint = `/api/admin/termekek/${model.modell_id}`;
+        } else if (user?.role === 2) {
+          endpoint = `/api/raktaros/termekek/${model.modell_id}`;
+        } else {
+          alert("Ismeretlen jogosultság. Termék szerkesztése nem engedélyezett.");
+          return;
+        }
+  
+        const response = await myAxios.get(endpoint);
         if (response.data.termek) {
           const data = response.data.termek;
           setTermekData({
@@ -28,7 +43,10 @@ const Termekmodel = ({ model, closeModal, fetchModels }) => {
           alert('Ez a modell nem rendelkezik termékadatokkal.');
         }
       } catch (error) {
-        console.error('Figyelem! Még nem lettek feltöltve termék értékek a modellhez!', error.response ? error.response.data : error.message);
+        console.error(
+          'Figyelem! Még nem lettek feltöltve termék értékek a modellhez!',
+          error.response ? error.response.data : error.message
+        );
         alert('Figyelem! Még nem lettek feltöltve termék értékek a modellhez!');
       }
     }
@@ -45,18 +63,31 @@ const Termekmodel = ({ model, closeModal, fetchModels }) => {
       console.log('Termékadatok:', termekData);
       console.log('Aktuális modell:', model.modell_id);
   
-      // PUT kérés az API-ra (ez automatikusan új terméket is létrehoz, ha kell)
-      await myAxios.put(`/api/admin/termek-modosit/${model.modell_id}`, {
-        modell: model.modell_id, 
+      let endpoint = "";
+  
+      if (user?.role === 1) {
+        endpoint = `/api/admin/termek-modosit/${model.modell_id}`;
+      } else if (user?.role === 2) {
+        endpoint = `/api/raktaros/termek-modosit/${model.modell_id}`;
+      } else {
+        alert("Ismeretlen jogosultság. Termék mentése nem engedélyezett.");
+        return;
+      }
+  
+      await myAxios.put(endpoint, {
+        modell: model.modell_id,
         ...termekData,
       });
   
       alert("Termék sikeresen mentve!");
       setTermekData({ szin: "", meret: "", keszlet: "", ar: "" });
-      fetchModels(); // A modellek újratöltése
-      closeModal(); // Modális ablak bezárása
+      fetchModels(); 
+      closeModal(); 
     } catch (error) {
-      console.error("Hiba történt a termék frissítése során:", error.response ? error.response.data : error.message);
+      console.error(
+        "Hiba történt a termék frissítése során:",
+        error.response ? error.response.data : error.message
+      );
       alert("Hiba történt a termék frissítése során.");
     }
   };

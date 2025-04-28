@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { myAxios } from "../../contexts/MyAxios";
+import useAuthContext from "../../contexts/AuthContext";
 
 const Csomagok = () => {
   const [csomagok, setCsomagok] = useState([]);
+  const { user } = useAuthContext();
   const [selectedAllapot, setSelectedAllapot] = useState({});  // Tároljuk a kiválasztott állapotokat
 
   useEffect(() => {
@@ -12,8 +14,19 @@ const Csomagok = () => {
   // Csak a csomagok lekérése
   const fetchCsomagok = async () => {
     try {
-      const response = await myAxios.get("/api/admin/szall-csomags");
-      setCsomagok(response.data);  
+      let endpoint = "";
+  
+      if (user?.role === 1) {
+        endpoint = "/api/admin/szall-csomags";
+      } else if (user?.role === 2) {
+        endpoint = "/api/raktaros/szall-csomags";
+      } else {
+        alert("Ismeretlen jogosultsági szint.");
+        return;
+      }
+  
+      const response = await myAxios.get(endpoint);
+      setCsomagok(response.data);
     } catch (error) {
       console.error("Hiba történt a csomagok lekérése során:", error);
       alert("Hiba történt a csomagok lekérése során.");
@@ -22,20 +35,31 @@ const Csomagok = () => {
 
   // A csomag állapotának frissítése
   const handleAllapotValtoztatas = async (csomagId) => {
-    const newAllapot = selectedAllapot[csomagId];  // Az új állapot, amit kiválasztottak
+    const newAllapot = selectedAllapot[csomagId];
     if (!newAllapot) {
       alert("Kérlek válaszd ki az új állapotot!");
       return;
     }
-
+  
     try {
-      const response = await myAxios.put(`/api/admin/szall-csomags/${csomagId}/allapot`, {
-        csomag_allapot: newAllapot,  // Az új állapot beállítása
+      let endpoint = "";
+  
+      if (user?.role === 1) {
+        endpoint = `/api/admin/szall-csomags/${csomagId}/allapot`;
+      } else if (user?.role === 2) {
+        endpoint = `/api/raktaros/szall-csomags/${csomagId}/allapot`;
+      } else {
+        alert("Ismeretlen jogosultsági szint. Módosítás nem engedélyezett.");
+        return;
+      }
+  
+      const response = await myAxios.put(endpoint, {
+        csomag_allapot: newAllapot,
       });
-
+  
       if (response.status === 200) {
         alert("A csomag állapota frissítve lett!");
-        fetchCsomagok();  // Frissítjük a csomagok listáját
+        fetchCsomagok();
       }
     } catch (error) {
       console.error("Hiba történt a csomag állapotának frissítésekor:", error);
